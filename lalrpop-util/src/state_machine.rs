@@ -6,6 +6,8 @@
 use alloc::{string::String, vec, vec::Vec};
 use core::fmt::Debug;
 
+use crate::stack::HeterogeneousStack;
+
 #[cfg(feature = "std")]
 const DEBUG_ENABLED: bool = false;
 
@@ -103,6 +105,14 @@ pub trait ParserDefinition: Sized {
     /// parser stack.
     fn token_to_symbol(&self, token_index: Self::TokenIndex, token: Self::Token) -> Self::Symbol;
 
+    fn push_symbol(
+        &mut self,
+        symbols: &mut HeterogeneousStack<Self::Location>,
+        left: Self::Location,
+        symbol: Self::Symbol,
+        right: Self::Location,
+    );
+
     /// Returns the expected tokens in a given state. This is used for
     /// error reporting.
     fn expected_tokens(&self, state: Self::StateIndex) -> Vec<String>;
@@ -148,7 +158,7 @@ pub trait ParserDefinition: Sized {
         reduce_index: Self::ReduceIndex,
         start_location: Option<&Self::Location>,
         states: &mut Vec<Self::StateIndex>,
-        symbols: &mut Vec<SymbolTriple<Self>>,
+        symbols: &mut HeterogeneousStack<Self::Location>,
     ) -> Option<ParseResult<Self>>;
 
     /// Returns information about how many states will be popped
@@ -202,7 +212,7 @@ where
     definition: D,
     tokens: I,
     states: Vec<D::StateIndex>,
-    symbols: Vec<SymbolTriple<D>>,
+    symbols: HeterogeneousStack<D::Location>,
     last_location: D::Location,
 }
 
@@ -224,7 +234,7 @@ where
             definition,
             tokens,
             states: vec![start_state],
-            symbols: vec![],
+            symbols: HeterogeneousStack::new(),
             last_location,
         }
         .parse()
@@ -261,7 +271,9 @@ where
                     // Shift and transition to state `action - 1`
                     let symbol = self.definition.token_to_symbol(token_index, lookahead.1);
                     self.states.push(target_state);
-                    self.symbols.push((lookahead.0, symbol, lookahead.2));
+                    // println!("Pushing symbol: ");
+                    self.definition.push_symbol(&mut self.symbols, lookahead.0, symbol, lookahead.2);
+                    // self.symbols.push(lookahead.0, symbol, lookahead.2);
                     continue 'shift;
                 } else if let Some(reduce_index) = action.as_reduce() {
                     debug!("\\ reduce to: {:?}", reduce_index);
@@ -452,15 +464,16 @@ where
         // Finally, if there are no popped states *nor* dropped tokens, we can use
         // the end of the top-most state.
 
-        let start = if let Some(popped_sym) = self.symbols.get(top) {
-            popped_sym.0.clone()
-        } else if let Some(dropped_token) = dropped_tokens.first() {
-            dropped_token.0.clone()
-        } else if top > 0 {
-            self.symbols[top - 1].2.clone()
-        } else {
-            self.definition.start_location()
-        };
+        let start = 
+        // if let Some(popped_sym) = self.symbols.get(top) {
+        //     popped_sym.0.clone()
+        // } else if let Some(dropped_token) = dropped_tokens.first() {
+        //     dropped_token.0.clone()
+        // } else if top > 0 {
+        //     self.symbols[top - 1].2.clone()
+        // } else {
+            self.definition.start_location();
+        // };
 
         // For the end span, here are the possibilities:
         //
@@ -491,16 +504,16 @@ where
 
         let end = if let Some(dropped_token) = dropped_tokens.last() {
             dropped_token.2.clone()
-        } else if states_len - 1 > top {
-            self.symbols.last().unwrap().2.clone()
-        } else if let Some(lookahead) = opt_lookahead.as_ref() {
-            lookahead.0.clone()
+        // } else if states_len - 1 > top {
+            // self.symbols.last().unwrap().2.clone()
+        // } else if let Some(lookahead) = opt_lookahead.as_ref() {
+        //     lookahead.0.clone()
         } else {
             start.clone()
         };
 
         self.states.truncate(top + 1);
-        self.symbols.truncate(top);
+        // self.symbols.truncate(top);
 
         let recover_state = self.states[top];
         let error_action = self.definition.error_action(recover_state);
@@ -510,7 +523,7 @@ where
             error,
             dropped_tokens,
         });
-        self.symbols.push((start, recovery, end));
+        //self.symbols.push(start, recovery, end);
 
         match (opt_lookahead, opt_token_index) {
             (Some(l), Some(i)) => NextToken::FoundToken(l, i),

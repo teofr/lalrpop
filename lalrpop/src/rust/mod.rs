@@ -185,6 +185,12 @@ impl<W: Write> RustWrite<W> {
             "use self::{p}lalrpop_util::state_machine as {p}state_machine;",
             p = prefix,
         );
+        rust!(
+            self,
+            "use self::{p}lalrpop_util::stack as {p}stack;",
+            p = prefix,
+        );
+
         // https://doc.rust-lang.org/edition-guide/rust-2018/path-changes.html#an-exception
         rust!(self, "#[allow(unused_extern_crates)]");
         rust!(self, "extern crate alloc;");
