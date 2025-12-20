@@ -194,6 +194,8 @@ impl<'codegen, 'grammar, W: Write, C> CodeGenerator<'codegen, 'grammar, W, C> {
             );
         }
 
+        rust!(self.out, "use std::hint;");
+
         Ok(())
     }
 

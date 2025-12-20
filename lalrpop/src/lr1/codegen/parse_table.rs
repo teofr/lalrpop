@@ -4,11 +4,11 @@ use crate::collections::{Entry, Map, Set};
 use crate::grammar::repr::*;
 use crate::lr1::core::*;
 use crate::lr1::lookahead::Token;
-use crate::rust::RustWrite;
+use crate::rust::{self, RustWrite};
 use crate::tls::Tls;
 use crate::util::Sep;
 use itertools::Itertools;
-use std::fmt;
+use std::{fmt, vec};
 use std::io::{self, Write};
 use std::rc::Rc;
 
@@ -147,6 +147,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             this.write_machine_definition()?;
             this.write_token_to_integer_fn()?;
             this.write_token_to_symbol_fn()?;
+            this.write_push_symbol_fn()?;
             this.write_simulate_reduce_fn()?;
             this.write_parser_fn()?;
             this.write_accepts_fn()?;
@@ -304,6 +305,21 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         rust!(self.out, "");
         rust!(
             self.out,
+            "fn push_symbol(&mut self, symbols: &mut {p}stack::HeterogeneousStack<{}>, left: Self::Location, symbol: Self::Symbol, right: Self::Location) {{",
+            self.types.terminal_loc_type(),
+            p = self.prefix,
+        );
+        rust!(
+            self.out,
+            "{p}push_symbol(symbols, left, symbol, right, {phantom})",
+            p = self.prefix,
+            phantom = phantom_data_expr,
+        );
+        rust!(self.out, "}}");
+
+        rust!(self.out, "");
+        rust!(
+            self.out,
             "fn expected_tokens(&self, state: {state_type}) -> alloc::vec::Vec<alloc::string::String> {{",
             state_type = state_type,
         );
@@ -369,8 +385,9 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         );
         rust!(
             self.out,
-            "symbols: &mut alloc::vec::Vec<{p}state_machine::SymbolTriple<Self>>,",
-            p = self.prefix,
+            "symbols: &mut {p}stack::HeterogeneousStack<{}>,",
+            self.types.terminal_loc_type(),
+            p = self.prefix, 
         );
         rust!(
             self.out,
@@ -900,6 +917,61 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         Ok(())
     }
 
+    fn write_push_symbol_fn(&mut self) -> io::Result<()> {
+        let symbol_type = self.symbol_type();
+        let loc_type = self.types.terminal_loc_type();
+
+        let parameters = vec![
+            format!(
+                "{}symbols: &mut {}stack::HeterogeneousStack<{}>",
+                self.prefix, self.prefix, self.grammar.types.terminal_loc_type()
+            ),
+            format!("{}l: {}", self.prefix, loc_type),
+            format!(
+                "{}symbol: {}",
+                self.prefix, symbol_type,
+            ),
+            format!("{}r: {}", self.prefix, loc_type),
+            format!("_: {}", self.phantom_data_type()),
+        ];
+
+        self.out
+            .fn_header(
+                &Visibility::Priv,
+                format!("{p}push_symbol", p = self.prefix),
+            )
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .emit()?;
+        rust!(self.out, "{{");
+
+        rust!(self.out, "match {}symbol {{", self.prefix);
+        
+        for (ty, name) in self.custom.variants.clone() {
+            rust!(
+                self.out,
+                "{}Symbol::{}(value) => {{",
+                self.prefix,
+                name,
+            );
+            rust!(
+                self.out,
+                "{p}symbols.push(",
+                p = self.prefix,
+            );
+            rust!(self.out, "{p}l,", p = self.prefix,);
+            rust!(self.out, "value,");
+            rust!(self.out, "{p}r,", p = self.prefix,);
+            rust!(self.out, ");");
+            rust!(self.out, "}},");
+        }
+        rust!(self.out, "}}");
+        rust!(self.out, "}}");
+
+        Ok(())
+    }
+
     fn emit_reduce_actions(&mut self) -> io::Result<()> {
         let success_type = self.types.nonterminal_type(&self.start_symbol);
         let parse_error_type = self.types.parse_error_type();
@@ -914,8 +986,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
                 self.prefix, self.custom.state_type,
             ),
             format!(
-                "{}symbols: &mut alloc::vec::Vec<{}>",
-                self.prefix, spanned_symbol_type,
+                "{}symbols: &mut {}stack::HeterogeneousStack<{}>",
+                self.prefix, self.prefix, self.grammar.types.terminal_loc_type()
             ),
             format!("_: {}", self.phantom_data_type()),
         ];
@@ -1036,8 +1108,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         let parameters = vec![
             format!("{}lookahead_start: Option<&{}>", self.prefix, loc_type),
             format!(
-                "{}symbols: &mut alloc::vec::Vec<{}>",
-                self.prefix, spanned_symbol_type,
+                "{}symbols: &mut {}stack::HeterogeneousStack<{}>",
+                self.prefix,  self.prefix, self.types.terminal_loc_type()
             ),
             format!("_: {}", self.phantom_data_type()),
         ];
@@ -1067,16 +1139,30 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
                 production.symbols.len()
             );
         }
+
+        let phantom_bits: Vec<_> = self.custom.symbol_type_params
+            .iter()
+            .map(|tp| match *tp {
+                TypeParameter::Lifetime(_) => "&()".to_string(),
+                TypeParameter::Id(ref id) => id.to_string(),
+            })
+            .collect();
+        let phantom_data_expr = format!(
+            "core::marker::PhantomData::<({})>",
+            Sep(", ", &phantom_bits),
+        );
+
         for (index, symbol) in production.symbols.iter().enumerate().rev() {
             let name = self.variant_name_for_symbol(symbol);
             rust!(
                 self.out,
-                "let {}sym{} = {}pop_{}({}symbols);",
+                "let {}sym{} = {}pop_{}({}symbols, {});",
                 self.prefix,
                 index,
                 self.prefix,
                 name,
-                self.prefix
+                self.prefix,
+                phantom_data_expr
             );
         }
         let transfer_syms: Vec<_> = (0..production.symbols.len())
@@ -1102,7 +1188,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             // stack will be empty)
             rust!(
                 self.out,
-                "let {p}start = {p}lookahead_start.cloned().or_else(|| {p}symbols.last().map(|s| s.2)).unwrap_or_default();",
+                "let {p}start = {p}lookahead_start.cloned().or_else(|| {p}symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();",
                 p = self.prefix,
             );
             rust!(self.out, "let {p}end = {p}start;", p = self.prefix,);
@@ -1156,10 +1242,14 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         // push the produced value on the stack
         let name =
             self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
+        // rust!(
+        //     self.out,
+        //     "println!(r#\"Pushing nonterminal {:?}\"#);",
+        //     production.nonterminal, 
+        // );
         rust!(
             self.out,
-            "{p}symbols.push(({p}start, {p}Symbol::{}({p}nt), {p}end));",
-            name,
+            "{p}symbols.push({p}start, {p}nt, {p}end);",
             p = self.prefix
         );
 
@@ -1201,47 +1291,85 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
     fn emit_downcast_fn(&mut self, variant_name: &str, variant_ty: TypeRepr) -> io::Result<()> {
         let spanned_symbol_type = self.spanned_symbol_type();
 
-        rust!(self.out, "fn {}pop_{}<", self.prefix, variant_name);
-        for type_parameter in &self.custom.symbol_type_params {
-            rust!(self.out, "  {},", type_parameter);
-        }
-        rust!(self.out, ">(");
-        rust!(
-            self.out,
-            "{}symbols: &mut alloc::vec::Vec<{}>",
-            self.prefix,
-            spanned_symbol_type,
-        );
-        rust!(self.out, ") -> {}", self.types.spanned_type(variant_ty));
+        let phantom_bits: Vec<_> = self.custom.symbol_type_params
+            .iter()
+            .map(|tp| match *tp {
+                TypeParameter::Lifetime(ref l) => format!("&{} ()", l),
 
-        if !self.custom.symbol_where_clauses.is_empty() {
-            rust!(
-                self.out,
-                " where {}",
-                Sep(", ", &self.custom.symbol_where_clauses)
-            );
+                TypeParameter::Id(ref id) => id.to_string(),
+            })
+            .collect();
+        let phantom_data_type = format!("core::marker::PhantomData<({})>", Sep(", ", &phantom_bits),);
+
+        
+
+
+        let parameters = vec![
+                format!(
+                    "{}symbols: &mut {}stack::HeterogeneousStack<{}>",
+                    self.prefix, self.prefix, self.types.terminal_loc_type()
+                ),
+                format!("_: {}", &phantom_data_type),
+            ];
+
+        let mut type_parameters = vec![];
+        for type_parameter in &self.custom.symbol_type_params {
+            type_parameters.push(format!(" {}", type_parameter));
+            // rust!(self.out, "  {},", type_parameter);
         }
+
+
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}pop_{}", self.prefix, variant_name))
+            // .with_grammar(self.grammar)
+            .with_type_parameters(type_parameters)
+            .with_parameters(parameters)
+            .with_return_type(self.types.spanned_type(variant_ty.clone()))
+            .emit()?;
+
+        // rust!(self.out, "fn {}pop_{}<", self.prefix, variant_name);
+        // for type_parameter in &self.custom.symbol_type_params {
+        //     rust!(self.out, "  {},", type_parameter);
+        // }
+        // rust!(self.out, ">(");
+        // rust!(
+        //     self.out,
+        //     "{}symbols: &mut {}stack::HeterogeneousStack<{}>,",
+        //     self.prefix, self.prefix, self.types.terminal_loc_type()
+        // );
+        // rust!(self.out,"_: {}", self.phantom_data_type());
+
+        // rust!(self.out, ") -> {}", self.types.spanned_type(variant_ty.clone()));
+
+        // if !self.custom.symbol_where_clauses.is_empty() {
+        //     rust!(
+        //         self.out,
+        //         " where {}",
+        //         Sep(", ", &self.custom.symbol_where_clauses)
+        //     );
+        // }
 
         rust!(self.out, " {{");
 
         if DEBUG_PRINT {
             rust!(self.out, "println!(\"pop_{}\");", variant_name);
         }
-        rust!(self.out, "match {}symbols.pop() {{", self.prefix);
-        rust!(
-            self.out,
-            "Some(({}l, {}Symbol::{}({}v), {}r)) => ({}l, {}v, {}r),",
-            self.prefix,
-            self.prefix,
-            variant_name,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix
-        );
-        rust!(self.out, "_ => {}symbol_type_mismatch()", self.prefix);
-        rust!(self.out, "}}");
+        rust!(self.out, "{}symbols.pop::<{}>()", self.prefix, variant_ty);
+        // rust!(
+        //     self.out,
+        //     "Some(({}l, {}Symbol::{}({}v), {}r)) => ({}l, {}v, {}r),",
+        //     self.prefix,
+        //     self.prefix,
+        //     variant_name,
+        //     self.prefix,
+        //     self.prefix,
+        //     self.prefix,
+        //     self.prefix,
+        //     self.prefix
+        // );
+        // // rust!(self.out, "_ => {}symbol_type_mismatch()", self.prefix);
+        // rust!(self.out, "_ => unsafe {{ hint::unreachable_unchecked() }}");
+        // rust!(self.out, "}}");
 
         rust!(self.out, "}}");
 
