@@ -12,6 +12,7 @@ use super::Top;
 extern crate lalrpop_util as ___lalrpop_util;
 #[allow(unused_imports)]
 use self::___lalrpop_util::state_machine as ___state_machine;
+#[allow(unused_imports)]
 use self::___lalrpop_util::stack as ___stack;
 #[allow(unused_extern_crates)]
 extern crate alloc;
@@ -32,6 +33,7 @@ use super::super::Top;
 extern crate lalrpop_util as ___lalrpop_util;
 #[allow(unused_imports)]
 use self::___lalrpop_util::state_machine as ___state_machine;
+#[allow(unused_imports)]
 use self::___lalrpop_util::stack as ___stack;
 #[allow(unused_extern_crates)]
 extern crate alloc;

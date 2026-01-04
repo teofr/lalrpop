@@ -25,6 +25,7 @@ use std::error::Error;
 #[cfg(feature = "lexer")]
 pub mod lexer;
 pub mod state_machine;
+#[allow(missing_docs)]
 pub mod stack;
 
 /// Error type for errors returned by lalrpop parsers.

@@ -4,7 +4,7 @@ use crate::collections::{Entry, Map, Set};
 use crate::grammar::repr::*;
 use crate::lr1::core::*;
 use crate::lr1::lookahead::Token;
-use crate::rust::{self, RustWrite};
+use crate::rust::RustWrite;
 use crate::tls::Tls;
 use crate::util::Sep;
 use itertools::Itertools;
@@ -948,7 +948,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
 
         rust!(self.out, "match {}symbol {{", self.prefix);
         
-        for (ty, name) in self.custom.variants.clone() {
+        for (_, name) in self.custom.variants.clone() {
             rust!(
                 self.out,
                 "{}Symbol::{}(value) => {{",
@@ -976,7 +976,6 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         let success_type = self.types.nonterminal_type(&self.start_symbol);
         let parse_error_type = self.types.parse_error_type();
         let loc_type = self.types.terminal_loc_type();
-        let spanned_symbol_type = self.spanned_symbol_type();
 
         let parameters = vec![
             format!("{}action: {}", self.prefix, self.custom.state_type),
@@ -1106,7 +1105,6 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
 
     fn emit_reduce_alternative_fn_header(&mut self, index: usize) -> io::Result<()> {
         let loc_type = self.types.terminal_loc_type();
-        let spanned_symbol_type = self.spanned_symbol_type();
 
         let parameters = vec![
             format!("{}lookahead_start: Option<&{}>", self.prefix, loc_type),
@@ -1238,13 +1236,6 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         }
 
         // push the produced value on the stack
-        let name =
-            self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
-        // rust!(
-        //     self.out,
-        //     "println!(r#\"Pushing nonterminal {:?}\"#);",
-        //     production.nonterminal, 
-        // );
         rust!(
             self.out,
             "{p}symbols.push({p}start, {p}nt, {p}end);",
@@ -1287,8 +1278,6 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
     }
 
     fn emit_downcast_fn(&mut self, variant_name: &str, variant_ty: TypeRepr) -> io::Result<()> {
-        let spanned_symbol_type = self.spanned_symbol_type();
-
         let phantom_bits: Vec<_> = self.custom.symbol_type_params
             .iter()
             .map(|tp| match *tp {
@@ -1316,11 +1305,17 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             // rust!(self.out, "  {},", type_parameter);
         }
 
+        let mut with_where_clauses = vec![];
+        for where_clause in &self.custom.symbol_where_clauses {
+            with_where_clauses.push(format!(" {}", where_clause));
+        }
+
 
         self.out
             .fn_header(&Visibility::Priv, format!("{}pop_{}", self.prefix, variant_name))
             // .with_grammar(self.grammar)
             .with_type_parameters(type_parameters)
+            .with_where_clauses(with_where_clauses)
             .with_parameters(parameters)
             .with_return_type(self.types.spanned_type(variant_ty.clone()))
             .emit()?;
@@ -1659,11 +1654,6 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             p = self.prefix,
             stp = Sep(", ", &self.custom.symbol_type_params),
         )
-    }
-
-    fn spanned_symbol_type(&self) -> String {
-        let loc_type = self.types.terminal_loc_type();
-        format!("({},{},{})", loc_type, self.symbol_type(), loc_type)
     }
 
     /// Emit the array of terminal tokens for use in generating error output

@@ -185,6 +185,7 @@ impl<W: Write> RustWrite<W> {
             "use self::{p}lalrpop_util::state_machine as {p}state_machine;",
             p = prefix,
         );
+        rust!(self, "#[allow(unused_imports)]");
         rust!(
             self,
             "use self::{p}lalrpop_util::stack as {p}stack;",

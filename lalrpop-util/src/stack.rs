@@ -16,13 +16,22 @@ use std::ptr;
 /// The caller is responsible for popping values in the exact type they were
 /// pushed. Popping as the wrong type is undefined behavior. The implementation
 /// performs no type validation.
+struct Metadata<Location> {
+    offset: usize, // offset where the value begins
+    l: Location,
+    r: Location,
+}
+
+type Base = u8;
 pub struct HeterogeneousStack<Location> {
-    buffer: Vec<u8>,
+    buffer: Vec<Base>,
     phantom: std::marker::PhantomData<Location>,
     // locations: Vec<(Location, Location)>,
 }
 
+
 impl<Location> HeterogeneousStack<Location> {
+
     /// Creates a new empty stack.
     pub fn new() -> Self {
         HeterogeneousStack {
@@ -32,81 +41,61 @@ impl<Location> HeterogeneousStack<Location> {
     }
 
     pub fn push<T>(&mut self, l: Location, value: T, r: Location) {
-        let size = size_of::<T>();
+        let value_offset = self.buffer.len();
+        let size_value = size_of::<T>();
 
-        self._push(value);
-        self._push(size);
-        self._push(l);
-        self._push(r);
+        // Calculate aligned offset for metadata (add padding after value)
+        let after_value = value_offset + size_value;
+        let metadata_align = std::mem::align_of::<Metadata<Location>>();
+        let metadata_offset = (after_value + metadata_align - 1) & !(metadata_align - 1);
 
-    }
+        let metadata = Metadata {
+            offset: value_offset,
+            l,
+            r,
+        };
 
-    fn _push<T>(&mut self, value: T) {
-        let size = size_of::<T>();
-        let align = align_of::<T>();
+        let total_size = metadata_offset + size_of::<Metadata<Location>>();
 
-        // Compute aligned offset for this value.
-        let offset = self.buffer.len();
-
-        // Resize buffer to accommodate padding and value.
-        // println!("Pushing value of size {} and align {} at offset {}", size, align, offset);
-        self.buffer.resize(offset + size, 0);
-
-        // Write the value.
+        self.buffer.reserve(total_size - self.buffer.len());
         unsafe {
-            ptr::write(self.buffer.as_mut_ptr().add(offset) as *mut T, value);
+            self.buffer.set_len(total_size);
+        }
+
+        unsafe {
+            ptr::write_unaligned(self.buffer.as_mut_ptr().add(value_offset) as *mut T, value);
+            // Metadata is aligned, but buffer base may not be, so still use write_unaligned
+            ptr::write_unaligned(self.buffer.as_mut_ptr().add(metadata_offset) as *mut Metadata<Location>, metadata);
         }
     }
 
     pub fn pop<T>(&mut self) -> (Location, T, Location) {
-        let r: Location = self._pop();
-        let l: Location = self._pop();
-        let _: usize = self._pop();
-        let value: T = self._pop();
+        let len = self.buffer.len();
+        let metadata_size = size_of::<Metadata<Location>>();
+        let metadata_offset = len - metadata_size;
+
+        let Metadata { offset: value_offset, l, r } = unsafe {
+            ptr::read_unaligned(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
+        };
+
+        println!("Popping value of size {} and align {} at offset {}", size_of::<T>(), std::mem::align_of::<T>(), value_offset);
+        let value = unsafe { ptr::read_unaligned(self.buffer.as_ptr().add(value_offset) as *const T) };
+
+        unsafe {
+            self.buffer.set_len(value_offset);
+        }
 
         (l, value, r)
-    }
-
-    fn _pop<T>(&mut self) -> T {
-        let size = size_of::<T>();
-        let align = align_of::<T>();
-
-        // The top value starts at the last aligned offset that fits this type.
-        let offset = self.buffer.len().saturating_sub(size);
-
-        assert!(offset + size <= self.buffer.len(), "buffer too small for pop");
-
-        // println!("Popping value of size {} and align {} at offset {}", size, align, offset);
-        let value = unsafe { ptr::read(self.buffer.as_ptr().add(offset) as *const T) };
-        self.buffer.truncate(offset);
-        value
     }
 
     fn _peek<T>(&self) -> &T {
         let size = size_of::<T>();
 
         // The top value starts at the last aligned offset that fits this type.
-        let offset = self.buffer.len().saturating_sub(size);
+        let offset = self.buffer.len() - size;
 
-        assert!(offset + size <= self.buffer.len(), "buffer too small for peek");
+        // assert!(offset + size <= self.buffer.len(), "buffer too small for peek");
         unsafe { &*(self.buffer.as_ptr().add(offset) as *const T) }
-    }
-
-    fn _peek_two<T, S>(&self) -> (&S, &T) {
-        let size_t = size_of::<T>();
-        let size_s = size_of::<S>();
-
-        // The top value starts at the last aligned offset that fits this type.
-        let offset_t = self.buffer.len().saturating_sub(size_t);
-        let offset_s = offset_t.saturating_sub(size_s);
-
-        assert!(offset_t + size_t <= self.buffer.len(), "buffer too small for peek_two T");
-        assert!(offset_s + size_s <= self.buffer.len(), "buffer too small for peek_two S");
-
-        let t_ref = unsafe { &*(self.buffer.as_ptr().add(offset_t) as *const T) };
-        let s_ref = unsafe { &*(self.buffer.as_ptr().add(offset_s) as *const S) };
-
-        (s_ref, t_ref)
     }
 
     /// Returns true if the stack is empty.
@@ -132,7 +121,58 @@ impl<Location> HeterogeneousStack<Location> {
         }
         // Use a peek
 
-        Some( self._peek_two::<Location, Location>() )
+        let Metadata { offset: _, l, r } = self._peek();
+
+        Some( (l, r) )
+    }
+
+    pub fn get_nth_last_location(&self, mut index: usize) -> Option<(&Location, &Location)> {
+        // We're assuming that the buffer has sufficient length, no checks here
+        println!("Getting nth last location {}", index);
+        let metadata_size = size_of::<Metadata<Location>>();
+        let mut metadata_offset = self.buffer.len();
+
+        while index >= 0 {
+            if metadata_offset <= 0 {
+                // There's not enough data left
+                return None;
+            }
+            metadata_offset -= metadata_size;
+            let Metadata { offset: value_offset, l, r } = unsafe {
+                &*(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
+            };
+            if index == 0 {
+                println!("data indexed {} at metadata_offset {}", index, metadata_offset);
+                return Some((l, r))
+            }
+            // Previous metadata ends at value_offset, so it starts at value_offset - metadata_size
+            metadata_offset = *value_offset;
+            index -= 1;
+        }
+        None
+
+    }
+
+    pub fn truncate_last(&mut self, mut index: usize) {
+        // We're assuming that the buffer has sufficient length, no checks here
+        let metadata_size = size_of::<Metadata<Location>>();
+        
+        let mut truncate_offset = self.buffer.len();
+        
+        while index > 0 {
+            let metadata_offset = truncate_offset - metadata_size;
+            let Metadata { offset: value_offset, l: _, r: _ } = unsafe {
+                &*(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
+            };
+            // Previous metadata ends at value_offset
+            truncate_offset = *value_offset;
+            index -= 1;
+        }
+
+
+        println!("Truncating at {truncate_offset}");
+
+        self.buffer.truncate(truncate_offset);
     }
 
 }
