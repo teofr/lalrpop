@@ -271,9 +271,7 @@ where
                     // Shift and transition to state `action - 1`
                     let symbol = self.definition.token_to_symbol(token_index, lookahead.1);
                     self.states.push(target_state);
-                    // println!("Pushing symbol: ");
                     self.definition.push_symbol(&mut self.symbols, lookahead.0, symbol, lookahead.2);
-                    // self.symbols.push(lookahead.0, symbol, lookahead.2);
                     continue 'shift;
                 } else if let Some(reduce_index) = action.as_reduce() {
                     debug!("\\ reduce to: {:?}", reduce_index);
@@ -464,16 +462,17 @@ where
         // Finally, if there are no popped states *nor* dropped tokens, we can use
         // the end of the top-most state.
 
-        let start = 
-        // if let Some(popped_sym) = self.symbols.get(top) {
-        //     popped_sym.0.clone()
-        // } else if let Some(dropped_token) = dropped_tokens.first() {
-        //     dropped_token.0.clone()
-        // } else if top > 0 {
-        //     self.symbols[top - 1].2.clone()
-        // } else {
-            self.definition.start_location();
-        // };
+        let from_top = self.states.len() - top - 1;
+
+        let start = if let Some(popped_sym) = self.symbols.get_nth_last_location(from_top) {
+            popped_sym.0.clone()
+        } else if let Some(dropped_token) = dropped_tokens.first() {
+            dropped_token.0.clone()
+        } else if top > 0 {
+            self.symbols.get_nth_last_location(from_top + 1).unwrap().1.clone()
+        } else {
+            self.definition.start_location()
+        };
 
         // For the end span, here are the possibilities:
         //
@@ -504,16 +503,16 @@ where
 
         let end = if let Some(dropped_token) = dropped_tokens.last() {
             dropped_token.2.clone()
-        // } else if states_len - 1 > top {
-            // self.symbols.last().unwrap().2.clone()
-        // } else if let Some(lookahead) = opt_lookahead.as_ref() {
-        //     lookahead.0.clone()
+        } else if states_len - 1 > top {
+            self.symbols.last_location().unwrap().1.clone()
+        } else if let Some(lookahead) = opt_lookahead.as_ref() {
+            lookahead.0.clone()
         } else {
             start.clone()
         };
 
         self.states.truncate(top + 1);
-        // self.symbols.truncate(top);
+        self.symbols.truncate_last(from_top);
 
         let recover_state = self.states[top];
         let error_action = self.definition.error_action(recover_state);
@@ -523,7 +522,7 @@ where
             error,
             dropped_tokens,
         });
-        //self.symbols.push(start, recovery, end);
+        self.definition.push_symbol(&mut self.symbols, start, recovery, end);
 
         match (opt_lookahead, opt_token_index) {
             (Some(l), Some(i)) => NextToken::FoundToken(l, i),
