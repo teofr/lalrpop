@@ -1,5 +1,6 @@
 use std::mem::size_of;
 use std::ptr;
+use std::fmt::Debug;
 
 /// A type-erased heterogeneous stack.
 ///
@@ -16,27 +17,31 @@ use std::ptr;
 /// The caller is responsible for popping values in the exact type they were
 /// pushed. Popping as the wrong type is undefined behavior. The implementation
 /// performs no type validation.
-struct Metadata<Location> {
+struct Metadata<Location>
+where Location: Debug {
     offset: usize, // offset where the value begins
     l: Location,
     r: Location,
 }
 
 type Base = u8;
-pub struct HeterogeneousStack<Location> {
+pub struct HeterogeneousStack<Location>
+where Location:Debug {
     buffer: Vec<Base>,
     phantom: std::marker::PhantomData<Location>,
-    // locations: Vec<(Location, Location)>,
+    /// Number of elements in the stack
+    size: usize,
 }
 
 
-impl<Location> HeterogeneousStack<Location> {
+impl<Location: Debug> HeterogeneousStack<Location> {
 
     /// Creates a new empty stack.
     pub fn new() -> Self {
         HeterogeneousStack {
             buffer: Vec::new(),
             phantom: std::marker::PhantomData,
+            size: 0,
         }
     }
 
@@ -49,6 +54,9 @@ impl<Location> HeterogeneousStack<Location> {
         let metadata_align = std::mem::align_of::<Metadata<Location>>();
         let metadata_offset = (after_value + metadata_align - 1) & !(metadata_align - 1);
 
+        // println!("Pushing value of size {} and align {} at offset {}", size_of::<T>(), std::mem::align_of::<T>(), value_offset);
+        // println!("  with l: {:?}, r: {:?}", &l, &r);
+
         let metadata = Metadata {
             offset: value_offset,
             l,
@@ -56,6 +64,7 @@ impl<Location> HeterogeneousStack<Location> {
         };
 
         let total_size = metadata_offset + size_of::<Metadata<Location>>();
+
 
         self.buffer.reserve(total_size - self.buffer.len());
         unsafe {
@@ -67,6 +76,7 @@ impl<Location> HeterogeneousStack<Location> {
             // Metadata is aligned, but buffer base may not be, so still use write_unaligned
             ptr::write_unaligned(self.buffer.as_mut_ptr().add(metadata_offset) as *mut Metadata<Location>, metadata);
         }
+        self.size += 1;
     }
 
     pub fn pop<T>(&mut self) -> (Location, T, Location) {
@@ -78,12 +88,13 @@ impl<Location> HeterogeneousStack<Location> {
             ptr::read_unaligned(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
         };
 
-        println!("Popping value of size {} and align {} at offset {}", size_of::<T>(), std::mem::align_of::<T>(), value_offset);
+        // println!("Popping value of size {} and align {} at offset {}", size_of::<T>(), std::mem::align_of::<T>(), value_offset);
         let value = unsafe { ptr::read_unaligned(self.buffer.as_ptr().add(value_offset) as *const T) };
 
         unsafe {
             self.buffer.set_len(value_offset);
         }
+        self.size -= 1;
 
         (l, value, r)
     }
@@ -100,18 +111,18 @@ impl<Location> HeterogeneousStack<Location> {
 
     /// Returns true if the stack is empty.
     pub fn is_empty(&self) -> bool {
-        self.buffer.is_empty()
+        self.size == 0
     }
 
-    /// Returns the current buffer size in bytes.
+    /// Returns the number of elements in the stack.
     pub fn len(&self) -> usize {
-        // This is wrong, but for now
-        self.buffer.len()
+        self.size
     }
 
     /// Clears the stack.
     pub fn clear(&mut self) {
         self.buffer.clear();
+        self.size = 0;
     }
 
     // This shouldnt be mut
@@ -126,14 +137,20 @@ impl<Location> HeterogeneousStack<Location> {
         Some( (l, r) )
     }
 
-    pub fn get_nth_last_location(&self, mut index: usize) -> Option<(&Location, &Location)> {
-        // We're assuming that the buffer has sufficient length, no checks here
-        println!("Getting nth last location {}", index);
+    /// Returns the location of the element at the given index (0-indexed from the start).
+    pub fn get_nth_location(&self, index: usize) -> Option<(&Location, &Location)> {
+        if index >= self.size {
+            return None;
+        }
+        // Convert to steps from the end: to get element at index `i` from start,
+        // we need to traverse `size - 1 - i` elements from the end
+        let mut steps_from_end = self.size - 1 - index;
+
         let metadata_size = size_of::<Metadata<Location>>();
         let mut metadata_offset = self.buffer.len();
 
-        while index >= 0 {
-            if metadata_offset <= 0 {
+        loop {
+            if metadata_offset == 0 {
                 // There's not enough data left
                 return None;
             }
@@ -141,43 +158,41 @@ impl<Location> HeterogeneousStack<Location> {
             let Metadata { offset: value_offset, l, r } = unsafe {
                 &*(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
             };
-            if index == 0 {
-                println!("data indexed {} at metadata_offset {}", index, metadata_offset);
+            if steps_from_end == 0 {
                 return Some((l, r))
             }
             // Previous metadata ends at value_offset, so it starts at value_offset - metadata_size
             metadata_offset = *value_offset;
-            index -= 1;
+            steps_from_end -= 1;
         }
-        None
-
     }
 
-    pub fn truncate_last(&mut self, mut index: usize) {
+    pub fn truncate_last(&mut self, count: usize) {
         // We're assuming that the buffer has sufficient length, no checks here
         let metadata_size = size_of::<Metadata<Location>>();
-        
+
         let mut truncate_offset = self.buffer.len();
-        
-        while index > 0 {
+        let mut remaining = count;
+
+        while remaining > 0 {
             let metadata_offset = truncate_offset - metadata_size;
             let Metadata { offset: value_offset, l: _, r: _ } = unsafe {
                 &*(self.buffer.as_ptr().add(metadata_offset) as *const Metadata<Location>)
             };
             // Previous metadata ends at value_offset
             truncate_offset = *value_offset;
-            index -= 1;
+            remaining -= 1;
         }
-
 
         println!("Truncating at {truncate_offset}");
 
         self.buffer.truncate(truncate_offset);
+        self.size -= count;
     }
 
 }
 
-impl<Location> Default for HeterogeneousStack<Location> {
+impl<Location: Debug> Default for HeterogeneousStack<Location> {
     fn default() -> Self {
         Self::new()
     }
