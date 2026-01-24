@@ -464,12 +464,20 @@ where
 
         let from_top = self.states.len() - top - 1;
 
-        let start = if let Some(popped_sym) = self.symbols.get_nth_last_location(from_top) {
-            popped_sym.0.clone()
+        // from_top is the count of symbols to truncate (for truncate_last)
+        // get_nth_location uses 0-indexed from start, so we use `top` directly
+        // When from_top == 0, there's no popped symbol at index `top` (it's out of bounds)
+        let start = if from_top > 0 {
+            if let Some(popped_sym) = self.symbols.get_nth_location(top) {
+                popped_sym.0.clone()
+            } else {
+                // Shouldn't happen if our indexing is correct
+                self.definition.start_location()
+            }
         } else if let Some(dropped_token) = dropped_tokens.first() {
             dropped_token.0.clone()
         } else if top > 0 {
-            self.symbols.get_nth_last_location(from_top + 1).unwrap().1.clone()
+            self.symbols.get_nth_location(top - 1).unwrap().1.clone()
         } else {
             self.definition.start_location()
         };
