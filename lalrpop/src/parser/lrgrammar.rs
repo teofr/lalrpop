@@ -12,6 +12,8 @@ use super::Top;
 extern crate lalrpop_util as ___lalrpop_util;
 #[allow(unused_imports)]
 use self::___lalrpop_util::state_machine as ___state_machine;
+#[allow(unused_imports)]
+use self::___lalrpop_util::stack as ___stack;
 #[allow(unused_extern_crates)]
 extern crate alloc;
 
@@ -31,9 +33,12 @@ use super::super::Top;
 extern crate lalrpop_util as ___lalrpop_util;
 #[allow(unused_imports)]
 use self::___lalrpop_util::state_machine as ___state_machine;
+#[allow(unused_imports)]
+use self::___lalrpop_util::stack as ___stack;
 #[allow(unused_extern_crates)]
 extern crate alloc;
 use super::___ToTriple;
+use std::hint;
 #[allow(dead_code)]
 pub(crate) enum ___Symbol<'input>
  {
@@ -3259,6 +3264,10 @@ fn token_to_symbol(&self, token_index: usize, token: Self::Token) -> Self::Symbo
 ___token_to_symbol(token_index, token, core::marker::PhantomData::<(&())>)
 }
 
+fn push_symbol(&mut self, symbols: &mut ___stack::HeterogeneousStack<usize>, left: Self::Location, symbol: Self::Symbol, right: Self::Location) {
+___push_symbol(symbols, left, symbol, right, core::marker::PhantomData::<(&())>)
+}
+
 fn expected_tokens(&self, state: i16) -> alloc::vec::Vec<alloc::string::String> {
 ___expected_tokens(state)
 }
@@ -3285,7 +3294,7 @@ fn reduce(
 action: i16,
 start_location: Option<&Self::Location>,
 states: &mut alloc::vec::Vec<i16>,
-symbols: &mut alloc::vec::Vec<___state_machine::SymbolTriple<Self>>,
+symbols: &mut ___stack::HeterogeneousStack<usize>,
 ) -> Option<___state_machine::ParseResult<Self>> {
 ___reduce(
 self.text,
@@ -3387,6 +3396,733 @@ Tok::Use(___tok0) | Tok::Escape(___tok0) | Tok::Id(___tok0) | Tok::MacroId(___to
 _ => unreachable!(),
 },
 _ => unreachable!(),
+}
+}
+fn ___push_symbol<
+    'input,
+>(
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+___l: usize,
+___symbol: ___Symbol<'input>,
+___r: usize,
+_: core::marker::PhantomData<(&'input ())>,
+)
+{
+match ___symbol {
+___Symbol::Variant9(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant82(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant44(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant10(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant34(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant48(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant22(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant12(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant50(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant7(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant63(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant14(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant65(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant66(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant16(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant69(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant67(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant24(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant77(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant26(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant79(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant81(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant28(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant45(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant46(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant96(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant52(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant51(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant8(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant64(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant68(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant76(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant78(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant83(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant71(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant85(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant93(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant2(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant98(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant99(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant100(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant4(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant72(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant6(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant73(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant75(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant74(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant18(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant84(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant30(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant86(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant90(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant91(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant32(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant94(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant80(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant89(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant0(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant95(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant97(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant36(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant38(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant40(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant3(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant47(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant53(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant54(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant87(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant57(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant58(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant55(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant59(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant60(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant88(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant5(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant61(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant62(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant56(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant101(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant20(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant11(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant35(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant49(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant23(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant13(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant15(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant17(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant70(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant25(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant27(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant29(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant19(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant31(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant92(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant33(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant37(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant39(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant41(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant42(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant21(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant43(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
+___Symbol::Variant1(value) => {
+___symbols.push(
+___l,
+value,
+___r,
+);
+},
 }
 }
 fn ___simulate_reduce<
@@ -6685,7 +7421,7 @@ text: &'input str,
 ___action: i16,
 ___lookahead_start: Option<&usize>,
 ___states: &mut alloc::vec::Vec<i16>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> Option<Result<Top,___lalrpop_util::ParseError<usize, Tok<'input>, tok::Error>>>
 {
@@ -7308,30 +8044,30 @@ ___reduce204(text, ___lookahead_start, ___symbols, core::marker::PhantomData::<(
 205 => {
 // Conversion = Terminal, "=>" => ActionFn(501);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant1(___symbols);
-let ___sym0 = ___pop_Variant89(___symbols);
+let ___sym1 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant89(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = match super::___action501::<>(text, ___sym0, ___sym1) {
 Ok(v) => v,
 Err(e) => return Some(Err(e)),
 };
-___symbols.push((___start, ___Symbol::Variant14(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 97)
 }
 206 => {
 // Conversion = Attribute+, Terminal, "=>" => ActionFn(502);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant1(___symbols);
-let ___sym1 = ___pop_Variant89(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym2 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant89(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = match super::___action502::<>(text, ___sym0, ___sym1, ___sym2) {
 Ok(v) => v,
 Err(e) => return Some(Err(e)),
 };
-___symbols.push((___start, ___Symbol::Variant14(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 97)
 }
 207 => {
@@ -7874,15 +8610,15 @@ ___reduce385(text, ___lookahead_start, ___symbols, core::marker::PhantomData::<(
 386 => {
 // MatchItem = MatchSymbol, "=>" => ActionFn(467);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant1(___symbols);
-let ___sym0 = ___pop_Variant80(___symbols);
+let ___sym1 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant80(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = match super::___action467::<>(text, ___sym0, ___sym1) {
 Ok(v) => v,
 Err(e) => return Some(Err(e)),
 };
-___symbols.push((___start, ___Symbol::Variant26(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 125)
 }
 387 => {
@@ -8064,26 +8800,26 @@ ___reduce445(text, ___lookahead_start, ___symbols, core::marker::PhantomData::<(
 }
 446 => {
 // StringConstant = "StringLiteral" => ActionFn(444);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = match super::___action444::<>(text, ___sym0) {
 Ok(v) => v,
 Err(e) => return Some(Err(e)),
 };
-___symbols.push((___start, ___Symbol::Variant91(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 148)
 }
 447 => {
 // StringLiteral = "StringLiteral" => ActionFn(445);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = match super::___action445::<>(text, ___sym0) {
 Ok(v) => v,
 Err(e) => return Some(Err(e)),
 };
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 149)
 }
 448 => {
@@ -8349,7 +9085,7 @@ ___reduce534(text, ___lookahead_start, ___symbols, core::marker::PhantomData::<(
 }
 535 => {
 // ___Top = Top => ActionFn(0);
-let ___sym0 = ___pop_Variant95(___symbols);
+let ___sym0 = ___pop_Variant95(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action0::<>(text, ___sym0);
@@ -8369,1142 +9105,938 @@ fn ___symbol_type_mismatch() -> ! {
 panic!("symbol type mismatch")
 }
 fn ___pop_Variant9<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, (), usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant9(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<()>()
 }
 fn ___pop_Variant82<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, (NonterminalString, Vec<NonterminalString>), usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant82(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<(NonterminalString, Vec<NonterminalString>)>()
 }
 fn ___pop_Variant44<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, ActionKind, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant44(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<ActionKind>()
 }
 fn ___pop_Variant10<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Alternative, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant10(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Alternative>()
 }
 fn ___pop_Variant34<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, ArgPattern, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant34(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<ArgPattern>()
 }
 fn ___pop_Variant48<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, AssociatedType, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant48(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<AssociatedType>()
 }
 fn ___pop_Variant22<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Atom, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant22(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Atom>()
 }
 fn ___pop_Variant12<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Attribute, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant12(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Attribute>()
 }
 fn ___pop_Variant50<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, AttributeArg, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant50(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<AttributeArg>()
 }
 fn ___pop_Variant7<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Condition, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant7(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Condition>()
 }
 fn ___pop_Variant63<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, ConditionOp, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant63(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<ConditionOp>()
 }
 fn ___pop_Variant14<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Conversion, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant14(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Conversion>()
 }
 fn ___pop_Variant65<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, EnumToken, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant65(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<EnumToken>()
 }
 fn ___pop_Variant66<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, ExprSymbol, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant66(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<ExprSymbol>()
 }
 fn ___pop_Variant16<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, FieldPattern<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant16(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<FieldPattern<TypeRef>>()
 }
 fn ___pop_Variant69<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Grammar, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant69(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Grammar>()
 }
 fn ___pop_Variant67<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, GrammarItem, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant67(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<GrammarItem>()
 }
 fn ___pop_Variant24<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Lifetime, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant24(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Lifetime>()
 }
 fn ___pop_Variant77<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, MatchContents, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant77(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<MatchContents>()
 }
 fn ___pop_Variant26<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, MatchItem, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant26(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<MatchItem>()
 }
 fn ___pop_Variant79<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, MatchMapping, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant79(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<MatchMapping>()
 }
 fn ___pop_Variant81<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, MatchToken, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant81(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<MatchToken>()
 }
 fn ___pop_Variant28<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, NonterminalString, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant28(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<NonterminalString>()
 }
 fn ___pop_Variant45<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<ActionKind>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant45(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<ActionKind>>()
 }
 fn ___pop_Variant46<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Alternative>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant46(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Alternative>>()
 }
 fn ___pop_Variant96<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<ArgPattern>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant96(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<ArgPattern>>()
 }
 fn ___pop_Variant52<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Attribute>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant52(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Attribute>>()
 }
 fn ___pop_Variant51<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<AttributeArg>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant51(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<AttributeArg>>()
 }
 fn ___pop_Variant8<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Condition>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant8(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Condition>>()
 }
 fn ___pop_Variant64<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Conversion>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant64(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Conversion>>()
 }
 fn ___pop_Variant68<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<FieldPattern<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant68(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<FieldPattern<TypeRef>>>()
 }
 fn ___pop_Variant76<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Lifetime>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant76(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Lifetime>>()
 }
 fn ___pop_Variant78<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<MatchItem>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant78(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<MatchItem>>()
 }
 fn ___pop_Variant83<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<NonterminalString>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant83(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<NonterminalString>>()
 }
 fn ___pop_Variant71<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Parameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant71(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Parameter>>()
 }
 fn ___pop_Variant85<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Pattern<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant85(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Pattern<TypeRef>>>()
 }
 fn ___pop_Variant93<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Symbol>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant93(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Symbol>>()
 }
 fn ___pop_Variant2<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Tok<'input>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant2(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Tok<'input>>>()
 }
 fn ___pop_Variant98<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<TypeBound<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant98(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<TypeBound<TypeRef>>>()
 }
 fn ___pop_Variant99<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<TypeBoundParameter<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant99(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<TypeBoundParameter<TypeRef>>>()
 }
 fn ___pop_Variant100<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<TypeParameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant100(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<TypeParameter>>()
 }
 fn ___pop_Variant4<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant4(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<TypeRef>>()
 }
 fn ___pop_Variant72<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Vec<Parameter>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant72(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Vec<Parameter>>>()
 }
 fn ___pop_Variant6<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Vec<TypeBoundParameter<TypeRef>>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant6(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Vec<TypeBoundParameter<TypeRef>>>>()
 }
 fn ___pop_Variant73<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Vec<TypeParameter>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant73(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Vec<TypeParameter>>>()
 }
 fn ___pop_Variant75<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<Vec<WhereClause<TypeRef>>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant75(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<Vec<WhereClause<TypeRef>>>>()
 }
 fn ___pop_Variant74<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Option<WhereClause<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant74(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Option<WhereClause<TypeRef>>>()
 }
 fn ___pop_Variant18<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Parameter, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant18(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Parameter>()
 }
 fn ___pop_Variant84<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Path, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant84(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Path>()
 }
 fn ___pop_Variant30<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Pattern<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant30(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Pattern<TypeRef>>()
 }
 fn ___pop_Variant86<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, PatternKind<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant86(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<PatternKind<TypeRef>>()
 }
 fn ___pop_Variant90<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, RepeatOp, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant90(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<RepeatOp>()
 }
 fn ___pop_Variant91<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, String, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant91(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<String>()
 }
 fn ___pop_Variant32<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Symbol, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant32(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Symbol>()
 }
 fn ___pop_Variant94<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, SymbolKind, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant94(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<SymbolKind>()
 }
 fn ___pop_Variant80<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TerminalLiteral, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant80(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TerminalLiteral>()
 }
 fn ___pop_Variant89<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TerminalString, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant89(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TerminalString>()
 }
 fn ___pop_Variant0<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Tok<'input>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant0(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Tok<'input>>()
 }
 fn ___pop_Variant95<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Top, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant95(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Top>()
 }
 fn ___pop_Variant97<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Tuple, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant97(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Tuple>()
 }
 fn ___pop_Variant36<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TypeBound<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant36(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TypeBound<TypeRef>>()
 }
 fn ___pop_Variant38<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TypeBoundParameter<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant38(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TypeBoundParameter<TypeRef>>()
 }
 fn ___pop_Variant40<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TypeParameter, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant40(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TypeParameter>()
 }
 fn ___pop_Variant3<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, TypeRef, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant3(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<TypeRef>()
 }
 fn ___pop_Variant47<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Alternative>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant47(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Alternative>>()
 }
 fn ___pop_Variant53<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Attribute>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant53(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Attribute>>()
 }
 fn ___pop_Variant54<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Conversion>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant54(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Conversion>>()
 }
 fn ___pop_Variant87<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Lifetime>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant87(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Lifetime>>()
 }
 fn ___pop_Variant57<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<MatchItem>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant57(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<MatchItem>>()
 }
 fn ___pop_Variant58<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<NonterminalString>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant58(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<NonterminalString>>()
 }
 fn ___pop_Variant55<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Parameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant55(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Parameter>>()
 }
 fn ___pop_Variant59<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Pattern<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant59(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Pattern<TypeRef>>>()
 }
 fn ___pop_Variant60<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<Symbol>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant60(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<Symbol>>()
 }
 fn ___pop_Variant88<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<TypeBound<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant88(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<TypeBound<TypeRef>>>()
 }
 fn ___pop_Variant5<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<TypeBoundParameter<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant5(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<TypeBoundParameter<TypeRef>>>()
 }
 fn ___pop_Variant61<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<TypeParameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant61(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<TypeParameter>>()
 }
 fn ___pop_Variant62<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant62(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<TypeRef>>()
 }
 fn ___pop_Variant56<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Vec<WhereClause<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant56(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Vec<WhereClause<TypeRef>>>()
 }
 fn ___pop_Variant101<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, Visibility, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant101(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<Visibility>()
 }
 fn ___pop_Variant20<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, WhereClause<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant20(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<WhereClause<TypeRef>>()
 }
 fn ___pop_Variant11<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Alternative>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant11(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Alternative>>()
 }
 fn ___pop_Variant35<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<ArgPattern>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant35(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<ArgPattern>>()
 }
 fn ___pop_Variant49<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<AssociatedType>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant49(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<AssociatedType>>()
 }
 fn ___pop_Variant23<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Atom>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant23(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Atom>>()
 }
 fn ___pop_Variant13<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Attribute>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant13(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Attribute>>()
 }
 fn ___pop_Variant15<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Conversion>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant15(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Conversion>>()
 }
 fn ___pop_Variant17<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<FieldPattern<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant17(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<FieldPattern<TypeRef>>>()
 }
 fn ___pop_Variant70<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<GrammarItem>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant70(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<GrammarItem>>()
 }
 fn ___pop_Variant25<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Lifetime>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant25(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Lifetime>>()
 }
 fn ___pop_Variant27<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<MatchItem>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant27(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<MatchItem>>()
 }
 fn ___pop_Variant29<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<NonterminalString>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant29(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<NonterminalString>>()
 }
 fn ___pop_Variant19<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Parameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant19(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Parameter>>()
 }
 fn ___pop_Variant31<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Pattern<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant31(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Pattern<TypeRef>>>()
 }
 fn ___pop_Variant92<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<String>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant92(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<String>>()
 }
 fn ___pop_Variant33<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<Symbol>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant33(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<Symbol>>()
 }
 fn ___pop_Variant37<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<TypeBound<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant37(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<TypeBound<TypeRef>>>()
 }
 fn ___pop_Variant39<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<TypeBoundParameter<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant39(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<TypeBoundParameter<TypeRef>>>()
 }
 fn ___pop_Variant41<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<TypeParameter>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant41(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<TypeParameter>>()
 }
 fn ___pop_Variant42<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<TypeRef>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant42(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<TypeRef>>()
 }
 fn ___pop_Variant21<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, alloc::vec::Vec<WhereClause<TypeRef>>, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant21(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<alloc::vec::Vec<WhereClause<TypeRef>>>()
 }
 fn ___pop_Variant43<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant43(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<usize>()
 }
 fn ___pop_Variant1<
-  'input,
+     'input,
 >(
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
+_: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, &'input str, usize)
  {
-match ___symbols.pop() {
-Some((___l, ___Symbol::Variant1(___v), ___r)) => (___l, ___v, ___r),
-_ => ___symbol_type_mismatch()
-}
+___symbols.pop::<&'input str>()
 }
 fn ___reduce0<
     'input,
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // "::"? = "::" => ActionFn(143);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action143::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 0)
 }
 fn ___reduce1<
@@ -9512,15 +10044,15 @@ fn ___reduce1<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // "::"? =  => ActionFn(144);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action144::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 0)
 }
 fn ___reduce2<
@@ -9528,16 +10060,16 @@ fn ___reduce2<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ";"? = ";" => ActionFn(165);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action165::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 1)
 }
 fn ___reduce3<
@@ -9545,15 +10077,15 @@ fn ___reduce3<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ";"? =  => ActionFn(166);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action166::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 1)
 }
 fn ___reduce4<
@@ -9561,16 +10093,16 @@ fn ___reduce4<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // "mut"? = "mut" => ActionFn(154);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action154::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 2)
 }
 fn ___reduce5<
@@ -9578,15 +10110,15 @@ fn ___reduce5<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // "mut"? =  => ActionFn(155);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action155::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant2(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 2)
 }
 fn ___reduce6<
@@ -9594,18 +10126,18 @@ fn ___reduce6<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("->" <TypeRef>) = "->", TypeRef => ActionFn(182);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action182::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 3)
 }
 fn ___reduce7<
@@ -9613,18 +10145,18 @@ fn ___reduce7<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("->" <TypeRef>)? = "->", TypeRef => ActionFn(332);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action332::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 4)
 }
 fn ___reduce8<
@@ -9632,15 +10164,15 @@ fn ___reduce8<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("->" <TypeRef>)? =  => ActionFn(181);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action181::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 4)
 }
 fn ___reduce9<
@@ -9648,18 +10180,18 @@ fn ___reduce9<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (":" <TypeRef>) = ":", TypeRef => ActionFn(174);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action174::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 5)
 }
 fn ___reduce10<
@@ -9667,18 +10199,18 @@ fn ___reduce10<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (":" <TypeRef>)? = ":", TypeRef => ActionFn(337);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action337::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 6)
 }
 fn ___reduce11<
@@ -9686,15 +10218,15 @@ fn ___reduce11<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (":" <TypeRef>)? =  => ActionFn(173);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action173::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 6)
 }
 fn ___reduce12<
@@ -9702,19 +10234,19 @@ fn ___reduce12<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("<" <Comma<TypeBoundParameter>> ">") = "<", Comma<TypeBoundParameter>, ">" => ActionFn(178);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant5(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant5(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action178::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant5(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 7)
 }
 fn ___reduce13<
@@ -9722,19 +10254,19 @@ fn ___reduce13<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("<" <Comma<TypeBoundParameter>> ">")? = "<", Comma<TypeBoundParameter>, ">" => ActionFn(340);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant5(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant5(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action340::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant6(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 8)
 }
 fn ___reduce14<
@@ -9742,15 +10274,15 @@ fn ___reduce14<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("<" <Comma<TypeBoundParameter>> ">")? =  => ActionFn(177);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action177::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant6(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 8)
 }
 fn ___reduce15<
@@ -9758,18 +10290,18 @@ fn ___reduce15<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("if" <Cond>) = "if", Cond => ActionFn(162);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant7(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action162::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant7(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 9)
 }
 fn ___reduce16<
@@ -9777,18 +10309,18 @@ fn ___reduce16<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("if" <Cond>)? = "if", Cond => ActionFn(343);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant7(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action343::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant8(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 10)
 }
 fn ___reduce17<
@@ -9796,15 +10328,15 @@ fn ___reduce17<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ("if" <Cond>)? =  => ActionFn(161);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action161::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant8(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 10)
 }
 fn ___reduce18<
@@ -9812,15 +10344,15 @@ fn ___reduce18<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // () =  => ActionFn(185);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action185::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant9(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 11)
 }
 fn ___reduce19<
@@ -9828,18 +10360,18 @@ fn ___reduce19<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Alternative> ",") = Alternative, "," => ActionFn(260);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant10(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action260::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 12)
 }
 fn ___reduce20<
@@ -9847,15 +10379,15 @@ fn ___reduce20<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Alternative> ",")* =  => ActionFn(258);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action258::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant11(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 13)
 }
 fn ___reduce21<
@@ -9863,16 +10395,16 @@ fn ___reduce21<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Alternative> ",")* = (<Alternative> ",")+ => ActionFn(259);
-let ___sym0 = ___pop_Variant11(___symbols);
+let ___sym0 = ___pop_Variant11(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action259::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant11(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 13)
 }
 fn ___reduce22<
@@ -9880,18 +10412,18 @@ fn ___reduce22<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Alternative> ",")+ = Alternative, "," => ActionFn(350);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant10(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action350::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant11(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 14)
 }
 fn ___reduce23<
@@ -9899,19 +10431,19 @@ fn ___reduce23<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Alternative> ",")+ = (<Alternative> ",")+, Alternative, "," => ActionFn(351);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant10(___symbols);
-let ___sym0 = ___pop_Variant11(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant11(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action351::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant11(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 14)
 }
 fn ___reduce24<
@@ -9919,18 +10451,18 @@ fn ___reduce24<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<AttributeInner> ",") = AttributeInner, "," => ActionFn(250);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant12(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action250::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant12(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 15)
 }
 fn ___reduce25<
@@ -9938,15 +10470,15 @@ fn ___reduce25<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<AttributeInner> ",")* =  => ActionFn(248);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action248::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 16)
 }
 fn ___reduce26<
@@ -9954,16 +10486,16 @@ fn ___reduce26<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<AttributeInner> ",")* = (<AttributeInner> ",")+ => ActionFn(249);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action249::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 16)
 }
 fn ___reduce27<
@@ -9971,18 +10503,18 @@ fn ___reduce27<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<AttributeInner> ",")+ = AttributeInner, "," => ActionFn(354);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant12(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action354::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 17)
 }
 fn ___reduce28<
@@ -9990,19 +10522,19 @@ fn ___reduce28<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<AttributeInner> ",")+ = (<AttributeInner> ",")+, AttributeInner, "," => ActionFn(355);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant12(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action355::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 17)
 }
 fn ___reduce29<
@@ -10010,18 +10542,18 @@ fn ___reduce29<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Conversion> ",") = Conversion, "," => ActionFn(284);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant14(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action284::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant14(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 18)
 }
 fn ___reduce30<
@@ -10029,15 +10561,15 @@ fn ___reduce30<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Conversion> ",")* =  => ActionFn(282);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action282::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant15(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 19)
 }
 fn ___reduce31<
@@ -10045,16 +10577,16 @@ fn ___reduce31<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Conversion> ",")* = (<Conversion> ",")+ => ActionFn(283);
-let ___sym0 = ___pop_Variant15(___symbols);
+let ___sym0 = ___pop_Variant15(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action283::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant15(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 19)
 }
 fn ___reduce32<
@@ -10062,18 +10594,18 @@ fn ___reduce32<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Conversion> ",")+ = Conversion, "," => ActionFn(358);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant14(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action358::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant15(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 20)
 }
 fn ___reduce33<
@@ -10081,19 +10613,19 @@ fn ___reduce33<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Conversion> ",")+ = (<Conversion> ",")+, Conversion, "," => ActionFn(359);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant14(___symbols);
-let ___sym0 = ___pop_Variant15(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant15(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action359::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant15(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 20)
 }
 fn ___reduce34<
@@ -10101,18 +10633,18 @@ fn ___reduce34<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<FieldPattern> ",") = FieldPattern, "," => ActionFn(134);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant16(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action134::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant16(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 21)
 }
 fn ___reduce35<
@@ -10120,15 +10652,15 @@ fn ___reduce35<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<FieldPattern> ",")* =  => ActionFn(132);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action132::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant17(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 22)
 }
 fn ___reduce36<
@@ -10136,16 +10668,16 @@ fn ___reduce36<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<FieldPattern> ",")* = (<FieldPattern> ",")+ => ActionFn(133);
-let ___sym0 = ___pop_Variant17(___symbols);
+let ___sym0 = ___pop_Variant17(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action133::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant17(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 22)
 }
 fn ___reduce37<
@@ -10153,18 +10685,18 @@ fn ___reduce37<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<FieldPattern> ",")+ = FieldPattern, "," => ActionFn(362);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant16(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action362::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant17(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 23)
 }
 fn ___reduce38<
@@ -10172,19 +10704,19 @@ fn ___reduce38<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<FieldPattern> ",")+ = (<FieldPattern> ",")+, FieldPattern, "," => ActionFn(363);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant16(___symbols);
-let ___sym0 = ___pop_Variant17(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant17(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action363::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant17(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 23)
 }
 fn ___reduce39<
@@ -10192,18 +10724,18 @@ fn ___reduce39<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarParameter> ",") = GrammarParameter, "," => ActionFn(245);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant18(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action245::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant18(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 24)
 }
 fn ___reduce40<
@@ -10211,15 +10743,15 @@ fn ___reduce40<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarParameter> ",")* =  => ActionFn(243);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action243::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant19(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 25)
 }
 fn ___reduce41<
@@ -10227,16 +10759,16 @@ fn ___reduce41<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarParameter> ",")* = (<GrammarParameter> ",")+ => ActionFn(244);
-let ___sym0 = ___pop_Variant19(___symbols);
+let ___sym0 = ___pop_Variant19(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action244::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant19(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 25)
 }
 fn ___reduce42<
@@ -10244,18 +10776,18 @@ fn ___reduce42<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarParameter> ",")+ = GrammarParameter, "," => ActionFn(368);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant18(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action368::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant19(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 26)
 }
 fn ___reduce43<
@@ -10263,19 +10795,19 @@ fn ___reduce43<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarParameter> ",")+ = (<GrammarParameter> ",")+, GrammarParameter, "," => ActionFn(369);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant18(___symbols);
-let ___sym0 = ___pop_Variant19(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant19(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action369::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant19(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 26)
 }
 fn ___reduce44<
@@ -10283,18 +10815,18 @@ fn ___reduce44<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarWhereClause> ",") = GrammarWhereClause, "," => ActionFn(222);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant20(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action222::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant20(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 27)
 }
 fn ___reduce45<
@@ -10302,15 +10834,15 @@ fn ___reduce45<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarWhereClause> ",")* =  => ActionFn(220);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action220::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant21(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 28)
 }
 fn ___reduce46<
@@ -10318,16 +10850,16 @@ fn ___reduce46<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarWhereClause> ",")* = (<GrammarWhereClause> ",")+ => ActionFn(221);
-let ___sym0 = ___pop_Variant21(___symbols);
+let ___sym0 = ___pop_Variant21(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action221::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant21(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 28)
 }
 fn ___reduce47<
@@ -10335,18 +10867,18 @@ fn ___reduce47<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarWhereClause> ",")+ = GrammarWhereClause, "," => ActionFn(372);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant20(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action372::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant21(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 29)
 }
 fn ___reduce48<
@@ -10354,19 +10886,19 @@ fn ___reduce48<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<GrammarWhereClause> ",")+ = (<GrammarWhereClause> ",")+, GrammarWhereClause, "," => ActionFn(373);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant20(___symbols);
-let ___sym0 = ___pop_Variant21(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant21(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action373::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant21(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 29)
 }
 fn ___reduce49<
@@ -10374,18 +10906,18 @@ fn ___reduce49<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Id> "::") = Id, "::" => ActionFn(142);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action142::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 30)
 }
 fn ___reduce50<
@@ -10393,15 +10925,15 @@ fn ___reduce50<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Id> "::")* =  => ActionFn(140);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action140::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant23(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 31)
 }
 fn ___reduce51<
@@ -10409,16 +10941,16 @@ fn ___reduce51<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Id> "::")* = (<Id> "::")+ => ActionFn(141);
-let ___sym0 = ___pop_Variant23(___symbols);
+let ___sym0 = ___pop_Variant23(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action141::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant23(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 31)
 }
 fn ___reduce52<
@@ -10426,18 +10958,18 @@ fn ___reduce52<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Id> "::")+ = Id, "::" => ActionFn(376);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action376::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant23(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 32)
 }
 fn ___reduce53<
@@ -10445,19 +10977,19 @@ fn ___reduce53<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Id> "::")+ = (<Id> "::")+, Id, "::" => ActionFn(377);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant23(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant23(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action377::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant23(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 32)
 }
 fn ___reduce54<
@@ -10465,18 +10997,18 @@ fn ___reduce54<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Lifetime> "+") = Lifetime, "+" => ActionFn(225);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action225::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant24(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 33)
 }
 fn ___reduce55<
@@ -10484,15 +11016,15 @@ fn ___reduce55<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Lifetime> "+")* =  => ActionFn(223);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action223::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant25(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 34)
 }
 fn ___reduce56<
@@ -10500,16 +11032,16 @@ fn ___reduce56<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Lifetime> "+")* = (<Lifetime> "+")+ => ActionFn(224);
-let ___sym0 = ___pop_Variant25(___symbols);
+let ___sym0 = ___pop_Variant25(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action224::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant25(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 34)
 }
 fn ___reduce57<
@@ -10517,18 +11049,18 @@ fn ___reduce57<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Lifetime> "+")+ = Lifetime, "+" => ActionFn(382);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action382::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant25(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 35)
 }
 fn ___reduce58<
@@ -10536,19 +11068,19 @@ fn ___reduce58<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Lifetime> "+")+ = (<Lifetime> "+")+, Lifetime, "+" => ActionFn(383);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant24(___symbols);
-let ___sym0 = ___pop_Variant25(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant25(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action383::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant25(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 35)
 }
 fn ___reduce59<
@@ -10556,18 +11088,18 @@ fn ___reduce59<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<MatchItem> ",") = MatchItem, "," => ActionFn(279);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant26(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action279::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant26(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 36)
 }
 fn ___reduce60<
@@ -10575,15 +11107,15 @@ fn ___reduce60<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<MatchItem> ",")* =  => ActionFn(277);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action277::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant27(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 37)
 }
 fn ___reduce61<
@@ -10591,16 +11123,16 @@ fn ___reduce61<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<MatchItem> ",")* = (<MatchItem> ",")+ => ActionFn(278);
-let ___sym0 = ___pop_Variant27(___symbols);
+let ___sym0 = ___pop_Variant27(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action278::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant27(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 37)
 }
 fn ___reduce62<
@@ -10608,18 +11140,18 @@ fn ___reduce62<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<MatchItem> ",")+ = MatchItem, "," => ActionFn(386);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant26(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action386::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant27(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 38)
 }
 fn ___reduce63<
@@ -10627,19 +11159,19 @@ fn ___reduce63<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<MatchItem> ",")+ = (<MatchItem> ",")+, MatchItem, "," => ActionFn(387);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant26(___symbols);
-let ___sym0 = ___pop_Variant27(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant27(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action387::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant27(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 38)
 }
 fn ___reduce64<
@@ -10647,18 +11179,18 @@ fn ___reduce64<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<NotMacroId> ",") = NotMacroId, "," => ActionFn(255);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action255::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant28(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 39)
 }
 fn ___reduce65<
@@ -10666,15 +11198,15 @@ fn ___reduce65<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<NotMacroId> ",")* =  => ActionFn(253);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action253::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant29(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 40)
 }
 fn ___reduce66<
@@ -10682,16 +11214,16 @@ fn ___reduce66<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<NotMacroId> ",")* = (<NotMacroId> ",")+ => ActionFn(254);
-let ___sym0 = ___pop_Variant29(___symbols);
+let ___sym0 = ___pop_Variant29(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action254::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant29(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 40)
 }
 fn ___reduce67<
@@ -10699,18 +11231,18 @@ fn ___reduce67<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<NotMacroId> ",")+ = NotMacroId, "," => ActionFn(390);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action390::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant29(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 41)
 }
 fn ___reduce68<
@@ -10718,19 +11250,19 @@ fn ___reduce68<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<NotMacroId> ",")+ = (<NotMacroId> ",")+, NotMacroId, "," => ActionFn(391);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant28(___symbols);
-let ___sym0 = ___pop_Variant29(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant29(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action391::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant29(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 41)
 }
 fn ___reduce69<
@@ -10738,18 +11270,18 @@ fn ___reduce69<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Pattern> ",") = Pattern, "," => ActionFn(289);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant30(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action289::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant30(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 42)
 }
 fn ___reduce70<
@@ -10757,15 +11289,15 @@ fn ___reduce70<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Pattern> ",")* =  => ActionFn(287);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action287::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant31(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 43)
 }
 fn ___reduce71<
@@ -10773,16 +11305,16 @@ fn ___reduce71<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Pattern> ",")* = (<Pattern> ",")+ => ActionFn(288);
-let ___sym0 = ___pop_Variant31(___symbols);
+let ___sym0 = ___pop_Variant31(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action288::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant31(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 43)
 }
 fn ___reduce72<
@@ -10790,18 +11322,18 @@ fn ___reduce72<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Pattern> ",")+ = Pattern, "," => ActionFn(394);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant30(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action394::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant31(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 44)
 }
 fn ___reduce73<
@@ -10809,19 +11341,19 @@ fn ___reduce73<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Pattern> ",")+ = (<Pattern> ",")+, Pattern, "," => ActionFn(395);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant30(___symbols);
-let ___sym0 = ___pop_Variant31(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant31(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action395::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant31(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 44)
 }
 fn ___reduce74<
@@ -10829,18 +11361,18 @@ fn ___reduce74<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Symbol> ",") = Symbol, "," => ActionFn(265);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action265::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 45)
 }
 fn ___reduce75<
@@ -10848,15 +11380,15 @@ fn ___reduce75<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Symbol> ",")* =  => ActionFn(263);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action263::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 46)
 }
 fn ___reduce76<
@@ -10864,16 +11396,16 @@ fn ___reduce76<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Symbol> ",")* = (<Symbol> ",")+ => ActionFn(264);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action264::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 46)
 }
 fn ___reduce77<
@@ -10881,18 +11413,18 @@ fn ___reduce77<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Symbol> ",")+ = Symbol, "," => ActionFn(398);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action398::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 47)
 }
 fn ___reduce78<
@@ -10900,19 +11432,19 @@ fn ___reduce78<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<Symbol> ",")+ = (<Symbol> ",")+, Symbol, "," => ActionFn(399);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant32(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action399::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 47)
 }
 fn ___reduce79<
@@ -10920,18 +11452,18 @@ fn ___reduce79<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TupleItem> ",") = TupleItem, "," => ActionFn(152);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant34(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant34(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action152::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant34(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 48)
 }
 fn ___reduce80<
@@ -10939,18 +11471,18 @@ fn ___reduce80<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TupleItem> ",")+ = TupleItem, "," => ActionFn(402);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant34(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant34(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action402::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant35(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 49)
 }
 fn ___reduce81<
@@ -10958,19 +11490,19 @@ fn ___reduce81<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TupleItem> ",")+ = (<TupleItem> ",")+, TupleItem, "," => ActionFn(403);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant34(___symbols);
-let ___sym0 = ___pop_Variant35(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant34(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant35(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action403::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant35(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 49)
 }
 fn ___reduce82<
@@ -10978,18 +11510,18 @@ fn ___reduce82<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBound> "+") = TypeBound, "+" => ActionFn(230);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant36(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action230::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 50)
 }
 fn ___reduce83<
@@ -10997,15 +11529,15 @@ fn ___reduce83<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBound> "+")* =  => ActionFn(228);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action228::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant37(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 51)
 }
 fn ___reduce84<
@@ -11013,16 +11545,16 @@ fn ___reduce84<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBound> "+")* = (<TypeBound> "+")+ => ActionFn(229);
-let ___sym0 = ___pop_Variant37(___symbols);
+let ___sym0 = ___pop_Variant37(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action229::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant37(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 51)
 }
 fn ___reduce85<
@@ -11030,18 +11562,18 @@ fn ___reduce85<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBound> "+")+ = TypeBound, "+" => ActionFn(404);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant36(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action404::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant37(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 52)
 }
 fn ___reduce86<
@@ -11049,19 +11581,19 @@ fn ___reduce86<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBound> "+")+ = (<TypeBound> "+")+, TypeBound, "+" => ActionFn(405);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant36(___symbols);
-let ___sym0 = ___pop_Variant37(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant37(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action405::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant37(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 52)
 }
 fn ___reduce87<
@@ -11069,18 +11601,18 @@ fn ___reduce87<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBoundParameter> ",") = TypeBoundParameter, "," => ActionFn(240);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant38(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action240::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant38(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 53)
 }
 fn ___reduce88<
@@ -11088,15 +11620,15 @@ fn ___reduce88<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBoundParameter> ",")* =  => ActionFn(238);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action238::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant39(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 54)
 }
 fn ___reduce89<
@@ -11104,16 +11636,16 @@ fn ___reduce89<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBoundParameter> ",")* = (<TypeBoundParameter> ",")+ => ActionFn(239);
-let ___sym0 = ___pop_Variant39(___symbols);
+let ___sym0 = ___pop_Variant39(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action239::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant39(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 54)
 }
 fn ___reduce90<
@@ -11121,18 +11653,18 @@ fn ___reduce90<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBoundParameter> ",")+ = TypeBoundParameter, "," => ActionFn(408);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant38(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action408::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant39(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 55)
 }
 fn ___reduce91<
@@ -11140,19 +11672,19 @@ fn ___reduce91<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeBoundParameter> ",")+ = (<TypeBoundParameter> ",")+, TypeBoundParameter, "," => ActionFn(409);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant38(___symbols);
-let ___sym0 = ___pop_Variant39(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant39(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action409::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant39(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 55)
 }
 fn ___reduce92<
@@ -11160,18 +11692,18 @@ fn ___reduce92<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeParameter> ",") = TypeParameter, "," => ActionFn(217);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant40(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action217::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant40(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 56)
 }
 fn ___reduce93<
@@ -11179,15 +11711,15 @@ fn ___reduce93<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeParameter> ",")* =  => ActionFn(215);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action215::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant41(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 57)
 }
 fn ___reduce94<
@@ -11195,16 +11727,16 @@ fn ___reduce94<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeParameter> ",")* = (<TypeParameter> ",")+ => ActionFn(216);
-let ___sym0 = ___pop_Variant41(___symbols);
+let ___sym0 = ___pop_Variant41(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action216::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant41(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 57)
 }
 fn ___reduce95<
@@ -11212,18 +11744,18 @@ fn ___reduce95<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeParameter> ",")+ = TypeParameter, "," => ActionFn(412);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant40(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action412::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant41(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 58)
 }
 fn ___reduce96<
@@ -11231,19 +11763,19 @@ fn ___reduce96<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeParameter> ",")+ = (<TypeParameter> ",")+, TypeParameter, "," => ActionFn(413);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant40(___symbols);
-let ___sym0 = ___pop_Variant41(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant41(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action413::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant41(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 58)
 }
 fn ___reduce97<
@@ -11251,18 +11783,18 @@ fn ___reduce97<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRef> ",") = TypeRef, "," => ActionFn(235);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action235::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 59)
 }
 fn ___reduce98<
@@ -11270,15 +11802,15 @@ fn ___reduce98<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRef> ",")* =  => ActionFn(233);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action233::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 60)
 }
 fn ___reduce99<
@@ -11286,16 +11818,16 @@ fn ___reduce99<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRef> ",")* = (<TypeRef> ",")+ => ActionFn(234);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action234::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 60)
 }
 fn ___reduce100<
@@ -11303,18 +11835,18 @@ fn ___reduce100<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRef> ",")+ = TypeRef, "," => ActionFn(416);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action416::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 61)
 }
 fn ___reduce101<
@@ -11322,19 +11854,19 @@ fn ___reduce101<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRef> ",")+ = (<TypeRef> ",")+, TypeRef, "," => ActionFn(417);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action417::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 61)
 }
 fn ___reduce102<
@@ -11342,18 +11874,18 @@ fn ___reduce102<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRefOrLifetime> ",") = TypeRefOrLifetime, "," => ActionFn(270);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action270::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 62)
 }
 fn ___reduce103<
@@ -11361,15 +11893,15 @@ fn ___reduce103<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRefOrLifetime> ",")* =  => ActionFn(268);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action268::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 63)
 }
 fn ___reduce104<
@@ -11377,16 +11909,16 @@ fn ___reduce104<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRefOrLifetime> ",")* = (<TypeRefOrLifetime> ",")+ => ActionFn(269);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action269::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 63)
 }
 fn ___reduce105<
@@ -11394,18 +11926,18 @@ fn ___reduce105<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRefOrLifetime> ",")+ = TypeRefOrLifetime, "," => ActionFn(420);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action420::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 64)
 }
 fn ___reduce106<
@@ -11413,19 +11945,19 @@ fn ___reduce106<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // (<TypeRefOrLifetime> ",")+ = (<TypeRefOrLifetime> ",")+, TypeRefOrLifetime, "," => ActionFn(421);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action421::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant42(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 64)
 }
 fn ___reduce107<
@@ -11433,15 +11965,15 @@ fn ___reduce107<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // @L =  => ActionFn(198);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action198::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant43(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 65)
 }
 fn ___reduce108<
@@ -11449,15 +11981,15 @@ fn ___reduce108<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // @R =  => ActionFn(197);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action197::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant43(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 66)
 }
 fn ___reduce109<
@@ -11465,16 +11997,16 @@ fn ___reduce109<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action = "=>@L" => ActionFn(45);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action45::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant44(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 67)
 }
 fn ___reduce110<
@@ -11482,16 +12014,16 @@ fn ___reduce110<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action = "=>@R" => ActionFn(46);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action46::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant44(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 67)
 }
 fn ___reduce111<
@@ -11499,16 +12031,16 @@ fn ___reduce111<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action = "=>" => ActionFn(47);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action47::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant44(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 67)
 }
 fn ___reduce112<
@@ -11516,16 +12048,16 @@ fn ___reduce112<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action = "=>?" => ActionFn(48);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action48::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant44(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 67)
 }
 fn ___reduce113<
@@ -11533,16 +12065,16 @@ fn ___reduce113<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action? = Action => ActionFn(158);
-let ___sym0 = ___pop_Variant44(___symbols);
+let ___sym0 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action158::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant45(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 68)
 }
 fn ___reduce114<
@@ -11550,15 +12082,15 @@ fn ___reduce114<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Action? =  => ActionFn(159);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action159::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant45(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 68)
 }
 fn ___reduce115<
@@ -11566,20 +12098,20 @@ fn ___reduce115<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Symbol+, "if", Cond, Action => ActionFn(493);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant44(___symbols);
-let ___sym2 = ___pop_Variant7(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym3 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action493::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 69)
 }
 fn ___reduce116<
@@ -11587,21 +12119,21 @@ fn ___reduce116<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Attribute+, Symbol+, "if", Cond, Action => ActionFn(494);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant44(___symbols);
-let ___sym3 = ___pop_Variant7(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant33(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action494::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 69)
 }
 fn ___reduce117<
@@ -11609,19 +12141,19 @@ fn ___reduce117<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Symbol+, "if", Cond => ActionFn(495);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant7(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym2 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action495::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 69)
 }
 fn ___reduce118<
@@ -11629,20 +12161,20 @@ fn ___reduce118<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Attribute+, Symbol+, "if", Cond => ActionFn(496);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant7(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant33(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym3 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action496::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 69)
 }
 fn ___reduce119<
@@ -11650,18 +12182,18 @@ fn ___reduce119<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Symbol+, Action => ActionFn(497);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant44(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym1 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action497::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 69)
 }
 fn ___reduce120<
@@ -11669,19 +12201,19 @@ fn ___reduce120<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Attribute+, Symbol+, Action => ActionFn(498);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant44(___symbols);
-let ___sym1 = ___pop_Variant33(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym2 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action498::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 69)
 }
 fn ___reduce121<
@@ -11689,16 +12221,16 @@ fn ___reduce121<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Symbol+ => ActionFn(499);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action499::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 69)
 }
 fn ___reduce122<
@@ -11706,18 +12238,18 @@ fn ___reduce122<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Attribute+, Symbol+ => ActionFn(500);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant33(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym1 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action500::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 69)
 }
 fn ___reduce123<
@@ -11725,19 +12257,19 @@ fn ___reduce123<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = "if", Cond, Action => ActionFn(454);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant44(___symbols);
-let ___sym1 = ___pop_Variant7(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant7(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action454::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 69)
 }
 fn ___reduce124<
@@ -11745,16 +12277,16 @@ fn ___reduce124<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative = Action => ActionFn(455);
-let ___sym0 = ___pop_Variant44(___symbols);
+let ___sym0 = ___pop_Variant44(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action455::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant10(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 69)
 }
 fn ___reduce125<
@@ -11762,16 +12294,16 @@ fn ___reduce125<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative? = Alternative => ActionFn(256);
-let ___sym0 = ___pop_Variant10(___symbols);
+let ___sym0 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action256::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant46(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 70)
 }
 fn ___reduce126<
@@ -11779,15 +12311,15 @@ fn ___reduce126<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternative? =  => ActionFn(257);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action257::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant46(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 70)
 }
 fn ___reduce127<
@@ -11795,18 +12327,18 @@ fn ___reduce127<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternatives = Alternative, ";" => ActionFn(41);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant10(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action41::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 71)
 }
 fn ___reduce128<
@@ -11814,20 +12346,20 @@ fn ___reduce128<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternatives = "{", Comma<Alternative>, "}", ";" => ActionFn(324);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant47(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action324::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 71)
 }
 fn ___reduce129<
@@ -11835,19 +12367,19 @@ fn ___reduce129<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Alternatives = "{", Comma<Alternative>, "}" => ActionFn(325);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant47(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action325::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 71)
 }
 fn ___reduce130<
@@ -11855,21 +12387,21 @@ fn ___reduce130<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AssociatedType = "type", Id, "=", TypeRef, ";" => ActionFn(456);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant3(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action456::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant48(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 72)
 }
 fn ___reduce131<
@@ -11877,15 +12409,15 @@ fn ___reduce131<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AssociatedType* =  => ActionFn(138);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action138::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant49(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 73)
 }
 fn ___reduce132<
@@ -11893,16 +12425,16 @@ fn ___reduce132<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AssociatedType* = AssociatedType+ => ActionFn(139);
-let ___sym0 = ___pop_Variant49(___symbols);
+let ___sym0 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action139::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant49(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 73)
 }
 fn ___reduce133<
@@ -11910,16 +12442,16 @@ fn ___reduce133<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AssociatedType+ = AssociatedType => ActionFn(273);
-let ___sym0 = ___pop_Variant48(___symbols);
+let ___sym0 = ___pop_Variant48(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action273::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant49(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 74)
 }
 fn ___reduce134<
@@ -11927,18 +12459,18 @@ fn ___reduce134<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AssociatedType+ = AssociatedType+, AssociatedType => ActionFn(274);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant48(___symbols);
-let ___sym0 = ___pop_Variant49(___symbols);
+let ___sym1 = ___pop_Variant48(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action274::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant49(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 74)
 }
 fn ___reduce135<
@@ -11946,20 +12478,20 @@ fn ___reduce135<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Attribute = "#", "[", AttributeInner, "]" => ActionFn(34);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant12(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action34::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant12(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 75)
 }
 fn ___reduce136<
@@ -11967,15 +12499,15 @@ fn ___reduce136<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Attribute* =  => ActionFn(199);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action199::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 76)
 }
 fn ___reduce137<
@@ -11983,16 +12515,16 @@ fn ___reduce137<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Attribute* = Attribute+ => ActionFn(200);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action200::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 76)
 }
 fn ___reduce138<
@@ -12000,16 +12532,16 @@ fn ___reduce138<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Attribute+ = Attribute => ActionFn(209);
-let ___sym0 = ___pop_Variant12(___symbols);
+let ___sym0 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action209::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 77)
 }
 fn ___reduce139<
@@ -12017,18 +12549,18 @@ fn ___reduce139<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Attribute+ = Attribute+, Attribute => ActionFn(210);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant12(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym1 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action210::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant13(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 77)
 }
 fn ___reduce140<
@@ -12036,19 +12568,19 @@ fn ___reduce140<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeArg = "(", Comma<AttributeInner>, ")" => ActionFn(36);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant53(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant53(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action36::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant50(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 78)
 }
 fn ___reduce141<
@@ -12056,18 +12588,18 @@ fn ___reduce141<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeArg = "=", "StringLiteral" => ActionFn(37);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant1(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action37::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant50(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 78)
 }
 fn ___reduce142<
@@ -12075,16 +12607,16 @@ fn ___reduce142<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeArg? = AttributeArg => ActionFn(170);
-let ___sym0 = ___pop_Variant50(___symbols);
+let ___sym0 = ___pop_Variant50(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action170::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant51(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 79)
 }
 fn ___reduce143<
@@ -12092,15 +12624,15 @@ fn ___reduce143<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeArg? =  => ActionFn(171);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action171::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant51(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 79)
 }
 fn ___reduce144<
@@ -12108,18 +12640,18 @@ fn ___reduce144<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeInner = Id, AttributeArg => ActionFn(509);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant50(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym1 = ___pop_Variant50(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action509::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant12(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 80)
 }
 fn ___reduce145<
@@ -12127,16 +12659,16 @@ fn ___reduce145<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeInner = Id => ActionFn(510);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action510::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant12(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 80)
 }
 fn ___reduce146<
@@ -12144,16 +12676,16 @@ fn ___reduce146<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeInner? = AttributeInner => ActionFn(246);
-let ___sym0 = ___pop_Variant12(___symbols);
+let ___sym0 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action246::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant52(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 81)
 }
 fn ___reduce147<
@@ -12161,15 +12693,15 @@ fn ___reduce147<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // AttributeInner? =  => ActionFn(247);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action247::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant52(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 81)
 }
 fn ___reduce148<
@@ -12177,16 +12709,16 @@ fn ___reduce148<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Alternative> = Alternative => ActionFn(483);
-let ___sym0 = ___pop_Variant10(___symbols);
+let ___sym0 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action483::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 82)
 }
 fn ___reduce149<
@@ -12194,15 +12726,15 @@ fn ___reduce149<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Alternative> =  => ActionFn(484);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action484::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 82)
 }
 fn ___reduce150<
@@ -12210,18 +12742,18 @@ fn ___reduce150<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Alternative> = (<Alternative> ",")+, Alternative => ActionFn(485);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant10(___symbols);
-let ___sym0 = ___pop_Variant11(___symbols);
+let ___sym1 = ___pop_Variant10(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant11(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action485::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 82)
 }
 fn ___reduce151<
@@ -12229,16 +12761,16 @@ fn ___reduce151<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Alternative> = (<Alternative> ",")+ => ActionFn(486);
-let ___sym0 = ___pop_Variant11(___symbols);
+let ___sym0 = ___pop_Variant11(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action486::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant47(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 82)
 }
 fn ___reduce152<
@@ -12246,16 +12778,16 @@ fn ___reduce152<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<AttributeInner> = AttributeInner => ActionFn(511);
-let ___sym0 = ___pop_Variant12(___symbols);
+let ___sym0 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action511::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant53(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 83)
 }
 fn ___reduce153<
@@ -12263,15 +12795,15 @@ fn ___reduce153<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<AttributeInner> =  => ActionFn(512);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action512::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant53(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 83)
 }
 fn ___reduce154<
@@ -12279,18 +12811,18 @@ fn ___reduce154<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<AttributeInner> = (<AttributeInner> ",")+, AttributeInner => ActionFn(513);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant12(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym1 = ___pop_Variant12(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action513::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant53(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 83)
 }
 fn ___reduce155<
@@ -12298,16 +12830,16 @@ fn ___reduce155<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<AttributeInner> = (<AttributeInner> ",")+ => ActionFn(514);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action514::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant53(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 83)
 }
 fn ___reduce156<
@@ -12315,16 +12847,16 @@ fn ___reduce156<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Conversion> = Conversion => ActionFn(515);
-let ___sym0 = ___pop_Variant14(___symbols);
+let ___sym0 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action515::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant54(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 84)
 }
 fn ___reduce157<
@@ -12332,15 +12864,15 @@ fn ___reduce157<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Conversion> =  => ActionFn(516);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action516::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant54(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 84)
 }
 fn ___reduce158<
@@ -12348,18 +12880,18 @@ fn ___reduce158<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Conversion> = (<Conversion> ",")+, Conversion => ActionFn(517);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant14(___symbols);
-let ___sym0 = ___pop_Variant15(___symbols);
+let ___sym1 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant15(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action517::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant54(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 84)
 }
 fn ___reduce159<
@@ -12367,16 +12899,16 @@ fn ___reduce159<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Conversion> = (<Conversion> ",")+ => ActionFn(518);
-let ___sym0 = ___pop_Variant15(___symbols);
+let ___sym0 = ___pop_Variant15(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action518::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant54(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 84)
 }
 fn ___reduce160<
@@ -12384,16 +12916,16 @@ fn ___reduce160<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarParameter> = GrammarParameter => ActionFn(541);
-let ___sym0 = ___pop_Variant18(___symbols);
+let ___sym0 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action541::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant55(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 85)
 }
 fn ___reduce161<
@@ -12401,15 +12933,15 @@ fn ___reduce161<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarParameter> =  => ActionFn(542);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action542::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant55(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 85)
 }
 fn ___reduce162<
@@ -12417,18 +12949,18 @@ fn ___reduce162<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarParameter> = (<GrammarParameter> ",")+, GrammarParameter => ActionFn(543);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant18(___symbols);
-let ___sym0 = ___pop_Variant19(___symbols);
+let ___sym1 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant19(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action543::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant55(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 85)
 }
 fn ___reduce163<
@@ -12436,16 +12968,16 @@ fn ___reduce163<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarParameter> = (<GrammarParameter> ",")+ => ActionFn(544);
-let ___sym0 = ___pop_Variant19(___symbols);
+let ___sym0 = ___pop_Variant19(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action544::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant55(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 85)
 }
 fn ___reduce164<
@@ -12453,16 +12985,16 @@ fn ___reduce164<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarWhereClause> = GrammarWhereClause => ActionFn(569);
-let ___sym0 = ___pop_Variant20(___symbols);
+let ___sym0 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action569::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant56(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 86)
 }
 fn ___reduce165<
@@ -12470,15 +13002,15 @@ fn ___reduce165<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarWhereClause> =  => ActionFn(570);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action570::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant56(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 86)
 }
 fn ___reduce166<
@@ -12486,18 +13018,18 @@ fn ___reduce166<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarWhereClause> = (<GrammarWhereClause> ",")+, GrammarWhereClause => ActionFn(571);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant20(___symbols);
-let ___sym0 = ___pop_Variant21(___symbols);
+let ___sym1 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant21(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action571::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant56(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 86)
 }
 fn ___reduce167<
@@ -12505,16 +13037,16 @@ fn ___reduce167<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<GrammarWhereClause> = (<GrammarWhereClause> ",")+ => ActionFn(572);
-let ___sym0 = ___pop_Variant21(___symbols);
+let ___sym0 = ___pop_Variant21(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action572::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant56(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 86)
 }
 fn ___reduce168<
@@ -12522,16 +13054,16 @@ fn ___reduce168<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<MatchItem> = MatchItem => ActionFn(613);
-let ___sym0 = ___pop_Variant26(___symbols);
+let ___sym0 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action613::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant57(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 87)
 }
 fn ___reduce169<
@@ -12539,15 +13071,15 @@ fn ___reduce169<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<MatchItem> =  => ActionFn(614);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action614::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant57(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 87)
 }
 fn ___reduce170<
@@ -12555,18 +13087,18 @@ fn ___reduce170<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<MatchItem> = (<MatchItem> ",")+, MatchItem => ActionFn(615);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant26(___symbols);
-let ___sym0 = ___pop_Variant27(___symbols);
+let ___sym1 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant27(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action615::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant57(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 87)
 }
 fn ___reduce171<
@@ -12574,16 +13106,16 @@ fn ___reduce171<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<MatchItem> = (<MatchItem> ",")+ => ActionFn(616);
-let ___sym0 = ___pop_Variant27(___symbols);
+let ___sym0 = ___pop_Variant27(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action616::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant57(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 87)
 }
 fn ___reduce172<
@@ -12591,16 +13123,16 @@ fn ___reduce172<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<NotMacroId> = NotMacroId => ActionFn(617);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action617::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant58(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 88)
 }
 fn ___reduce173<
@@ -12608,15 +13140,15 @@ fn ___reduce173<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<NotMacroId> =  => ActionFn(618);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action618::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant58(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 88)
 }
 fn ___reduce174<
@@ -12624,18 +13156,18 @@ fn ___reduce174<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<NotMacroId> = (<NotMacroId> ",")+, NotMacroId => ActionFn(619);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant28(___symbols);
-let ___sym0 = ___pop_Variant29(___symbols);
+let ___sym1 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant29(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action619::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant58(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 88)
 }
 fn ___reduce175<
@@ -12643,16 +13175,16 @@ fn ___reduce175<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<NotMacroId> = (<NotMacroId> ",")+ => ActionFn(620);
-let ___sym0 = ___pop_Variant29(___symbols);
+let ___sym0 = ___pop_Variant29(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action620::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant58(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 88)
 }
 fn ___reduce176<
@@ -12660,16 +13192,16 @@ fn ___reduce176<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Pattern> = Pattern => ActionFn(621);
-let ___sym0 = ___pop_Variant30(___symbols);
+let ___sym0 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action621::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant59(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 89)
 }
 fn ___reduce177<
@@ -12677,15 +13209,15 @@ fn ___reduce177<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Pattern> =  => ActionFn(622);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action622::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant59(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 89)
 }
 fn ___reduce178<
@@ -12693,18 +13225,18 @@ fn ___reduce178<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Pattern> = (<Pattern> ",")+, Pattern => ActionFn(623);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant30(___symbols);
-let ___sym0 = ___pop_Variant31(___symbols);
+let ___sym1 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant31(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action623::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant59(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 89)
 }
 fn ___reduce179<
@@ -12712,16 +13244,16 @@ fn ___reduce179<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Pattern> = (<Pattern> ",")+ => ActionFn(624);
-let ___sym0 = ___pop_Variant31(___symbols);
+let ___sym0 = ___pop_Variant31(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action624::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant59(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 89)
 }
 fn ___reduce180<
@@ -12729,16 +13261,16 @@ fn ___reduce180<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Symbol> = Symbol => ActionFn(691);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action691::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant60(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 90)
 }
 fn ___reduce181<
@@ -12746,15 +13278,15 @@ fn ___reduce181<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Symbol> =  => ActionFn(692);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action692::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant60(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 90)
 }
 fn ___reduce182<
@@ -12762,18 +13294,18 @@ fn ___reduce182<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Symbol> = (<Symbol> ",")+, Symbol => ActionFn(693);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant32(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym1 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action693::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant60(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 90)
 }
 fn ___reduce183<
@@ -12781,16 +13313,16 @@ fn ___reduce183<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<Symbol> = (<Symbol> ",")+ => ActionFn(694);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action694::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant60(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 90)
 }
 fn ___reduce184<
@@ -12798,16 +13330,16 @@ fn ___reduce184<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeBoundParameter> = TypeBoundParameter => ActionFn(701);
-let ___sym0 = ___pop_Variant38(___symbols);
+let ___sym0 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action701::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant5(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 91)
 }
 fn ___reduce185<
@@ -12815,15 +13347,15 @@ fn ___reduce185<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeBoundParameter> =  => ActionFn(702);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action702::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant5(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 91)
 }
 fn ___reduce186<
@@ -12831,18 +13363,18 @@ fn ___reduce186<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeBoundParameter> = (<TypeBoundParameter> ",")+, TypeBoundParameter => ActionFn(703);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant38(___symbols);
-let ___sym0 = ___pop_Variant39(___symbols);
+let ___sym1 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant39(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action703::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant5(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 91)
 }
 fn ___reduce187<
@@ -12850,16 +13382,16 @@ fn ___reduce187<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeBoundParameter> = (<TypeBoundParameter> ",")+ => ActionFn(704);
-let ___sym0 = ___pop_Variant39(___symbols);
+let ___sym0 = ___pop_Variant39(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action704::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant5(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 91)
 }
 fn ___reduce188<
@@ -12867,16 +13399,16 @@ fn ___reduce188<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeParameter> = TypeParameter => ActionFn(705);
-let ___sym0 = ___pop_Variant40(___symbols);
+let ___sym0 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action705::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 92)
 }
 fn ___reduce189<
@@ -12884,15 +13416,15 @@ fn ___reduce189<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeParameter> =  => ActionFn(706);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action706::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 92)
 }
 fn ___reduce190<
@@ -12900,18 +13432,18 @@ fn ___reduce190<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeParameter> = (<TypeParameter> ",")+, TypeParameter => ActionFn(707);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant40(___symbols);
-let ___sym0 = ___pop_Variant41(___symbols);
+let ___sym1 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant41(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action707::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 92)
 }
 fn ___reduce191<
@@ -12919,16 +13451,16 @@ fn ___reduce191<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeParameter> = (<TypeParameter> ",")+ => ActionFn(708);
-let ___sym0 = ___pop_Variant41(___symbols);
+let ___sym0 = ___pop_Variant41(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action708::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 92)
 }
 fn ___reduce192<
@@ -12936,16 +13468,16 @@ fn ___reduce192<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRef> = TypeRef => ActionFn(709);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action709::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 93)
 }
 fn ___reduce193<
@@ -12953,15 +13485,15 @@ fn ___reduce193<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRef> =  => ActionFn(710);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action710::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 93)
 }
 fn ___reduce194<
@@ -12969,18 +13501,18 @@ fn ___reduce194<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRef> = (<TypeRef> ",")+, TypeRef => ActionFn(711);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action711::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 93)
 }
 fn ___reduce195<
@@ -12988,16 +13520,16 @@ fn ___reduce195<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRef> = (<TypeRef> ",")+ => ActionFn(712);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action712::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 93)
 }
 fn ___reduce196<
@@ -13005,16 +13537,16 @@ fn ___reduce196<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRefOrLifetime> = TypeRefOrLifetime => ActionFn(713);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action713::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 94)
 }
 fn ___reduce197<
@@ -13022,15 +13554,15 @@ fn ___reduce197<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRefOrLifetime> =  => ActionFn(714);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action714::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 94)
 }
 fn ___reduce198<
@@ -13038,18 +13570,18 @@ fn ___reduce198<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRefOrLifetime> = (<TypeRefOrLifetime> ",")+, TypeRefOrLifetime => ActionFn(715);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action715::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 94)
 }
 fn ___reduce199<
@@ -13057,16 +13589,16 @@ fn ___reduce199<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Comma<TypeRefOrLifetime> = (<TypeRefOrLifetime> ",")+ => ActionFn(716);
-let ___sym0 = ___pop_Variant42(___symbols);
+let ___sym0 = ___pop_Variant42(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action716::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant62(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 94)
 }
 fn ___reduce200<
@@ -13074,19 +13606,19 @@ fn ___reduce200<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Cond = NotMacroId, CondOp, StringLiteral => ActionFn(458);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant22(___symbols);
-let ___sym1 = ___pop_Variant63(___symbols);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym2 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant63(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action458::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant7(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 95)
 }
 fn ___reduce201<
@@ -13094,16 +13626,16 @@ fn ___reduce201<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // CondOp = "==" => ActionFn(50);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action50::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant63(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 96)
 }
 fn ___reduce202<
@@ -13111,16 +13643,16 @@ fn ___reduce202<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // CondOp = "!=" => ActionFn(51);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action51::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant63(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 96)
 }
 fn ___reduce203<
@@ -13128,16 +13660,16 @@ fn ___reduce203<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // CondOp = "~~" => ActionFn(52);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action52::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant63(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 96)
 }
 fn ___reduce204<
@@ -13145,16 +13677,16 @@ fn ___reduce204<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // CondOp = "!~" => ActionFn(53);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action53::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant63(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 96)
 }
 fn ___reduce207<
@@ -13162,16 +13694,16 @@ fn ___reduce207<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Conversion? = Conversion => ActionFn(280);
-let ___sym0 = ___pop_Variant14(___symbols);
+let ___sym0 = ___pop_Variant14(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action280::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant64(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 98)
 }
 fn ___reduce208<
@@ -13179,15 +13711,15 @@ fn ___reduce208<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Conversion? =  => ActionFn(281);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action281::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant64(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 98)
 }
 fn ___reduce209<
@@ -13195,21 +13727,21 @@ fn ___reduce209<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // EnumToken = "enum", TypeRef, "{", Comma<Conversion>, "}" => ActionFn(460);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant54(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant54(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action460::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant65(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 99)
 }
 fn ___reduce210<
@@ -13217,16 +13749,16 @@ fn ___reduce210<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Escape = "Escape" => ActionFn(119);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action119::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 100)
 }
 fn ___reduce211<
@@ -13234,15 +13766,15 @@ fn ___reduce211<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExprSymbol =  => ActionFn(689);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action689::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant66(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 101)
 }
 fn ___reduce212<
@@ -13250,16 +13782,16 @@ fn ___reduce212<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExprSymbol = Symbol+ => ActionFn(690);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action690::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant66(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 101)
 }
 fn ___reduce213<
@@ -13267,20 +13799,20 @@ fn ___reduce213<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", EnumToken, "}" => ActionFn(487);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant65(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant65(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action487::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 102)
 }
 fn ___reduce214<
@@ -13288,21 +13820,21 @@ fn ___reduce214<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", EnumToken, AssociatedType+, "}" => ActionFn(488);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant49(___symbols);
-let ___sym2 = ___pop_Variant65(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant65(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action488::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 102)
 }
 fn ___reduce215<
@@ -13310,21 +13842,21 @@ fn ___reduce215<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", AssociatedType+, EnumToken, "}" => ActionFn(489);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant65(___symbols);
-let ___sym2 = ___pop_Variant49(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant65(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action489::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 102)
 }
 fn ___reduce216<
@@ -13332,22 +13864,22 @@ fn ___reduce216<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", AssociatedType+, EnumToken, AssociatedType+, "}" => ActionFn(490);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant49(___symbols);
-let ___sym3 = ___pop_Variant65(___symbols);
-let ___sym2 = ___pop_Variant49(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant65(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action490::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 102)
 }
 fn ___reduce217<
@@ -13355,19 +13887,19 @@ fn ___reduce217<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", "}" => ActionFn(491);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action491::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 102)
 }
 fn ___reduce218<
@@ -13375,20 +13907,20 @@ fn ___reduce218<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ExternToken = "extern", "{", AssociatedType+, "}" => ActionFn(492);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant49(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant49(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action492::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 102)
 }
 fn ___reduce219<
@@ -13396,19 +13928,19 @@ fn ___reduce219<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // FieldPattern = Id, ":", Pattern => ActionFn(463);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant30(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym2 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action463::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant16(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 103)
 }
 fn ___reduce220<
@@ -13416,16 +13948,16 @@ fn ___reduce220<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // FieldPattern? = FieldPattern => ActionFn(130);
-let ___sym0 = ___pop_Variant16(___symbols);
+let ___sym0 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action130::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant68(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 104)
 }
 fn ___reduce221<
@@ -13433,15 +13965,15 @@ fn ___reduce221<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // FieldPattern? =  => ActionFn(131);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action131::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant68(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 104)
 }
 fn ___reduce222<
@@ -13449,20 +13981,20 @@ fn ___reduce222<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ForAll = "for", "<", Comma<TypeParameter>, ">" => ActionFn(13);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action13::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 105)
 }
 fn ___reduce223<
@@ -13470,15 +14002,15 @@ fn ___reduce223<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ForAll =  => ActionFn(348);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action348::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 105)
 }
 fn ___reduce224<
@@ -13486,21 +14018,21 @@ fn ___reduce224<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(717);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action717::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce225<
@@ -13508,22 +14040,22 @@ fn ___reduce225<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(718);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action718::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce226<
@@ -13531,22 +14063,22 @@ fn ___reduce226<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(719);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action719::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce227<
@@ -13554,23 +14086,23 @@ fn ___reduce227<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(720);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action720::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce228<
@@ -13578,20 +14110,20 @@ fn ___reduce228<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(721);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action721::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce229<
@@ -13599,21 +14131,21 @@ fn ___reduce229<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(722);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action722::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce230<
@@ -13621,21 +14153,21 @@ fn ___reduce230<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(723);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action723::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce231<
@@ -13643,22 +14175,22 @@ fn ___reduce231<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(724);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action724::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce232<
@@ -13666,20 +14198,20 @@ fn ___reduce232<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(725);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant55(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action725::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce233<
@@ -13687,21 +14219,21 @@ fn ___reduce233<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(726);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action726::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce234<
@@ -13709,21 +14241,21 @@ fn ___reduce234<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(727);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action727::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce235<
@@ -13731,22 +14263,22 @@ fn ___reduce235<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(728);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action728::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce236<
@@ -13754,19 +14286,19 @@ fn ___reduce236<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarParameters, ";" => ActionFn(729);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant55(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action729::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce237<
@@ -13774,20 +14306,20 @@ fn ___reduce237<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarParameters, ";" => ActionFn(730);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action730::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce238<
@@ -13795,20 +14327,20 @@ fn ___reduce238<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarParameters, ";" => ActionFn(731);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action731::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce239<
@@ -13816,21 +14348,21 @@ fn ___reduce239<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarParameters, ";" => ActionFn(732);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action732::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce240<
@@ -13838,20 +14370,20 @@ fn ___reduce240<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(733);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action733::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce241<
@@ -13859,21 +14391,21 @@ fn ___reduce241<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(734);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action734::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce242<
@@ -13881,21 +14413,21 @@ fn ___reduce242<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(735);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action735::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce243<
@@ -13903,22 +14435,22 @@ fn ___reduce243<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(736);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action736::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce244<
@@ -13926,19 +14458,19 @@ fn ___reduce244<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, ";" => ActionFn(737);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action737::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce245<
@@ -13946,20 +14478,20 @@ fn ___reduce245<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, ";" => ActionFn(738);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action738::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce246<
@@ -13967,20 +14499,20 @@ fn ___reduce246<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, ";" => ActionFn(739);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action739::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce247<
@@ -13988,21 +14520,21 @@ fn ___reduce247<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, ";" => ActionFn(740);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action740::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce248<
@@ -14010,19 +14542,19 @@ fn ___reduce248<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarWhereClauses, ";" => ActionFn(741);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant56(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action741::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce249<
@@ -14030,20 +14562,20 @@ fn ___reduce249<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarWhereClauses, ";" => ActionFn(742);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action742::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce250<
@@ -14051,20 +14583,20 @@ fn ___reduce250<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarWhereClauses, ";" => ActionFn(743);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action743::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce251<
@@ -14072,21 +14604,21 @@ fn ___reduce251<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarWhereClauses, ";" => ActionFn(744);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action744::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce252<
@@ -14094,18 +14626,18 @@ fn ___reduce252<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", ";" => ActionFn(745);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action745::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 106)
 }
 fn ___reduce253<
@@ -14113,19 +14645,19 @@ fn ___reduce253<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", ";" => ActionFn(746);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action746::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce254<
@@ -14133,19 +14665,19 @@ fn ___reduce254<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", ";" => ActionFn(747);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action747::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce255<
@@ -14153,20 +14685,20 @@ fn ___reduce255<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", ";" => ActionFn(748);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action748::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce256<
@@ -14174,22 +14706,22 @@ fn ___reduce256<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(749);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action749::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce257<
@@ -14197,23 +14729,23 @@ fn ___reduce257<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(750);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action750::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce258<
@@ -14221,23 +14753,23 @@ fn ___reduce258<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(751);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action751::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce259<
@@ -14245,24 +14777,24 @@ fn ___reduce259<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(752);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action752::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce260<
@@ -14270,21 +14802,21 @@ fn ___reduce260<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(753);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action753::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce261<
@@ -14292,22 +14824,22 @@ fn ___reduce261<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(754);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action754::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce262<
@@ -14315,22 +14847,22 @@ fn ___reduce262<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(755);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action755::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce263<
@@ -14338,23 +14870,23 @@ fn ___reduce263<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(756);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action756::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce264<
@@ -14362,21 +14894,21 @@ fn ___reduce264<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(757);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant55(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action757::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce265<
@@ -14384,22 +14916,22 @@ fn ___reduce265<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(758);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action758::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce266<
@@ -14407,22 +14939,22 @@ fn ___reduce266<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(759);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action759::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce267<
@@ -14430,23 +14962,23 @@ fn ___reduce267<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(760);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action760::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce268<
@@ -14454,20 +14986,20 @@ fn ___reduce268<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(761);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant55(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action761::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce269<
@@ -14475,21 +15007,21 @@ fn ___reduce269<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(762);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action762::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce270<
@@ -14497,21 +15029,21 @@ fn ___reduce270<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(763);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action763::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce271<
@@ -14519,22 +15051,22 @@ fn ___reduce271<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(764);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action764::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce272<
@@ -14542,21 +15074,21 @@ fn ___reduce272<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(765);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action765::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce273<
@@ -14564,22 +15096,22 @@ fn ___reduce273<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(766);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action766::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce274<
@@ -14587,22 +15119,22 @@ fn ___reduce274<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(767);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action767::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce275<
@@ -14610,23 +15142,23 @@ fn ___reduce275<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(768);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action768::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce276<
@@ -14634,20 +15166,20 @@ fn ___reduce276<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(769);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action769::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce277<
@@ -14655,21 +15187,21 @@ fn ___reduce277<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(770);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action770::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce278<
@@ -14677,21 +15209,21 @@ fn ___reduce278<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(771);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action771::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce279<
@@ -14699,22 +15231,22 @@ fn ___reduce279<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(772);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action772::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce280<
@@ -14722,20 +15254,20 @@ fn ___reduce280<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(773);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant56(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action773::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce281<
@@ -14743,21 +15275,21 @@ fn ___reduce281<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(774);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action774::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce282<
@@ -14765,21 +15297,21 @@ fn ___reduce282<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(775);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action775::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce283<
@@ -14787,22 +15319,22 @@ fn ___reduce283<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(776);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action776::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce284<
@@ -14810,19 +15342,19 @@ fn ___reduce284<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = "grammar", ";", GrammarItem+ => ActionFn(777);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant70(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action777::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce285<
@@ -14830,20 +15362,20 @@ fn ___reduce285<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, "grammar", ";", GrammarItem+ => ActionFn(778);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action778::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce286<
@@ -14851,20 +15383,20 @@ fn ___reduce286<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, "grammar", ";", GrammarItem+ => ActionFn(779);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action779::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce287<
@@ -14872,21 +15404,21 @@ fn ___reduce287<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, "grammar", ";", GrammarItem+ => ActionFn(780);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action780::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce288<
@@ -14894,22 +15426,22 @@ fn ___reduce288<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(781);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action781::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce289<
@@ -14917,23 +15449,23 @@ fn ___reduce289<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(782);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action782::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce290<
@@ -14941,23 +15473,23 @@ fn ___reduce290<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(783);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action783::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce291<
@@ -14965,24 +15497,24 @@ fn ___reduce291<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";" => ActionFn(784);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant0(___symbols);
-let ___sym6 = ___pop_Variant56(___symbols);
-let ___sym5 = ___pop_Variant55(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action784::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce292<
@@ -14990,21 +15522,21 @@ fn ___reduce292<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(785);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action785::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce293<
@@ -15012,22 +15544,22 @@ fn ___reduce293<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(786);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action786::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce294<
@@ -15035,22 +15567,22 @@ fn ___reduce294<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(787);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action787::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce295<
@@ -15058,23 +15590,23 @@ fn ___reduce295<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";" => ActionFn(788);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant55(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action788::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce296<
@@ -15082,21 +15614,21 @@ fn ___reduce296<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(789);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action789::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce297<
@@ -15104,22 +15636,22 @@ fn ___reduce297<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(790);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action790::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce298<
@@ -15127,22 +15659,22 @@ fn ___reduce298<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(791);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action791::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce299<
@@ -15150,23 +15682,23 @@ fn ___reduce299<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";" => ActionFn(792);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action792::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce300<
@@ -15174,20 +15706,20 @@ fn ___reduce300<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarParameters, ";" => ActionFn(793);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action793::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce301<
@@ -15195,21 +15727,21 @@ fn ___reduce301<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarParameters, ";" => ActionFn(794);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action794::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce302<
@@ -15217,21 +15749,21 @@ fn ___reduce302<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarParameters, ";" => ActionFn(795);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action795::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce303<
@@ -15239,22 +15771,22 @@ fn ___reduce303<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarParameters, ";" => ActionFn(796);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action796::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce304<
@@ -15262,21 +15794,21 @@ fn ___reduce304<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(797);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action797::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce305<
@@ -15284,22 +15816,22 @@ fn ___reduce305<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(798);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action798::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce306<
@@ -15307,22 +15839,22 @@ fn ___reduce306<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(799);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action799::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce307<
@@ -15330,23 +15862,23 @@ fn ___reduce307<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";" => ActionFn(800);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action800::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce308<
@@ -15354,20 +15886,20 @@ fn ___reduce308<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, ";" => ActionFn(801);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action801::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce309<
@@ -15375,21 +15907,21 @@ fn ___reduce309<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, ";" => ActionFn(802);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action802::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce310<
@@ -15397,21 +15929,21 @@ fn ___reduce310<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, ";" => ActionFn(803);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action803::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce311<
@@ -15419,22 +15951,22 @@ fn ___reduce311<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, ";" => ActionFn(804);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action804::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce312<
@@ -15442,20 +15974,20 @@ fn ___reduce312<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarWhereClauses, ";" => ActionFn(805);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action805::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce313<
@@ -15463,21 +15995,21 @@ fn ___reduce313<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarWhereClauses, ";" => ActionFn(806);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action806::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce314<
@@ -15485,21 +16017,21 @@ fn ___reduce314<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarWhereClauses, ";" => ActionFn(807);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action807::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce315<
@@ -15507,22 +16039,22 @@ fn ___reduce315<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarWhereClauses, ";" => ActionFn(808);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action808::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce316<
@@ -15530,19 +16062,19 @@ fn ___reduce316<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", ";" => ActionFn(809);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action809::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 106)
 }
 fn ___reduce317<
@@ -15550,20 +16082,20 @@ fn ___reduce317<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", ";" => ActionFn(810);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action810::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce318<
@@ -15571,20 +16103,20 @@ fn ___reduce318<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", ";" => ActionFn(811);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action811::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce319<
@@ -15592,21 +16124,21 @@ fn ___reduce319<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", ";" => ActionFn(812);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action812::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce320<
@@ -15614,23 +16146,23 @@ fn ___reduce320<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(813);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action813::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce321<
@@ -15638,24 +16170,24 @@ fn ___reduce321<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(814);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action814::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce322<
@@ -15663,24 +16195,24 @@ fn ___reduce322<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(815);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action815::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce323<
@@ -15688,25 +16220,25 @@ fn ___reduce323<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(816);
 assert!(___symbols.len() >= 9);
-let ___sym8 = ___pop_Variant70(___symbols);
-let ___sym7 = ___pop_Variant0(___symbols);
-let ___sym6 = ___pop_Variant56(___symbols);
-let ___sym5 = ___pop_Variant55(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym8 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym7 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym8.2.clone();
 let ___nt = super::___action816::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7, ___sym8);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (9, 106)
 }
 fn ___reduce324<
@@ -15714,22 +16246,22 @@ fn ___reduce324<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(817);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action817::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce325<
@@ -15737,23 +16269,23 @@ fn ___reduce325<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(818);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action818::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce326<
@@ -15761,23 +16293,23 @@ fn ___reduce326<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(819);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action819::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce327<
@@ -15785,24 +16317,24 @@ fn ___reduce327<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarParameters, ";", GrammarItem+ => ActionFn(820);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant55(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action820::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce328<
@@ -15810,22 +16342,22 @@ fn ___reduce328<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(821);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action821::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce329<
@@ -15833,23 +16365,23 @@ fn ___reduce329<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(822);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action822::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce330<
@@ -15857,23 +16389,23 @@ fn ___reduce330<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(823);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action823::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce331<
@@ -15881,24 +16413,24 @@ fn ___reduce331<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(824);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action824::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce332<
@@ -15906,21 +16438,21 @@ fn ___reduce332<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(825);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant55(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action825::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce333<
@@ -15928,22 +16460,22 @@ fn ___reduce333<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(826);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action826::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce334<
@@ -15951,22 +16483,22 @@ fn ___reduce334<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(827);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant55(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action827::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce335<
@@ -15974,23 +16506,23 @@ fn ___reduce335<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarParameters, ";", GrammarItem+ => ActionFn(828);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant55(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action828::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce336<
@@ -15998,22 +16530,22 @@ fn ___reduce336<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(829);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action829::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce337<
@@ -16021,23 +16553,23 @@ fn ___reduce337<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(830);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action830::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce338<
@@ -16045,23 +16577,23 @@ fn ___reduce338<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(831);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action831::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce339<
@@ -16069,24 +16601,24 @@ fn ___reduce339<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, GrammarWhereClauses, ";", GrammarItem+ => ActionFn(832);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant70(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant56(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym7 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action832::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 106)
 }
 fn ___reduce340<
@@ -16094,21 +16626,21 @@ fn ___reduce340<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(833);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action833::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce341<
@@ -16116,22 +16648,22 @@ fn ___reduce341<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(834);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action834::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce342<
@@ -16139,22 +16671,22 @@ fn ___reduce342<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(835);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action835::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce343<
@@ -16162,23 +16694,23 @@ fn ___reduce343<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarTypeParameters, ";", GrammarItem+ => ActionFn(836);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant61(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action836::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce344<
@@ -16186,21 +16718,21 @@ fn ___reduce344<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(837);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant56(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action837::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce345<
@@ -16208,22 +16740,22 @@ fn ___reduce345<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(838);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action838::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce346<
@@ -16231,22 +16763,22 @@ fn ___reduce346<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(839);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant56(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action839::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce347<
@@ -16254,23 +16786,23 @@ fn ___reduce347<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", GrammarWhereClauses, ";", GrammarItem+ => ActionFn(840);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant70(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant56(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym6 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action840::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 106)
 }
 fn ___reduce348<
@@ -16278,20 +16810,20 @@ fn ___reduce348<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Attribute+, "grammar", ";", GrammarItem+ => ActionFn(841);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant70(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym3 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action841::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 106)
 }
 fn ___reduce349<
@@ -16299,21 +16831,21 @@ fn ___reduce349<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = Use+, Attribute+, "grammar", ";", GrammarItem+ => ActionFn(842);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action842::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce350<
@@ -16321,21 +16853,21 @@ fn ___reduce350<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Attribute+, "grammar", ";", GrammarItem+ => ActionFn(843);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant70(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant13(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym4 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action843::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 106)
 }
 fn ___reduce351<
@@ -16343,22 +16875,22 @@ fn ___reduce351<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Grammar = ShebangAttribute+, Use+, Attribute+, "grammar", ";", GrammarItem+ => ActionFn(844);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant70(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant13(___symbols);
-let ___sym1 = ___pop_Variant70(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym5 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action844::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant69(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 106)
 }
 fn ___reduce352<
@@ -16366,16 +16898,16 @@ fn ___reduce352<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem = Use => ActionFn(24);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action24::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 107)
 }
 fn ___reduce353<
@@ -16383,16 +16915,16 @@ fn ___reduce353<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem = MatchToken => ActionFn(25);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action25::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 107)
 }
 fn ___reduce354<
@@ -16400,16 +16932,16 @@ fn ___reduce354<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem = ExternToken => ActionFn(26);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action26::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 107)
 }
 fn ___reduce355<
@@ -16417,16 +16949,16 @@ fn ___reduce355<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem = Nonterminal => ActionFn(27);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action27::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 107)
 }
 fn ___reduce356<
@@ -16434,15 +16966,15 @@ fn ___reduce356<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem* =  => ActionFn(189);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action189::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 108)
 }
 fn ___reduce357<
@@ -16450,16 +16982,16 @@ fn ___reduce357<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem* = GrammarItem+ => ActionFn(190);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action190::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 108)
 }
 fn ___reduce358<
@@ -16467,16 +16999,16 @@ fn ___reduce358<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem+ = GrammarItem => ActionFn(211);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action211::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 109)
 }
 fn ___reduce359<
@@ -16484,18 +17016,18 @@ fn ___reduce359<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarItem+ = GrammarItem+, GrammarItem => ActionFn(212);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant67(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym1 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action212::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 109)
 }
 fn ___reduce360<
@@ -16503,19 +17035,19 @@ fn ___reduce360<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameter = Id, ":", TypeRef => ActionFn(23);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant3(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym2 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action23::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant18(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 110)
 }
 fn ___reduce361<
@@ -16523,16 +17055,16 @@ fn ___reduce361<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameter? = GrammarParameter => ActionFn(241);
-let ___sym0 = ___pop_Variant18(___symbols);
+let ___sym0 = ___pop_Variant18(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action241::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant71(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 111)
 }
 fn ___reduce362<
@@ -16540,15 +17072,15 @@ fn ___reduce362<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameter? =  => ActionFn(242);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action242::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant71(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 111)
 }
 fn ___reduce363<
@@ -16556,19 +17088,19 @@ fn ___reduce363<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameters = "(", Comma<GrammarParameter>, ")" => ActionFn(22);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant55(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action22::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant55(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 112)
 }
 fn ___reduce364<
@@ -16576,16 +17108,16 @@ fn ___reduce364<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameters? = GrammarParameters => ActionFn(193);
-let ___sym0 = ___pop_Variant55(___symbols);
+let ___sym0 = ___pop_Variant55(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action193::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant72(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 113)
 }
 fn ___reduce365<
@@ -16593,15 +17125,15 @@ fn ___reduce365<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarParameters? =  => ActionFn(194);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action194::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant72(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 113)
 }
 fn ___reduce366<
@@ -16609,19 +17141,19 @@ fn ___reduce366<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarTypeParameters = "<", Comma<TypeParameter>, ">" => ActionFn(7);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant61(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action7::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant61(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 114)
 }
 fn ___reduce367<
@@ -16629,16 +17161,16 @@ fn ___reduce367<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarTypeParameters? = GrammarTypeParameters => ActionFn(195);
-let ___sym0 = ___pop_Variant61(___symbols);
+let ___sym0 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action195::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant73(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 115)
 }
 fn ___reduce368<
@@ -16646,15 +17178,15 @@ fn ___reduce368<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarTypeParameters? =  => ActionFn(196);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action196::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant73(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 115)
 }
 fn ___reduce369<
@@ -16662,19 +17194,19 @@ fn ___reduce369<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClause = Lifetime, ":", Plus<Lifetime> => ActionFn(11);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant87(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym2 = ___pop_Variant87(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action11::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant20(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 116)
 }
 fn ___reduce370<
@@ -16682,23 +17214,23 @@ fn ___reduce370<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClause = "for", "<", Comma<TypeParameter>, ">", TypeRef, ":", TypeBounds => ActionFn(523);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant88(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant3(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym6 = ___pop_Variant88(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action523::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant20(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 116)
 }
 fn ___reduce371<
@@ -16706,19 +17238,19 @@ fn ___reduce371<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClause = TypeRef, ":", TypeBounds => ActionFn(524);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant88(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym2 = ___pop_Variant88(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action524::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant20(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 116)
 }
 fn ___reduce372<
@@ -16726,16 +17258,16 @@ fn ___reduce372<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClause? = GrammarWhereClause => ActionFn(218);
-let ___sym0 = ___pop_Variant20(___symbols);
+let ___sym0 = ___pop_Variant20(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action218::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant74(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 117)
 }
 fn ___reduce373<
@@ -16743,15 +17275,15 @@ fn ___reduce373<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClause? =  => ActionFn(219);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action219::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant74(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 117)
 }
 fn ___reduce374<
@@ -16759,18 +17291,18 @@ fn ___reduce374<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClauses = "where", Comma<GrammarWhereClause> => ActionFn(10);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant56(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action10::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant56(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 118)
 }
 fn ___reduce375<
@@ -16778,16 +17310,16 @@ fn ___reduce375<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClauses? = GrammarWhereClauses => ActionFn(191);
-let ___sym0 = ___pop_Variant56(___symbols);
+let ___sym0 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action191::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant75(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 119)
 }
 fn ___reduce376<
@@ -16795,15 +17327,15 @@ fn ___reduce376<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // GrammarWhereClauses? =  => ActionFn(192);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action192::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant75(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 119)
 }
 fn ___reduce377<
@@ -16811,16 +17343,16 @@ fn ___reduce377<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Id = "Id" => ActionFn(117);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action117::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 120)
 }
 fn ___reduce378<
@@ -16828,16 +17360,16 @@ fn ___reduce378<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Id = "MacroId" => ActionFn(118);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action118::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 120)
 }
 fn ___reduce379<
@@ -16845,16 +17377,16 @@ fn ___reduce379<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Lifetime = "Lifetime" => ActionFn(120);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action120::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant24(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 121)
 }
 fn ___reduce380<
@@ -16862,16 +17394,16 @@ fn ___reduce380<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Lifetime? = Lifetime => ActionFn(146);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action146::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant76(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 122)
 }
 fn ___reduce381<
@@ -16879,15 +17411,15 @@ fn ___reduce381<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Lifetime? =  => ActionFn(147);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action147::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant76(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 122)
 }
 fn ___reduce382<
@@ -16895,16 +17427,16 @@ fn ___reduce382<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MacroId = "MacroId" => ActionFn(115);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action115::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant28(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 123)
 }
 fn ___reduce383<
@@ -16912,16 +17444,16 @@ fn ___reduce383<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchContents = Comma<MatchItem> => ActionFn(93);
-let ___sym0 = ___pop_Variant57(___symbols);
+let ___sym0 = ___pop_Variant57(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action93::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant77(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 124)
 }
 fn ___reduce384<
@@ -16929,16 +17461,16 @@ fn ___reduce384<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchItem = "_" => ActionFn(465);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action465::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant26(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 125)
 }
 fn ___reduce385<
@@ -16946,16 +17478,16 @@ fn ___reduce385<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchItem = MatchSymbol => ActionFn(466);
-let ___sym0 = ___pop_Variant80(___symbols);
+let ___sym0 = ___pop_Variant80(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action466::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant26(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 125)
 }
 fn ___reduce387<
@@ -16963,16 +17495,16 @@ fn ___reduce387<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchItem? = MatchItem => ActionFn(275);
-let ___sym0 = ___pop_Variant26(___symbols);
+let ___sym0 = ___pop_Variant26(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action275::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant78(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 126)
 }
 fn ___reduce388<
@@ -16980,15 +17512,15 @@ fn ___reduce388<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchItem? =  => ActionFn(276);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action276::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant78(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 126)
 }
 fn ___reduce389<
@@ -16996,16 +17528,16 @@ fn ___reduce389<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchMapping = Terminal => ActionFn(98);
-let ___sym0 = ___pop_Variant89(___symbols);
+let ___sym0 = ___pop_Variant89(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action98::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant79(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 127)
 }
 fn ___reduce390<
@@ -17013,18 +17545,18 @@ fn ___reduce390<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchMapping = "{", "}" => ActionFn(99);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action99::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant79(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 127)
 }
 fn ___reduce391<
@@ -17032,16 +17564,16 @@ fn ___reduce391<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchSymbol = QuotedLiteral => ActionFn(97);
-let ___sym0 = ___pop_Variant80(___symbols);
+let ___sym0 = ___pop_Variant80(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action97::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant80(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 128)
 }
 fn ___reduce392<
@@ -17049,16 +17581,16 @@ fn ___reduce392<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchToken = MatchTokenInt => ActionFn(90);
-let ___sym0 = ___pop_Variant81(___symbols);
+let ___sym0 = ___pop_Variant81(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action90::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 129)
 }
 fn ___reduce393<
@@ -17066,21 +17598,21 @@ fn ___reduce393<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchTokenInt = MatchTokenInt, "else", "{", MatchContents, "}" => ActionFn(91);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant77(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant81(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant77(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant81(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action91::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant81(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 130)
 }
 fn ___reduce394<
@@ -17088,20 +17620,20 @@ fn ___reduce394<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // MatchTokenInt = "match", "{", MatchContents, "}" => ActionFn(468);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant77(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant77(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action468::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant81(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 130)
 }
 fn ___reduce395<
@@ -17109,22 +17641,22 @@ fn ___reduce395<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Nonterminal = Visibility, NonterminalName, ":", TypeRef, "=", Alternatives => ActionFn(505);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant47(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant3(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant82(___symbols);
-let ___sym0 = ___pop_Variant101(___symbols);
+let ___sym5 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant82(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant101(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action505::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 131)
 }
 fn ___reduce396<
@@ -17132,23 +17664,23 @@ fn ___reduce396<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Nonterminal = Attribute+, Visibility, NonterminalName, ":", TypeRef, "=", Alternatives => ActionFn(506);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant47(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant3(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant82(___symbols);
-let ___sym1 = ___pop_Variant101(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym6 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant82(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant101(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action506::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 131)
 }
 fn ___reduce397<
@@ -17156,20 +17688,20 @@ fn ___reduce397<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Nonterminal = Visibility, NonterminalName, "=", Alternatives => ActionFn(507);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant47(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant82(___symbols);
-let ___sym0 = ___pop_Variant101(___symbols);
+let ___sym3 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant82(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant101(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action507::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 131)
 }
 fn ___reduce398<
@@ -17177,21 +17709,21 @@ fn ___reduce398<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Nonterminal = Attribute+, Visibility, NonterminalName, "=", Alternatives => ActionFn(508);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant47(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant82(___symbols);
-let ___sym1 = ___pop_Variant101(___symbols);
-let ___sym0 = ___pop_Variant13(___symbols);
+let ___sym4 = ___pop_Variant47(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant82(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant101(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant13(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action508::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 131)
 }
 fn ___reduce399<
@@ -17199,20 +17731,20 @@ fn ___reduce399<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NonterminalName = MacroId, "<", Comma<NotMacroId>, ">" => ActionFn(38);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant58(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant58(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action38::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant82(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 132)
 }
 fn ___reduce400<
@@ -17220,16 +17752,16 @@ fn ___reduce400<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NonterminalName = NotMacroId => ActionFn(39);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action39::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant82(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 132)
 }
 fn ___reduce401<
@@ -17237,16 +17769,16 @@ fn ___reduce401<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NonterminalName = "Escape" => ActionFn(40);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action40::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant82(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 132)
 }
 fn ___reduce402<
@@ -17254,16 +17786,16 @@ fn ___reduce402<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NotMacroId = "Id" => ActionFn(116);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action116::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant28(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 133)
 }
 fn ___reduce403<
@@ -17271,16 +17803,16 @@ fn ___reduce403<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NotMacroId? = NotMacroId => ActionFn(251);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action251::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant83(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 134)
 }
 fn ___reduce404<
@@ -17288,15 +17820,15 @@ fn ___reduce404<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // NotMacroId? =  => ActionFn(252);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action252::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant83(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 134)
 }
 fn ___reduce405<
@@ -17304,18 +17836,18 @@ fn ___reduce405<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Path = "::", Id => ActionFn(378);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action378::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant84(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 135)
 }
 fn ___reduce406<
@@ -17323,19 +17855,19 @@ fn ___reduce406<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Path = "::", (<Id> "::")+, Id => ActionFn(379);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant22(___symbols);
-let ___sym1 = ___pop_Variant23(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant23(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action379::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant84(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 135)
 }
 fn ___reduce407<
@@ -17343,16 +17875,16 @@ fn ___reduce407<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Path = Id => ActionFn(380);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action380::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant84(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 135)
 }
 fn ___reduce408<
@@ -17360,18 +17892,18 @@ fn ___reduce408<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Path = (<Id> "::")+, Id => ActionFn(381);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant23(___symbols);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant23(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action381::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant84(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 135)
 }
 fn ___reduce409<
@@ -17379,16 +17911,16 @@ fn ___reduce409<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Pattern = PatternKind => ActionFn(471);
-let ___sym0 = ___pop_Variant86(___symbols);
+let ___sym0 = ___pop_Variant86(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action471::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant30(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 136)
 }
 fn ___reduce410<
@@ -17396,16 +17928,16 @@ fn ___reduce410<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Pattern? = Pattern => ActionFn(285);
-let ___sym0 = ___pop_Variant30(___symbols);
+let ___sym0 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action285::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant85(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 137)
 }
 fn ___reduce411<
@@ -17413,15 +17945,15 @@ fn ___reduce411<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Pattern? =  => ActionFn(286);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action286::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant85(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 137)
 }
 fn ___reduce412<
@@ -17429,20 +17961,20 @@ fn ___reduce412<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "(", Comma<Pattern>, ")" => ActionFn(104);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant59(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant59(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action104::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 138)
 }
 fn ___reduce413<
@@ -17450,20 +17982,20 @@ fn ___reduce413<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", FieldPattern, "}" => ActionFn(519);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant16(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action519::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 138)
 }
 fn ___reduce414<
@@ -17471,19 +18003,19 @@ fn ___reduce414<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", "}" => ActionFn(520);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action520::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 138)
 }
 fn ___reduce415<
@@ -17491,21 +18023,21 @@ fn ___reduce415<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", (<FieldPattern> ",")+, FieldPattern, "}" => ActionFn(521);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant16(___symbols);
-let ___sym2 = ___pop_Variant17(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant16(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant17(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action521::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 138)
 }
 fn ___reduce416<
@@ -17513,20 +18045,20 @@ fn ___reduce416<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", (<FieldPattern> ",")+, "}" => ActionFn(522);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant17(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant17(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action522::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 138)
 }
 fn ___reduce417<
@@ -17534,20 +18066,20 @@ fn ___reduce417<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", "..", "}" => ActionFn(366);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action366::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 138)
 }
 fn ___reduce418<
@@ -17555,21 +18087,21 @@ fn ___reduce418<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path, "{", (<FieldPattern> ",")+, "..", "}" => ActionFn(367);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant17(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant17(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action367::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 138)
 }
 fn ___reduce419<
@@ -17577,16 +18109,16 @@ fn ___reduce419<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = "_" => ActionFn(107);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action107::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 138)
 }
 fn ___reduce420<
@@ -17594,16 +18126,16 @@ fn ___reduce420<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = ".." => ActionFn(108);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action108::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 138)
 }
 fn ___reduce421<
@@ -17611,19 +18143,19 @@ fn ___reduce421<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = "<", TypeRef, ">" => ActionFn(109);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action109::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 138)
 }
 fn ___reduce422<
@@ -17631,19 +18163,19 @@ fn ___reduce422<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = "(", Comma<Pattern>, ")" => ActionFn(110);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant59(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant59(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action110::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 138)
 }
 fn ___reduce423<
@@ -17651,16 +18183,16 @@ fn ___reduce423<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = "CharLiteral" => ActionFn(111);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action111::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 138)
 }
 fn ___reduce424<
@@ -17668,16 +18200,16 @@ fn ___reduce424<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = Path => ActionFn(112);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action112::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 138)
 }
 fn ___reduce425<
@@ -17685,16 +18217,16 @@ fn ___reduce425<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // PatternKind = StringConstant => ActionFn(113);
-let ___sym0 = ___pop_Variant91(___symbols);
+let ___sym0 = ___pop_Variant91(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action113::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant86(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 138)
 }
 fn ___reduce426<
@@ -17702,16 +18234,16 @@ fn ___reduce426<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<Lifetime> = Lifetime => ActionFn(605);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action605::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant87(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 139)
 }
 fn ___reduce427<
@@ -17719,15 +18251,15 @@ fn ___reduce427<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<Lifetime> =  => ActionFn(606);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action606::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant87(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 139)
 }
 fn ___reduce428<
@@ -17735,18 +18267,18 @@ fn ___reduce428<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<Lifetime> = (<Lifetime> "+")+, Lifetime => ActionFn(607);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant24(___symbols);
-let ___sym0 = ___pop_Variant25(___symbols);
+let ___sym1 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant25(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action607::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant87(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 139)
 }
 fn ___reduce429<
@@ -17754,16 +18286,16 @@ fn ___reduce429<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<Lifetime> = (<Lifetime> "+")+ => ActionFn(608);
-let ___sym0 = ___pop_Variant25(___symbols);
+let ___sym0 = ___pop_Variant25(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action608::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant87(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 139)
 }
 fn ___reduce430<
@@ -17771,16 +18303,16 @@ fn ___reduce430<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<TypeBound> = TypeBound => ActionFn(697);
-let ___sym0 = ___pop_Variant36(___symbols);
+let ___sym0 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action697::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant88(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 140)
 }
 fn ___reduce431<
@@ -17788,15 +18320,15 @@ fn ___reduce431<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<TypeBound> =  => ActionFn(698);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action698::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant88(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 140)
 }
 fn ___reduce432<
@@ -17804,18 +18336,18 @@ fn ___reduce432<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<TypeBound> = (<TypeBound> "+")+, TypeBound => ActionFn(699);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant36(___symbols);
-let ___sym0 = ___pop_Variant37(___symbols);
+let ___sym1 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant37(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action699::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant88(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 140)
 }
 fn ___reduce433<
@@ -17823,16 +18355,16 @@ fn ___reduce433<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Plus<TypeBound> = (<TypeBound> "+")+ => ActionFn(700);
-let ___sym0 = ___pop_Variant37(___symbols);
+let ___sym0 = ___pop_Variant37(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action700::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant88(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 140)
 }
 fn ___reduce434<
@@ -17840,16 +18372,16 @@ fn ___reduce434<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // QuotedLiteral = StringLiteral => ActionFn(124);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action124::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant80(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 141)
 }
 fn ___reduce435<
@@ -17857,16 +18389,16 @@ fn ___reduce435<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // QuotedLiteral = RegexLiteral => ActionFn(125);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action125::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant80(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 141)
 }
 fn ___reduce436<
@@ -17874,16 +18406,16 @@ fn ___reduce436<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // QuotedTerminal = QuotedLiteral => ActionFn(123);
-let ___sym0 = ___pop_Variant80(___symbols);
+let ___sym0 = ___pop_Variant80(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action123::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant89(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 142)
 }
 fn ___reduce437<
@@ -17891,16 +18423,16 @@ fn ___reduce437<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // RegexLiteral = "RegexLiteral" => ActionFn(128);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action128::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant22(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 143)
 }
 fn ___reduce438<
@@ -17908,16 +18440,16 @@ fn ___reduce438<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // RepeatOp = "+" => ActionFn(61);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action61::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant90(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 144)
 }
 fn ___reduce439<
@@ -17925,16 +18457,16 @@ fn ___reduce439<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // RepeatOp = "*" => ActionFn(62);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action62::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant90(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 144)
 }
 fn ___reduce440<
@@ -17942,16 +18474,16 @@ fn ___reduce440<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // RepeatOp = "?" => ActionFn(63);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action63::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant90(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 144)
 }
 fn ___reduce441<
@@ -17959,16 +18491,16 @@ fn ___reduce441<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ShebangAttribute = "#![...]" => ActionFn(129);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action129::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant91(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 145)
 }
 fn ___reduce442<
@@ -17976,15 +18508,15 @@ fn ___reduce442<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ShebangAttribute* =  => ActionFn(203);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action203::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant92(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 146)
 }
 fn ___reduce443<
@@ -17992,16 +18524,16 @@ fn ___reduce443<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ShebangAttribute* = ShebangAttribute+ => ActionFn(204);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action204::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant92(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 146)
 }
 fn ___reduce444<
@@ -18009,16 +18541,16 @@ fn ___reduce444<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ShebangAttribute+ = ShebangAttribute => ActionFn(205);
-let ___sym0 = ___pop_Variant91(___symbols);
+let ___sym0 = ___pop_Variant91(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action205::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant92(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 147)
 }
 fn ___reduce445<
@@ -18026,18 +18558,18 @@ fn ___reduce445<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // ShebangAttribute+ = ShebangAttribute+, ShebangAttribute => ActionFn(206);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant91(___symbols);
-let ___sym0 = ___pop_Variant92(___symbols);
+let ___sym1 = ___pop_Variant91(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant92(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action206::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant92(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 147)
 }
 fn ___reduce448<
@@ -18045,22 +18577,22 @@ fn ___reduce448<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol = "<", "mut", Id, ":", Symbol0, ">" => ActionFn(472);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant32(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant22(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action472::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 150)
 }
 fn ___reduce449<
@@ -18068,21 +18600,21 @@ fn ___reduce449<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol = "<", Id, ":", Symbol0, ">" => ActionFn(473);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant32(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action473::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 150)
 }
 fn ___reduce450<
@@ -18090,19 +18622,19 @@ fn ___reduce450<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol = "<", Symbol0, ">" => ActionFn(474);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant32(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action474::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 150)
 }
 fn ___reduce451<
@@ -18110,21 +18642,21 @@ fn ___reduce451<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol = "<", Tuples, ":", Symbol0, ">" => ActionFn(475);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant32(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant97(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant97(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action475::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 150)
 }
 fn ___reduce452<
@@ -18132,16 +18664,16 @@ fn ___reduce452<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol = Symbol0 => ActionFn(58);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action58::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 150)
 }
 fn ___reduce453<
@@ -18149,15 +18681,15 @@ fn ___reduce453<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol* =  => ActionFn(156);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action156::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 151)
 }
 fn ___reduce454<
@@ -18165,16 +18697,16 @@ fn ___reduce454<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol* = Symbol+ => ActionFn(157);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action157::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 151)
 }
 fn ___reduce455<
@@ -18182,16 +18714,16 @@ fn ___reduce455<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol+ = Symbol => ActionFn(163);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action163::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 152)
 }
 fn ___reduce456<
@@ -18199,18 +18731,18 @@ fn ___reduce456<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol+ = Symbol+, Symbol => ActionFn(164);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant32(___symbols);
-let ___sym0 = ___pop_Variant33(___symbols);
+let ___sym1 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant33(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action164::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant33(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 152)
 }
 fn ___reduce457<
@@ -18218,16 +18750,16 @@ fn ___reduce457<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol0 = Symbol1 => ActionFn(59);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action59::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 153)
 }
 fn ___reduce458<
@@ -18235,18 +18767,18 @@ fn ___reduce458<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol0 = Symbol0, RepeatOp => ActionFn(476);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant90(___symbols);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym1 = ___pop_Variant90(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action476::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 153)
 }
 fn ___reduce459<
@@ -18254,16 +18786,16 @@ fn ___reduce459<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol1 = SymbolKind1 => ActionFn(477);
-let ___sym0 = ___pop_Variant94(___symbols);
+let ___sym0 = ___pop_Variant94(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action477::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant32(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 154)
 }
 fn ___reduce460<
@@ -18271,16 +18803,16 @@ fn ___reduce460<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol? = Symbol => ActionFn(261);
-let ___sym0 = ___pop_Variant32(___symbols);
+let ___sym0 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action261::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant93(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 155)
 }
 fn ___reduce461<
@@ -18288,15 +18820,15 @@ fn ___reduce461<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Symbol? =  => ActionFn(262);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action262::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant93(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 155)
 }
 fn ___reduce462<
@@ -18304,20 +18836,20 @@ fn ___reduce462<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = MacroId, "<", Comma<Symbol>, ">" => ActionFn(65);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant60(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant28(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant60(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant28(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action65::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 156)
 }
 fn ___reduce463<
@@ -18325,16 +18857,16 @@ fn ___reduce463<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = QuotedTerminal => ActionFn(66);
-let ___sym0 = ___pop_Variant89(___symbols);
+let ___sym0 = ___pop_Variant89(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action66::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce464<
@@ -18342,16 +18874,16 @@ fn ___reduce464<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = "Id" => ActionFn(67);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action67::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce465<
@@ -18359,16 +18891,16 @@ fn ___reduce465<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = Escape => ActionFn(68);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action68::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce466<
@@ -18376,19 +18908,19 @@ fn ___reduce466<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = "(", ExprSymbol, ")" => ActionFn(69);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant66(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant66(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action69::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 156)
 }
 fn ___reduce467<
@@ -18396,16 +18928,16 @@ fn ___reduce467<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = "@L" => ActionFn(70);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action70::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce468<
@@ -18413,16 +18945,16 @@ fn ___reduce468<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = "@R" => ActionFn(71);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action71::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce469<
@@ -18430,16 +18962,16 @@ fn ___reduce469<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // SymbolKind1 = "!" => ActionFn(72);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action72::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant94(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 156)
 }
 fn ___reduce470<
@@ -18447,16 +18979,16 @@ fn ___reduce470<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Terminal = QuotedTerminal => ActionFn(121);
-let ___sym0 = ___pop_Variant89(___symbols);
+let ___sym0 = ___pop_Variant89(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action121::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant89(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 157)
 }
 fn ___reduce471<
@@ -18464,16 +18996,16 @@ fn ___reduce471<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Terminal = "Id" => ActionFn(122);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action122::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant89(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 157)
 }
 fn ___reduce472<
@@ -18481,18 +19013,18 @@ fn ___reduce472<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Top = "StartGrammar", Grammar => ActionFn(1);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant69(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant69(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action1::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant95(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 158)
 }
 fn ___reduce473<
@@ -18500,18 +19032,18 @@ fn ___reduce473<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Top = "StartPattern", Pattern => ActionFn(2);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant30(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant30(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action2::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant95(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 158)
 }
 fn ___reduce474<
@@ -18519,18 +19051,18 @@ fn ___reduce474<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Top = "StartMatchMapping", MatchMapping => ActionFn(3);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant79(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant79(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action3::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant95(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 158)
 }
 fn ___reduce475<
@@ -18538,18 +19070,18 @@ fn ___reduce475<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Top = "StartTypeRef", TypeRef => ActionFn(4);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action4::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant95(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 158)
 }
 fn ___reduce476<
@@ -18557,18 +19089,18 @@ fn ___reduce476<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Top = "StartGrammarWhereClauses", GrammarWhereClauses => ActionFn(5);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant56(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant56(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action5::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant95(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 158)
 }
 fn ___reduce477<
@@ -18576,18 +19108,18 @@ fn ___reduce477<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TupleItem = "mut", Id => ActionFn(328);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant22(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action328::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant34(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 159)
 }
 fn ___reduce478<
@@ -18595,16 +19127,16 @@ fn ___reduce478<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TupleItem = Id => ActionFn(329);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action329::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant34(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 159)
 }
 fn ___reduce479<
@@ -18612,16 +19144,16 @@ fn ___reduce479<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TupleItem = Tuples => ActionFn(75);
-let ___sym0 = ___pop_Variant97(___symbols);
+let ___sym0 = ___pop_Variant97(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action75::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant34(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 159)
 }
 fn ___reduce480<
@@ -18629,16 +19161,16 @@ fn ___reduce480<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TupleItem? = TupleItem => ActionFn(148);
-let ___sym0 = ___pop_Variant34(___symbols);
+let ___sym0 = ___pop_Variant34(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action148::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant96(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 160)
 }
 fn ___reduce481<
@@ -18646,15 +19178,15 @@ fn ___reduce481<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TupleItem? =  => ActionFn(149);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action149::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant96(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 160)
 }
 fn ___reduce482<
@@ -18662,20 +19194,20 @@ fn ___reduce482<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Tuples = "(", (<TupleItem> ",")+, TupleItem, ")" => ActionFn(695);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant34(___symbols);
-let ___sym1 = ___pop_Variant35(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant34(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant35(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action695::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant97(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 161)
 }
 fn ___reduce483<
@@ -18683,19 +19215,19 @@ fn ___reduce483<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Tuples = "(", (<TupleItem> ",")+, ")" => ActionFn(696);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant35(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant35(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action696::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant97(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 161)
 }
 fn ___reduce484<
@@ -18703,16 +19235,16 @@ fn ___reduce484<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = Lifetime => ActionFn(16);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action16::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 162)
 }
 fn ___reduce485<
@@ -18720,26 +19252,26 @@ fn ___reduce485<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = "for", "<", Comma<TypeParameter>, ">", Path, "(", Comma<TypeRef>, ")", "->", TypeRef => ActionFn(525);
 assert!(___symbols.len() >= 10);
-let ___sym9 = ___pop_Variant3(___symbols);
-let ___sym8 = ___pop_Variant0(___symbols);
-let ___sym7 = ___pop_Variant0(___symbols);
-let ___sym6 = ___pop_Variant62(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant84(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym9 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym8 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym7 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym9.2.clone();
 let ___nt = super::___action525::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7, ___sym8, ___sym9);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (10, 162)
 }
 fn ___reduce486<
@@ -18747,22 +19279,22 @@ fn ___reduce486<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = Path, "(", Comma<TypeRef>, ")", "->", TypeRef => ActionFn(526);
 assert!(___symbols.len() >= 6);
-let ___sym5 = ___pop_Variant3(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant62(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym5 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym5.2.clone();
 let ___nt = super::___action526::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (6, 162)
 }
 fn ___reduce487<
@@ -18770,24 +19302,24 @@ fn ___reduce487<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = "for", "<", Comma<TypeParameter>, ">", Path, "(", Comma<TypeRef>, ")" => ActionFn(527);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant0(___symbols);
-let ___sym6 = ___pop_Variant62(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant84(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym7 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action527::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 162)
 }
 fn ___reduce488<
@@ -18795,20 +19327,20 @@ fn ___reduce488<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = Path, "(", Comma<TypeRef>, ")" => ActionFn(528);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant62(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action528::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 162)
 }
 fn ___reduce489<
@@ -18816,24 +19348,24 @@ fn ___reduce489<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = "for", "<", Comma<TypeParameter>, ">", Path, "<", Comma<TypeBoundParameter>, ">" => ActionFn(529);
 assert!(___symbols.len() >= 8);
-let ___sym7 = ___pop_Variant0(___symbols);
-let ___sym6 = ___pop_Variant5(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant84(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym7 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant5(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym7.2.clone();
 let ___nt = super::___action529::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (8, 162)
 }
 fn ___reduce490<
@@ -18841,20 +19373,20 @@ fn ___reduce490<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = Path, "<", Comma<TypeBoundParameter>, ">" => ActionFn(530);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant5(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant5(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action530::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 162)
 }
 fn ___reduce491<
@@ -18862,21 +19394,21 @@ fn ___reduce491<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = "for", "<", Comma<TypeParameter>, ">", Path => ActionFn(531);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant84(___symbols);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant61(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action531::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 162)
 }
 fn ___reduce492<
@@ -18884,16 +19416,16 @@ fn ___reduce492<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound = Path => ActionFn(532);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action532::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant36(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 162)
 }
 fn ___reduce493<
@@ -18901,16 +19433,16 @@ fn ___reduce493<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound? = TypeBound => ActionFn(226);
-let ___sym0 = ___pop_Variant36(___symbols);
+let ___sym0 = ___pop_Variant36(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action226::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant98(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 163)
 }
 fn ___reduce494<
@@ -18918,15 +19450,15 @@ fn ___reduce494<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBound? =  => ActionFn(227);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action227::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant98(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 163)
 }
 fn ___reduce495<
@@ -18934,16 +19466,16 @@ fn ___reduce495<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBoundParameter = Lifetime => ActionFn(19);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action19::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant38(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 164)
 }
 fn ___reduce496<
@@ -18951,16 +19483,16 @@ fn ___reduce496<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBoundParameter = TypeRef => ActionFn(20);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action20::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant38(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 164)
 }
 fn ___reduce497<
@@ -18968,19 +19500,19 @@ fn ___reduce497<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBoundParameter = Id, "=", TypeRef => ActionFn(21);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant3(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym2 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action21::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant38(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 164)
 }
 fn ___reduce498<
@@ -18988,16 +19520,16 @@ fn ___reduce498<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBoundParameter? = TypeBoundParameter => ActionFn(236);
-let ___sym0 = ___pop_Variant38(___symbols);
+let ___sym0 = ___pop_Variant38(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action236::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant99(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 165)
 }
 fn ___reduce499<
@@ -19005,15 +19537,15 @@ fn ___reduce499<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBoundParameter? =  => ActionFn(237);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action237::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant99(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 165)
 }
 fn ___reduce500<
@@ -19021,16 +19553,16 @@ fn ___reduce500<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeBounds = Plus<TypeBound> => ActionFn(15);
-let ___sym0 = ___pop_Variant88(___symbols);
+let ___sym0 = ___pop_Variant88(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action15::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant88(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 166)
 }
 fn ___reduce501<
@@ -19038,16 +19570,16 @@ fn ___reduce501<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeParameter = Lifetime => ActionFn(8);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action8::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant40(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 167)
 }
 fn ___reduce502<
@@ -19055,16 +19587,16 @@ fn ___reduce502<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeParameter = Id => ActionFn(9);
-let ___sym0 = ___pop_Variant22(___symbols);
+let ___sym0 = ___pop_Variant22(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action9::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant40(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 167)
 }
 fn ___reduce503<
@@ -19072,16 +19604,16 @@ fn ___reduce503<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeParameter? = TypeParameter => ActionFn(213);
-let ___sym0 = ___pop_Variant40(___symbols);
+let ___sym0 = ___pop_Variant40(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action213::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant100(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 168)
 }
 fn ___reduce504<
@@ -19089,15 +19621,15 @@ fn ___reduce504<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeParameter? =  => ActionFn(214);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action214::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant100(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 168)
 }
 fn ___reduce505<
@@ -19105,19 +19637,19 @@ fn ___reduce505<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "(", Comma<TypeRef>, ")" => ActionFn(76);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant62(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action76::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 169)
 }
 fn ___reduce506<
@@ -19125,19 +19657,19 @@ fn ___reduce506<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "[", TypeRef, "]" => ActionFn(77);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action77::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 169)
 }
 fn ___reduce507<
@@ -19145,19 +19677,19 @@ fn ___reduce507<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "#", Symbol, "#" => ActionFn(78);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant32(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant32(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action78::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 169)
 }
 fn ___reduce508<
@@ -19165,20 +19697,20 @@ fn ___reduce508<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "&", Lifetime, "mut", TypeRef => ActionFn(609);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant3(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant24(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action609::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 169)
 }
 fn ___reduce509<
@@ -19186,19 +19718,19 @@ fn ___reduce509<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "&", "mut", TypeRef => ActionFn(610);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant3(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action610::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 169)
 }
 fn ___reduce510<
@@ -19206,19 +19738,19 @@ fn ___reduce510<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "&", Lifetime, TypeRef => ActionFn(611);
 assert!(___symbols.len() >= 3);
-let ___sym2 = ___pop_Variant3(___symbols);
-let ___sym1 = ___pop_Variant24(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym2 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym2.2.clone();
 let ___nt = super::___action611::<>(text, ___sym0, ___sym1, ___sym2);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (3, 169)
 }
 fn ___reduce511<
@@ -19226,18 +19758,18 @@ fn ___reduce511<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "&", TypeRef => ActionFn(612);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant3(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action612::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 169)
 }
 fn ___reduce512<
@@ -19245,20 +19777,20 @@ fn ___reduce512<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = Path, "<", Comma<TypeRefOrLifetime>, ">" => ActionFn(80);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant62(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action80::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 169)
 }
 fn ___reduce513<
@@ -19266,16 +19798,16 @@ fn ___reduce513<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = Path => ActionFn(81);
-let ___sym0 = ___pop_Variant84(___symbols);
+let ___sym0 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action81::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 169)
 }
 fn ___reduce514<
@@ -19283,21 +19815,21 @@ fn ___reduce514<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", Path, "<", Comma<TypeRefOrLifetime>, ">" => ActionFn(82);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant62(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant84(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action82::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 169)
 }
 fn ___reduce515<
@@ -19305,18 +19837,18 @@ fn ___reduce515<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", Path => ActionFn(83);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant84(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym1 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action83::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 169)
 }
 fn ___reduce516<
@@ -19324,27 +19856,27 @@ fn ___reduce516<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", "for", "<", Comma<TypeParameter>, ">", Path, "(", Comma<TypeRef>, ")", "->", TypeRef => ActionFn(533);
 assert!(___symbols.len() >= 11);
-let ___sym10 = ___pop_Variant3(___symbols);
-let ___sym9 = ___pop_Variant0(___symbols);
-let ___sym8 = ___pop_Variant0(___symbols);
-let ___sym7 = ___pop_Variant62(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant84(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym10 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym9 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym8 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym7 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym10.2.clone();
 let ___nt = super::___action533::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7, ___sym8, ___sym9, ___sym10);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (11, 169)
 }
 fn ___reduce517<
@@ -19352,23 +19884,23 @@ fn ___reduce517<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", Path, "(", Comma<TypeRef>, ")", "->", TypeRef => ActionFn(534);
 assert!(___symbols.len() >= 7);
-let ___sym6 = ___pop_Variant3(___symbols);
-let ___sym5 = ___pop_Variant0(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant62(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant84(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym6 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym6.2.clone();
 let ___nt = super::___action534::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (7, 169)
 }
 fn ___reduce518<
@@ -19376,25 +19908,25 @@ fn ___reduce518<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", "for", "<", Comma<TypeParameter>, ">", Path, "(", Comma<TypeRef>, ")" => ActionFn(535);
 assert!(___symbols.len() >= 9);
-let ___sym8 = ___pop_Variant0(___symbols);
-let ___sym7 = ___pop_Variant62(___symbols);
-let ___sym6 = ___pop_Variant0(___symbols);
-let ___sym5 = ___pop_Variant84(___symbols);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant61(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym8 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym7 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym6 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym5 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant61(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym8.2.clone();
 let ___nt = super::___action535::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4, ___sym5, ___sym6, ___sym7, ___sym8);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (9, 169)
 }
 fn ___reduce519<
@@ -19402,21 +19934,21 @@ fn ___reduce519<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef = "dyn", Path, "(", Comma<TypeRef>, ")" => ActionFn(536);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant62(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant84(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant62(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action536::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 169)
 }
 fn ___reduce520<
@@ -19424,16 +19956,16 @@ fn ___reduce520<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef? = TypeRef => ActionFn(231);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action231::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 170)
 }
 fn ___reduce521<
@@ -19441,15 +19973,15 @@ fn ___reduce521<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRef? =  => ActionFn(232);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action232::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 170)
 }
 fn ___reduce522<
@@ -19457,16 +19989,16 @@ fn ___reduce522<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRefOrLifetime = TypeRef => ActionFn(85);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action85::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 171)
 }
 fn ___reduce523<
@@ -19474,16 +20006,16 @@ fn ___reduce523<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRefOrLifetime = Lifetime => ActionFn(86);
-let ___sym0 = ___pop_Variant24(___symbols);
+let ___sym0 = ___pop_Variant24(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action86::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant3(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 171)
 }
 fn ___reduce524<
@@ -19491,16 +20023,16 @@ fn ___reduce524<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRefOrLifetime? = TypeRefOrLifetime => ActionFn(266);
-let ___sym0 = ___pop_Variant3(___symbols);
+let ___sym0 = ___pop_Variant3(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action266::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 172)
 }
 fn ___reduce525<
@@ -19508,15 +20040,15 @@ fn ___reduce525<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // TypeRefOrLifetime? =  => ActionFn(267);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action267::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant4(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 172)
 }
 fn ___reduce526<
@@ -19524,18 +20056,18 @@ fn ___reduce526<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Use = "use", ";" => ActionFn(28);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant1(___symbols);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant1(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action28::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant67(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 173)
 }
 fn ___reduce527<
@@ -19543,15 +20075,15 @@ fn ___reduce527<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Use* =  => ActionFn(201);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action201::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 174)
 }
 fn ___reduce528<
@@ -19559,16 +20091,16 @@ fn ___reduce528<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Use* = Use+ => ActionFn(202);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action202::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 174)
 }
 fn ___reduce529<
@@ -19576,16 +20108,16 @@ fn ___reduce529<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Use+ = Use => ActionFn(207);
-let ___sym0 = ___pop_Variant67(___symbols);
+let ___sym0 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action207::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 175)
 }
 fn ___reduce530<
@@ -19593,18 +20125,18 @@ fn ___reduce530<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Use+ = Use+, Use => ActionFn(208);
 assert!(___symbols.len() >= 2);
-let ___sym1 = ___pop_Variant67(___symbols);
-let ___sym0 = ___pop_Variant70(___symbols);
+let ___sym1 = ___pop_Variant67(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant70(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym1.2.clone();
 let ___nt = super::___action208::<>(text, ___sym0, ___sym1);
-___symbols.push((___start, ___Symbol::Variant70(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (2, 175)
 }
 fn ___reduce531<
@@ -19612,20 +20144,20 @@ fn ___reduce531<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Visibility = "pub", "(", Path, ")" => ActionFn(29);
 assert!(___symbols.len() >= 4);
-let ___sym3 = ___pop_Variant0(___symbols);
-let ___sym2 = ___pop_Variant84(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym3 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym3.2.clone();
 let ___nt = super::___action29::<>(text, ___sym0, ___sym1, ___sym2, ___sym3);
-___symbols.push((___start, ___Symbol::Variant101(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (4, 176)
 }
 fn ___reduce532<
@@ -19633,21 +20165,21 @@ fn ___reduce532<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Visibility = "pub", "(", "in", Path, ")" => ActionFn(30);
 assert!(___symbols.len() >= 5);
-let ___sym4 = ___pop_Variant0(___symbols);
-let ___sym3 = ___pop_Variant84(___symbols);
-let ___sym2 = ___pop_Variant0(___symbols);
-let ___sym1 = ___pop_Variant0(___symbols);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym4 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym3 = ___pop_Variant84(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym2 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym1 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym4.2.clone();
 let ___nt = super::___action30::<>(text, ___sym0, ___sym1, ___sym2, ___sym3, ___sym4);
-___symbols.push((___start, ___Symbol::Variant101(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (5, 176)
 }
 fn ___reduce533<
@@ -19655,16 +20187,16 @@ fn ___reduce533<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Visibility = "pub" => ActionFn(31);
-let ___sym0 = ___pop_Variant0(___symbols);
+let ___sym0 = ___pop_Variant0(___symbols, core::marker::PhantomData::<(&())>);
 let ___start = ___sym0.0.clone();
 let ___end = ___sym0.2.clone();
 let ___nt = super::___action31::<>(text, ___sym0);
-___symbols.push((___start, ___Symbol::Variant101(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (1, 176)
 }
 fn ___reduce534<
@@ -19672,15 +20204,15 @@ fn ___reduce534<
 >(
 text: &'input str,
 ___lookahead_start: Option<&usize>,
-___symbols: &mut alloc::vec::Vec<(usize,___Symbol<'input>,usize)>,
+___symbols: &mut ___stack::HeterogeneousStack<usize>,
 _: core::marker::PhantomData<(&'input ())>,
 ) -> (usize, usize)
 {
 // Visibility =  => ActionFn(349);
-let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last().map(|s| s.2)).unwrap_or_default();
+let ___start = ___lookahead_start.cloned().or_else(|| ___symbols.last_location().map(|s| s.1).copied()).unwrap_or_default();
 let ___end = ___start;
 let ___nt = super::___action349::<>(text, &___start, &___end);
-___symbols.push((___start, ___Symbol::Variant101(___nt), ___end));
+___symbols.push(___start, ___nt, ___end);
 (0, 176)
 }
 }
