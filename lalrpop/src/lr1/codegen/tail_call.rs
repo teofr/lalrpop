@@ -80,7 +80,10 @@
 //! `freduce...` calls with the transition left at the call site, lookahead
 //! advancing is one `advance` call, and the token-iterator bound hides
 //! behind the `Tokens` trait alias instead of being spelled out in every
-//! signature.
+//! signature. Dispatch itself goes through the generated `token_index` fn:
+//! arms match compressed integer ranges over the lookahead's dense token
+//! index instead of spelling a reduction's often-dozens-large lookahead set
+//! out as token patterns, one line per token, at every reduce site.
 //!
 //! All transitions are wrapped in a generated `transition!` macro. By default
 //! it expands to a plain `return f(...)`, which LLVM reliably compiles to a
@@ -230,6 +233,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             this.write_tokens_trait_defn()?;
             this.write_goto_type_defn()?;
             this.write_parser_type_defn()?;
+            this.write_token_index_fn()?;
             this.write_helper_fns()?;
             this.write_pop_fns()?;
             this.write_action_shims()?;
@@ -797,20 +801,24 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "#[allow(dead_code)]");
         self.emit_parser_fn_header(format!("{}state{}", self.prefix, this_index.0))?;
 
-        // Dispatch on the lookahead BY REFERENCE, binding nothing. Keeping
-        // an owned copy of the lookahead as a local would leave a stack slot
-        // in scope at every transition below; MIR then emits the slot's
-        // StorageDead between the transition call and the return, and if
-        // the slot survives to a stack allocation (SROA is best-effort),
-        // the resulting `llvm.lifetime.end` after the call stops the
-        // backend from compiling the transition as a tail call. The same
-        // discipline -- no non-scalar named local in scope at a transition
-        // -- shapes all the arms below.
+        // Dispatch on the lookahead's dense token index rather than on token
+        // patterns. This is a size optimization with teeth: a reduction's
+        // lookahead set is often dozens of terminals, and spelling each out
+        // as a `Some((_, Tok::X, _))` alternative repeats hundreds of bytes
+        // per reduce arm; as integers, a whole set is one short line of
+        // `a | b | c..=d` patterns. Dispatching by reference (through
+        // `token_index`) rather than on an owned lookahead local also keeps
+        // the no-non-scalar-local discipline: a lookahead stack slot in
+        // scope at a transition would get its `llvm.lifetime.end` emitted
+        // after the call, stopping the backend from compiling the
+        // transition as a tail call.
         rust!(
             self.out,
-            "match &{}parser.{}lookahead {{",
+            "match {}token_index(&{}parser.{}lookahead, {}) {{",
             self.prefix,
-            self.prefix
+            self.prefix,
+            self.prefix,
+            self.phantom_data_expr()
         );
 
         // first emit shifts:
@@ -821,8 +829,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 continue;
             }
 
-            let dispatch_pattern = self.match_terminal_pattern(terminal);
-            rust!(self.out, "Some({}) => {{", dispatch_pattern);
+            rust!(self.out, "{} => {{", self.terminal_index(terminal));
 
             // push the shifted terminal, paired with our own goto row, and
             // transfer control to the target state. The token is taken,
@@ -876,20 +883,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             .flat_map(|&(ref tokens, production)| tokens.iter().map(move |t| (production, t)))
             .collect();
         for (production, tokens) in reductions {
-            for (index, token) in tokens.iter().enumerate() {
-                let pattern = match *token {
-                    Token::Terminal(ref s) => format!("Some({})", self.match_terminal_pattern(s)),
-                    Token::Error => {
-                        panic!("Error recovery is not implemented for tail call parsers")
-                    }
-                    Token::Eof => "None".to_string(),
-                };
-                if index < tokens.len() - 1 {
-                    rust!(self.out, "{} |", pattern);
-                } else {
-                    rust!(self.out, "{} => {{", pattern);
-                }
-            }
+            let pattern = self.token_set_pattern(&tokens);
+            rust!(self.out, "{} => {{", pattern);
 
             // the lookahead is not consumed by a reduction: it stays in the
             // parser struct untouched
@@ -1051,9 +1046,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             );
         }
 
-        // arm head: dispatch on the first terminal by reference
-        let dispatch_pattern = self.match_terminal_pattern(terminal);
-        rust!(self.out, "Some({}) => {{", dispatch_pattern);
+        // arm head: dispatch on the first terminal's token index
+        rust!(self.out, "{} => {{", self.terminal_index(terminal));
 
         let resolution = self.reduce_resolution(this_index, &production.symbols[..base]);
 
@@ -1079,14 +1073,15 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         // as the next local; anything else is that state's error
         for (index, (_, hop_terminal)) in hops.iter().enumerate() {
             self.emit_advance_lookahead()?;
-            let dispatch_pattern = self.match_terminal_pattern(hop_terminal);
             rust!(
                 self.out,
-                "match &{}parser.{}lookahead {{",
+                "match {}token_index(&{}parser.{}lookahead, {}) {{",
                 self.prefix,
-                self.prefix
+                self.prefix,
+                self.prefix,
+                self.phantom_data_expr()
             );
-            rust!(self.out, "Some({}) => {{", dispatch_pattern);
+            rust!(self.out, "{} => {{", self.terminal_index(hop_terminal));
             self.emit_take_terminal(hop_terminal, base + 1 + index)?;
         }
 
@@ -1107,24 +1102,14 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         rust!(
             self.out,
-            "match &{}parser.{}lookahead {{",
+            "match {}token_index(&{}parser.{}lookahead, {}) {{",
             self.prefix,
-            self.prefix
+            self.prefix,
+            self.prefix,
+            self.phantom_data_expr()
         );
-        for (index, token) in tokens.iter().enumerate() {
-            let pattern = match *token {
-                Token::Terminal(ref s) => format!("Some({})", self.match_terminal_pattern(s)),
-                Token::Error => {
-                    panic!("Error recovery is not implemented for tail call parsers")
-                }
-                Token::Eof => "None".to_string(),
-            };
-            if index < tokens.len() - 1 {
-                rust!(self.out, "{} |", pattern);
-            } else {
-                rust!(self.out, "{} => {{", pattern);
-            }
-        }
+        let pattern = self.token_set_pattern(&tokens);
+        rust!(self.out, "{} => {{", pattern);
 
         let locals = hops.len() + 1;
         if self.grammar.action_is_fallible(production.action) {
@@ -1881,10 +1866,103 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         Ok(())
     }
 
-    /// Emit a pattern that matches `id` but doesn't extract any data.
-    fn match_terminal_pattern(&mut self, id: &TerminalString) -> String {
-        let pattern = self.grammar.pattern(id).map(&mut |_| "_");
-        format!("(_, {pattern}, _)")
+    /// The dense index of terminal `id`: its position among the grammar's
+    /// terminals, matching what the generated `token_index` fn computes.
+    fn terminal_index(&self, id: &TerminalString) -> usize {
+        self.grammar
+            .terminals
+            .all
+            .iter()
+            .position(|t| t == id)
+            .unwrap()
+    }
+
+    /// The token index representing end-of-input in the generated
+    /// `token_index` fn.
+    fn eof_index(&self) -> usize {
+        self.grammar.terminals.all.len()
+    }
+
+    /// A single-line match pattern covering a set of lookahead tokens by
+    /// their indices, with runs compressed into ranges: `3 | 7 | 9..=41`.
+    fn token_set_pattern(&self, tokens: &[Token]) -> String {
+        let mut indices: Vec<usize> = tokens
+            .iter()
+            .map(|token| match *token {
+                Token::Terminal(ref s) => self.terminal_index(s),
+                Token::Error => {
+                    panic!("Error recovery is not implemented for tail call parsers")
+                }
+                Token::Eof => self.eof_index(),
+            })
+            .collect();
+        indices.sort_unstable();
+        indices.dedup();
+
+        let mut parts: Vec<String> = vec![];
+        let mut i = 0;
+        while i < indices.len() {
+            let start = indices[i];
+            let mut end = start;
+            while i + 1 < indices.len() && indices[i + 1] == end + 1 {
+                i += 1;
+                end = indices[i];
+            }
+            match end - start {
+                0 => parts.push(format!("{start}")),
+                1 => {
+                    parts.push(format!("{start}"));
+                    parts.push(format!("{end}"));
+                }
+                _ => parts.push(format!("{start}..={end}")),
+            }
+            i += 1;
+        }
+        parts.join(" | ")
+    }
+
+    /// The `token_index` fn: maps the lookahead to the dense terminal index
+    /// that every state's dispatch matches on -- `terminals.len()` for
+    /// end-of-input, `usize::MAX` (never matched, so an error) for tokens
+    /// that no terminal claims. The mapping match is emitted once here
+    /// instead of being unfolded into token patterns at every dispatch arm.
+    fn write_token_index_fn(&mut self) -> io::Result<()> {
+        let parameters = vec![
+            format!("{}lookahead: &Option<{}>", self.prefix, self.triple_type()),
+            format!("_: {}", self.phantom_data_type()),
+        ];
+        rust!(self.out, "#[inline]");
+        rust!(self.out, "#[allow(dead_code)]");
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}token_index", self.prefix))
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .with_return_type("usize")
+            .emit()?;
+        rust!(self.out, "{{");
+        rust!(self.out, "match {}lookahead {{", self.prefix);
+        rust!(self.out, "None => {},", self.eof_index());
+        rust!(
+            self.out,
+            "Some((_, {}token, _)) => match {}token {{",
+            self.prefix,
+            self.prefix
+        );
+        for (index, terminal) in self.grammar.terminals.all.iter().enumerate() {
+            if *terminal == TerminalString::Error {
+                continue;
+            }
+            let pattern = self.grammar.pattern(terminal).map(&mut |_| "_");
+            // the `if true` allows patterns that later patterns make
+            // unreachable without triggering the unreachable-pattern lint
+            rust!(self.out, "{pattern} if true => {index},");
+        }
+        rust!(self.out, "_ => usize::MAX,");
+        rust!(self.out, "}},");
+        rust!(self.out, "}}");
+        rust!(self.out, "}}");
+        Ok(())
     }
 
     /// A pattern binding the data of terminal `id`, and the expression
