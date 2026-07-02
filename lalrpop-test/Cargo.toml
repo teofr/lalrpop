@@ -29,3 +29,8 @@ path = "../lalrpop"
 [[bench]]
 name = "lalrpop_benchmark"
 harness = false
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = [
+    'cfg(lalrpop_tail_call_become)',
+] }

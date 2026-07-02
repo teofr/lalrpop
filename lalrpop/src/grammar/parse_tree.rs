@@ -1,7 +1,9 @@
 //! The "parse-tree" is what is produced by the parser. We use it do
 //! some pre-expansion and so forth before creating the proper AST.
 
-use crate::grammar::consts::{INPUT_LIFETIME, LALR, RECURSIVE_ASCENT, TABLE_DRIVEN, TEST_ALL};
+use crate::grammar::consts::{
+    INPUT_LIFETIME, LALR, RECURSIVE_ASCENT, TABLE_DRIVEN, TAIL_CALL, TEST_ALL,
+};
 use crate::grammar::pattern::Pattern;
 use crate::grammar::repr::{self as r, NominalTypeRepr, TypeRepr};
 use crate::lexer::dfa::Dfa;
@@ -1273,6 +1275,8 @@ pub fn read_algorithm(attributes: &[Attribute], algorithm: &mut r::Algorithm) {
             algorithm.codegen = r::LrCodeGeneration::TableDriven;
         } else if attribute.id == *RECURSIVE_ASCENT {
             algorithm.codegen = r::LrCodeGeneration::RecursiveAscent;
+        } else if attribute.id == *TAIL_CALL {
+            algorithm.codegen = r::LrCodeGeneration::TailCall;
         } else if attribute.id == *TEST_ALL {
             algorithm.codegen = r::LrCodeGeneration::TestAll;
         } else {

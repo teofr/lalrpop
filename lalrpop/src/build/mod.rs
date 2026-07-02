@@ -513,6 +513,15 @@ fn emit_recursive_ascent(
                 "super",
                 &mut rust,
             )?,
+            r::LrCodeGeneration::TailCall => lr1::codegen::tail_call::compile(
+                grammar,
+                user_nt.clone(),
+                start_nt.clone(),
+                &states,
+                "super",
+                &mut rust,
+            )?,
+
             r::LrCodeGeneration::TableDriven => lr1::codegen::parse_table::compile(
                 grammar,
                 user_nt.clone(),

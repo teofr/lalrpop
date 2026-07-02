@@ -101,6 +101,7 @@ pub struct Algorithm {
 pub enum LrCodeGeneration {
     TableDriven,
     RecursiveAscent,
+    TailCall,
     TestAll,
 }
 

@@ -25,5 +25,8 @@ pub const TABLE_DRIVEN: &str = "table_driven";
 /// The attribute to request recursive-ascent-style code generation.
 pub const RECURSIVE_ASCENT: &str = "recursive_ascent";
 
+/// The attribute to request tail-call-style code generation.
+pub const TAIL_CALL: &str = "tail_call";
+
 /// The attribute to request test-all-style code generation.
 pub const TEST_ALL: &str = "test_all";

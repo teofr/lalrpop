@@ -1,6 +1,10 @@
 #![cfg_attr(not(test), allow(dead_code, unused_imports))]
 #![allow(unused_doc_comments)]
 #![warn(rust_2018_idioms)]
+// Allows running the whole test suite with guaranteed-tail-call parsers on
+// nightly: RUSTFLAGS="--cfg lalrpop_tail_call_become" cargo +nightly test
+#![cfg_attr(lalrpop_tail_call_become, feature(explicit_tail_calls))]
+#![cfg_attr(lalrpop_tail_call_become, allow(incomplete_features))]
 
 use std::cell::RefCell;
 
@@ -35,6 +39,7 @@ lalrpop_mod_test!(sub);
 /// test something other than test-all
 lalrpop_mod_test!(sub_ascent);
 lalrpop_mod_test!(sub_table);
+lalrpop_mod_test!(sub_tail_call);
 
 /// more interesting demonstration of parsing full expressions
 lalrpop_mod_test!(expr);
@@ -418,6 +423,20 @@ fn sub_ascent_test1() {
 #[test]
 fn sub_table_test1() {
     util::test(|t| sub_table::SParser::new().parse(t), "22 - 3", 22 - 3);
+}
+
+#[test]
+fn sub_tail_call_test1() {
+    util::test(|t| sub_tail_call::SParser::new().parse(t), "22 - 3", 22 - 3);
+}
+
+#[test]
+fn sub_tail_call_test2() {
+    util::test(
+        |t| sub_tail_call::SParser::new().parse(t),
+        "22 - (3 - 5) - 13",
+        22 - (3 - 5) - 13,
+    );
 }
 
 #[test]

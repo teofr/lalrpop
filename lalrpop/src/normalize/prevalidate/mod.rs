@@ -48,6 +48,7 @@ impl Validator<'_> {
             Atom::from(LALR),
             Atom::from(TABLE_DRIVEN),
             Atom::from(RECURSIVE_ASCENT),
+            Atom::from(TAIL_CALL),
             Atom::from(TEST_ALL),
         ];
         for attribute in &self.grammar.attributes {
@@ -351,11 +352,13 @@ impl Validator<'_> {
                 read_algorithm(&self.grammar.attributes, &mut algorithm);
                 if matches!(
                     algorithm.codegen,
-                    r::LrCodeGeneration::RecursiveAscent | r::LrCodeGeneration::TestAll
+                    r::LrCodeGeneration::RecursiveAscent
+                        | r::LrCodeGeneration::TailCall
+                        | r::LrCodeGeneration::TestAll
                 ) {
                     return_err!(
                         symbol.span,
-                        "error recovery is not yet supported by recursive ascent parsers"
+                        "error recovery is not yet supported by recursive ascent or tail call parsers"
                     );
                 }
             }

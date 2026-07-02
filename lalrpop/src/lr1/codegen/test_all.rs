@@ -1,8 +1,8 @@
 //! Test module for comparing code generation strategies
 //!
-//! The TestAll code generation strategy uses both parse tables and recursive ascent, and then
-//! compares the parsing return values to ensure they are both identical.  This is for use in the
-//! `lalrpop-test` test suite and not intended for external consumption.
+//! The TestAll code generation strategy uses parse tables, recursive ascent, and tail call
+//! parsers, and then compares the parsing return values to ensure they are all identical.
+//! This is for use in the `lalrpop-test` test suite and not intended for external consumption.
 
 use crate::grammar::repr::{Grammar, NonterminalString, TypeParameter};
 use crate::lr1::core::*;
@@ -83,6 +83,19 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TestAll> {
             rust!(this.out, "{}", pub_use);
             rust!(this.out, "}}");
 
+            rust!(this.out, "#[rustfmt::skip]");
+            rust!(this.out, "mod {}tail_call {{", this.prefix);
+            super::tail_call::compile(
+                this.grammar,
+                this.user_start_symbol.clone(),
+                this.start_symbol.clone(),
+                this.states,
+                "super::super::super",
+                this.out,
+            )?;
+            rust!(this.out, "{}", pub_use);
+            rust!(this.out, "}}");
+
             Ok(())
         })
     }
@@ -93,14 +106,21 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TestAll> {
         if self.grammar.intern_token.is_some() {
             rust!(self.out, "let _ = self.builder;");
         }
-        // parse input using both methods:
+        // parse input using all methods:
         self.call_delegate("ascent")?;
         self.call_delegate("parse_table")?;
+        self.call_delegate("tail_call")?;
 
-        // check that result is the same either way:
+        // check that result is the same in every case:
         rust!(
             self.out,
             "assert_eq!({}ascent, {}parse_table);",
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "assert_eq!({}ascent, {}tail_call);",
             self.prefix,
             self.prefix
         );

@@ -3,4 +3,5 @@
 pub mod ascent;
 mod base;
 pub mod parse_table;
+pub mod tail_call;
 pub mod test_all;
