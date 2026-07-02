@@ -4,6 +4,7 @@ use crate::collections::{Entry, Map, Set};
 use crate::grammar::repr::*;
 use crate::lr1::core::*;
 use crate::lr1::lookahead::Token;
+use crate::lr1::state_graph::StateGraph;
 use crate::rust::RustWrite;
 use crate::tls::Tls;
 use crate::util::Sep;
@@ -24,10 +25,12 @@ pub fn compile<'grammar, W: Write>(
     action_module: &str,
     out: &mut RustWrite<W>,
 ) -> io::Result<()> {
+    let graph = StateGraph::new(states);
     let mut table_driven = CodeGenerator::new_table_driven(
         grammar,
         user_start_symbol,
         start_symbol,
+        &graph,
         states,
         action_module,
         out,
@@ -68,6 +71,20 @@ struct TableDriven<'grammar> {
 
     reduce_indices: Map<&'grammar Production, usize>,
 
+    /// Extra reduce action codes with the GOTO folded in: when every stack
+    /// configuration reducing a production in some state exposes the same
+    /// surviving state (see `compute_specialized_reduces`), the ACTION table
+    /// stores one of these codes instead of the production's base code, and
+    /// the reduce skips the GOTO lookup, pushing a constant next state.
+    /// Each entry is `(base reduce index, production, states to pop, next
+    /// state)`; the expanded action code of entry `i` is
+    /// `reduce_indices.len() + i`.
+    specialized_reduces: Vec<(usize, &'grammar Production, usize, StateIndex)>,
+
+    /// which expanded action code the reduction of a production (by base
+    /// index) in a given state uses, when specialized
+    specialized_lookup: Map<(usize, usize), usize>,
+
     state_type: &'static str,
 
     variant_names: Map<Symbol, String>,
@@ -80,6 +97,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
         grammar: &'grammar Grammar,
         user_start_symbol: NonterminalString,
         start_symbol: NonterminalString,
+        graph: &StateGraph,
         states: &'ascent [Lr1State<'grammar>],
         action_module: &str,
         out: &'ascent mut RustWrite<W>,
@@ -105,10 +123,18 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             .zip(0..)
             .collect();
 
-        let state_type = {
-            // `reduce_indices` are allowed to be +1 since the negative maximum of any integer type
+        let (mut specialized_reduces, mut specialized_lookup) = Self::compute_specialized_reduces(
+            grammar,
+            graph,
+            states,
+            &reduce_indices,
+            start_symbol.clone(),
+        );
+
+        let state_tier = |actions: usize| {
+            // reduce codes are allowed to be +1 since the negative maximum of any integer type
             // is one larger than the positive maximum
-            let max_value = ::std::cmp::max(states.len(), reduce_indices.len());
+            let max_value = ::std::cmp::max(states.len(), actions);
             if max_value <= i8::MAX as usize {
                 "i8"
             } else if max_value <= i16::MAX as usize {
@@ -117,6 +143,16 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
                 "i32"
             }
         };
+
+        // The specialized codes are a strict optimization only while the
+        // ACTION table's cell type stays the same: if the extra codes would
+        // push it to a wider integer, the table doubles in size, which is a
+        // worse trade than the saved GOTO lookups. In that case drop them.
+        let state_type = state_tier(reduce_indices.len());
+        if state_tier(reduce_indices.len() + specialized_reduces.len()) != state_type {
+            specialized_reduces.clear();
+            specialized_lookup = Map::new();
+        }
 
         CodeGenerator::new(
             grammar,
@@ -132,12 +168,72 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
                 machine,
                 all_nonterminals: grammar.nonterminals.keys().cloned().collect(),
                 reduce_indices,
+                specialized_reduces,
+                specialized_lookup,
                 state_type,
                 variant_names: Map::new(),
                 variants: Map::new(),
                 reduce_functions: Set::new(),
             },
         )
+    }
+
+    /// For every reduction site (state, production), determine whether the
+    /// state surviving the reduction -- the one left exposed after popping
+    /// the production's symbols -- is statically known: `trace_back` yields
+    /// every state from which pushing those symbols can reach the reducing
+    /// state, and if there is exactly one, the GOTO lookup that follows the
+    /// reduction always produces the same next state and can be folded into
+    /// the action code as a constant.
+    ///
+    /// Only infallible, non-start productions are considered (matching the
+    /// productions whose reduces go through the shared `__reduceN` helpers);
+    /// the accept reduction has no GOTO to fold.
+    ///
+    /// Returns the specialized entries `(base index, production, pop count,
+    /// next state)` -- deduplicated, since several states can share a
+    /// survivor -- plus a map from `(state index, base index)` to the
+    /// position of the entry serving that site.
+    #[allow(clippy::type_complexity)]
+    fn compute_specialized_reduces(
+        grammar: &'grammar Grammar,
+        graph: &StateGraph,
+        states: &'ascent [Lr1State<'grammar>],
+        reduce_indices: &Map<&'grammar Production, usize>,
+        start_symbol: NonterminalString,
+    ) -> (
+        Vec<(usize, &'grammar Production, usize, StateIndex)>,
+        Map<(usize, usize), usize>,
+    ) {
+        let mut specialized: Vec<(usize, &'grammar Production, usize, StateIndex)> = vec![];
+        let mut lookup: Map<(usize, usize), usize> = Map::new();
+        for (state_index, state) in states.iter().enumerate() {
+            for &(_, production) in &state.reductions {
+                if production.nonterminal == start_symbol
+                    || grammar.action_is_fallible(production.action)
+                {
+                    continue;
+                }
+                let survivors = graph.trace_back(StateIndex(state_index), &production.symbols);
+                let [survivor] = survivors[..] else { continue };
+                let next_state = states[survivor.0].gotos[&production.nonterminal];
+                let base_index = reduce_indices[production];
+                let position = specialized
+                    .iter()
+                    .position(|&(base, _, _, next)| base == base_index && next == next_state)
+                    .unwrap_or_else(|| {
+                        specialized.push((
+                            base_index,
+                            production,
+                            production.symbols.len(),
+                            next_state,
+                        ));
+                        specialized.len() - 1
+                    });
+                lookup.insert((state_index, base_index), position);
+            }
+        }
+        (specialized, lookup)
     }
 
     fn write(&mut self) -> io::Result<()> {
@@ -692,7 +788,12 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
             .map(|&(_, p)| p)
             .next();
         if let Some(production) = reduction {
-            let action = custom.reduce_indices[production];
+            let base = custom.reduce_indices[production];
+            // use the goto-folded action code if this site has one
+            let action = match custom.specialized_lookup.get(&(state.index.0, base)) {
+                Some(&position) => custom.reduce_indices.len() + position,
+                None => base,
+            };
             (
                 -(action as i32 + 1),
                 Comment::Reduce(token.clone(), production),
@@ -968,6 +1069,55 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
 
             rust!(self.out, "}}");
         }
+
+        // Action codes past the per-production ones are reduce sites whose
+        // surviving state is statically known (see
+        // `compute_specialized_reduces`): the same reduction runs through
+        // the production's shared helper, but the GOTO lookup is folded away
+        // and the constant next state is pushed directly.
+        let phantom_data_expr = self.phantom_data_expr();
+        let user_parameter_refs = self.grammar.user_parameter_refs();
+        let base_count = self.custom.reduce_indices.len();
+        let specialized = self.custom.specialized_reduces.clone();
+        for (position, (base, production, pop, next_state)) in specialized.into_iter().enumerate() {
+            rust!(self.out, "{} => {{", base_count + position);
+            rust!(
+                self.out,
+                "// {:?} (goto folded: next state is always {})",
+                production,
+                next_state.0
+            );
+            rust!(
+                self.out,
+                "let _ = {p}reduce{}({}{p}lookahead_start, {p}symbols, {});",
+                base,
+                user_parameter_refs,
+                phantom_data_expr,
+                p = self.prefix
+            );
+            if pop > 0 {
+                rust!(
+                    self.out,
+                    "let {p}states_len = {p}states.len();",
+                    p = self.prefix
+                );
+                rust!(
+                    self.out,
+                    "{p}states.truncate({p}states_len - {});",
+                    pop,
+                    p = self.prefix
+                );
+            }
+            rust!(
+                self.out,
+                "{p}states.push({});",
+                next_state.0,
+                p = self.prefix
+            );
+            rust!(self.out, "return None;");
+            rust!(self.out, "}}");
+        }
+
         rust!(
             self.out,
             "_ => panic!(\"invalid action code {{{}action}}\")",
@@ -1327,6 +1477,34 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TableDrive
                 rust!(self.out, "}}");
             }
         }
+
+        // goto-folded reduce codes simulate exactly like their production's
+        // base code; the folded next state is not needed here, since the
+        // simulation walks the GOTO table itself
+        let base_count = self.custom.reduce_indices.len();
+        let specialized = self.custom.specialized_reduces.clone();
+        for (position, (_, production, pop, _)) in specialized.into_iter().enumerate() {
+            if Tls::session().emit_comments {
+                rust!(self.out, "// simulate {:?} (goto folded)", production);
+            }
+            let nt = self
+                .custom
+                .all_nonterminals
+                .iter()
+                .position(|x| *x == production.nonterminal)
+                .unwrap();
+            rust!(self.out, "{} => {{", base_count + position);
+            rust!(
+                self.out,
+                "{p}state_machine::SimulatedReduce::Reduce {{",
+                p = self.prefix,
+            );
+            rust!(self.out, "states_to_pop: {pop},", pop = pop);
+            rust!(self.out, "nonterminal_produced: {nt},", nt = nt);
+            rust!(self.out, "}}");
+            rust!(self.out, "}}");
+        }
+
         rust!(
             self.out,
             "_ => panic!(\"invalid reduction index {{{}reduce_index}}\")",
