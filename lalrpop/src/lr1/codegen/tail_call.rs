@@ -28,6 +28,17 @@
 //!   through the caller's stack frame, which makes the call ineligible for
 //!   tail-call optimization.
 //!
+//! * The parser functions are `#[inline(never)]`, and both the pop+downcast
+//!   sequences and the user's action code are fenced off behind small helper
+//!   functions (`pop_VariantN` / `call_actionN`). Each of these guards a
+//!   different way of losing the sibling-call optimization: parser functions
+//!   inlined into one another leave their tail calls stranded in the middle
+//!   of the merged function; inline downcasts make rustc emit drop-flagged
+//!   unwind cleanups that give the final call an unwind edge; and inlined
+//!   action code can contain operations that LLVM treats as escaping the
+//!   caller's stack (for example a panic path passing a local by reference),
+//!   which suppresses tail-call marking for the whole function.
+//!
 //! All transitions are wrapped in a generated `transition!` macro. By default
 //! it expands to a plain `return f(...)`, which LLVM reliably compiles to a
 //! jump (a sibling tail call) in optimized builds; in debug builds the native
@@ -151,6 +162,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             this.write_goto_type_defn()?;
             this.write_parser_type_defn()?;
             this.write_helper_fns()?;
+            this.write_pop_fns()?;
+            this.write_action_shims()?;
             this.write_parser_fn()?;
             for i in 0..this.states.len() {
                 this.write_state_fn(StateIndex(i))?;
@@ -400,6 +413,66 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "fn {}symbol_type_mismatch() -> ! {{", self.prefix);
         rust!(self.out, "panic!(\"symbol type mismatch\")");
         rust!(self.out, "}}");
+        Ok(())
+    }
+
+    /// One `pop_VariantN` helper per symbol type: pops the top stack entry
+    /// and downcasts it to a spanned value of that type (panicking on a
+    /// type mismatch, which would be a bug in the generated parser). See
+    /// `emit_pop_handle` for why popping and downcasting are fused into a
+    /// helper function instead of being emitted inline in the reduce code.
+    fn write_pop_fns(&mut self) -> io::Result<()> {
+        for (ty, variant_name) in self.custom.variants.clone() {
+            let tokens_bound = self.tokens_bound();
+            let parameters = vec![format!(
+                "{}stack: &mut alloc::vec::Vec<({}, {}Goto<{}>)>",
+                self.prefix,
+                self.spanned_symbol_type(),
+                self.prefix,
+                self.parser_type_args()
+            )];
+            let loc_type = self.types.terminal_loc_type();
+            let return_type = format!(
+                "(({}, {}, {}), {}Goto<{}>)",
+                loc_type,
+                ty,
+                loc_type,
+                self.prefix,
+                self.parser_type_args()
+            );
+            rust!(self.out, "#[allow(dead_code)]");
+            self.out
+                .fn_header(
+                    &Visibility::Priv,
+                    format!("{}pop_{}", self.prefix, variant_name),
+                )
+                .with_type_parameters(&self.grammar.type_parameters)
+                .with_type_parameters(Some(tokens_bound))
+                .with_where_clauses(&self.grammar.where_clauses)
+                .with_parameters(parameters)
+                .with_return_type(return_type)
+                .emit()?;
+            rust!(self.out, "{{");
+            rust!(self.out, "match {}stack.pop() {{", self.prefix);
+            rust!(
+                self.out,
+                "Some((({}l, {}Symbol::{}({}v), {}r), {}g)) => (({}l, {}v, {}r), {}g),",
+                self.prefix,
+                self.prefix,
+                variant_name,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix
+            );
+            rust!(self.out, "_ => {}symbol_type_mismatch(),", self.prefix);
+            rust!(self.out, "}}");
+            rust!(self.out, "}}");
+            rust!(self.out, "");
+        }
         Ok(())
     }
 
@@ -914,9 +987,17 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     }
 
     /// Emits code that pops the production's handle off the explicit stack,
-    /// downcasting each `symN` to a spanned value of its true type and
-    /// computing the `start`/`end` locations. If `bind_goto` is true, the
-    /// continuation found on the deepest entry is bound as `goto`.
+    /// binding each `symN` to a spanned value of its true type and computing
+    /// the `start`/`end` locations. If `bind_goto` is true, the continuation
+    /// found on the deepest entry is bound as `goto`.
+    ///
+    /// Popping and downcasting happen together inside the per-variant
+    /// `pop_VariantN` helper functions rather than inline: the helpers keep
+    /// the type-mismatch panic (and the unwind cleanups of the symbols still
+    /// held across it) out of the reduce function's own MIR. Inlining the
+    /// downcasts here makes rustc guard those cleanups with drop flags,
+    /// which gives the final transition an unwind edge -- and a call with an
+    /// unwind edge can never become a tail call.
     fn emit_pop_handle(
         &mut self,
         production: &'grammar Production,
@@ -947,34 +1028,15 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             } else {
                 "_".to_string()
             };
+            let variant_name = self.variant_name_for_symbol(&production.symbols[index]);
             rust!(
                 self.out,
-                "let ({}sym{}, {}) = {}parser.{}stack.pop().unwrap();",
+                "let ({}sym{}, {}) = {}pop_{}(&mut {}parser.{}stack);",
                 self.prefix,
                 index,
                 goto,
                 self.prefix,
-                self.prefix
-            );
-        }
-
-        // downcast each symbol to a spanned value of its true type
-        for (index, symbol) in production.symbols.iter().enumerate() {
-            let variant_name = self.variant_name_for_symbol(symbol);
-            rust!(
-                self.out,
-                "let {}sym{} = match {}sym{} {{ ({}l, {}Symbol::{}({}v), {}r) => ({}l, {}v, {}r), _ => {}symbol_type_mismatch() }};",
-                self.prefix,
-                index,
-                self.prefix,
-                index,
-                self.prefix,
-                self.prefix,
                 variant_name,
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.prefix,
                 self.prefix,
                 self.prefix
             );
@@ -996,10 +1058,93 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         Ok(())
     }
 
+    /// One `#[inline(never)]` wrapper around each production's action code.
+    /// The parser functions call the action through these shims rather than
+    /// directly, so that user action code is never inlined into a parser
+    /// function: action code can contain constructs (for example, a panic
+    /// path that passes a local by reference) that make LLVM consider the
+    /// surrounding function's stack as escaping, which stops the final
+    /// transition from being compiled as a tail call.
+    fn write_action_shims(&mut self) -> io::Result<()> {
+        let productions: Vec<&'grammar Production> = self
+            .grammar
+            .nonterminals
+            .values()
+            .flat_map(|nt| &nt.productions)
+            .collect();
+        for production in productions {
+            let index = self.custom.reduce_indices[production];
+            let loc_type = self.types.terminal_loc_type();
+
+            let parameters: Vec<String> = if production.symbols.is_empty() {
+                vec![
+                    format!("{}start: &{}", self.prefix, loc_type),
+                    format!("{}end: &{}", self.prefix, loc_type),
+                ]
+            } else {
+                production
+                    .symbols
+                    .iter()
+                    .enumerate()
+                    .map(|(i, symbol)| {
+                        format!(
+                            "{}sym{}: {}",
+                            self.prefix,
+                            i,
+                            self.types.spanned_type(symbol.ty(self.types).clone())
+                        )
+                    })
+                    .collect()
+            };
+
+            let nt_type = self.types.nonterminal_type(&production.nonterminal);
+            let return_type = if self.grammar.action_is_fallible(production.action) {
+                format!("Result<{}, {}>", nt_type, self.types.parse_error_type())
+            } else {
+                format!("{}", nt_type)
+            };
+
+            let mut args: Vec<String> = (0..production.symbols.len())
+                .map(|i| format!("{}sym{}", self.prefix, i))
+                .collect();
+            if args.is_empty() {
+                args.push(format!("{}start", self.prefix));
+                args.push(format!("{}end", self.prefix));
+            }
+
+            rust!(self.out, "#[allow(dead_code)]");
+            rust!(self.out, "#[inline(never)]");
+            self.out
+                .fn_header(
+                    &Visibility::Priv,
+                    format!("{}call_action{}", self.prefix, index),
+                )
+                .with_grammar(self.grammar)
+                .with_parameters(parameters)
+                .with_return_type(return_type)
+                .emit()?;
+            rust!(self.out, "{{");
+            rust!(
+                self.out,
+                "{}::{}action{}::<{}>({}{})",
+                self.action_module,
+                self.prefix,
+                production.action.index(),
+                Sep(", ", &self.grammar.non_lifetime_type_parameters()),
+                self.grammar.user_parameter_refs(),
+                Sep(", ", &args)
+            );
+            rust!(self.out, "}}");
+            rust!(self.out, "");
+        }
+        Ok(())
+    }
+
     /// Emits the call to the action code, binding the result as `nt`. For
     /// non-empty productions the `symN` triples must already be in scope;
     /// for empty productions, `start`/`end` locations must be.
     fn emit_action_call(&mut self, production: &'grammar Production) -> io::Result<()> {
+        let index = self.custom.reduce_indices[production];
         let mut args: Vec<String> = (0..production.symbols.len())
             .map(|i| format!("{}sym{}", self.prefix, i))
             .collect();
@@ -1012,11 +1157,10 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         if is_fallible {
             rust!(
                 self.out,
-                "let {}nt = match {}::{}action{}::<{}>({}{}) {{",
+                "let {}nt = match {}call_action{}::<{}>({}{}) {{",
                 self.prefix,
-                self.action_module,
                 self.prefix,
-                production.action.index(),
+                index,
                 Sep(", ", &self.grammar.non_lifetime_type_parameters()),
                 self.grammar.user_parameter_refs(),
                 Sep(", ", &args)
@@ -1034,11 +1178,10 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         } else {
             rust!(
                 self.out,
-                "let {}nt = {}::{}action{}::<{}>({}{});",
+                "let {}nt = {}call_action{}::<{}>({}{});",
                 self.prefix,
-                self.action_module,
                 self.prefix,
-                production.action.index(),
+                index,
                 Sep(", ", &self.grammar.non_lifetime_type_parameters()),
                 self.grammar.user_parameter_refs(),
                 Sep(", ", &args)
@@ -1048,10 +1191,18 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     }
 
     /// Emits the header of a state/goto/reduce function. These all share the
-    /// exact same signature: the grammar's user parameters, the parser
-    /// struct, and the lookahead. This uniformity is required for `become`
-    /// (which insists that caller and callee signatures match) and makes
-    /// every transition a sibling call for LLVM otherwise.
+    /// exact same signature: the grammar's user parameters and the parser
+    /// struct. This uniformity is required for `become` (which insists that
+    /// caller and callee signatures match) and makes every transition a
+    /// sibling call for LLVM otherwise.
+    ///
+    /// The functions are `#[inline(never)]`: when LLVM inlines one parser
+    /// function into another, the inlinee's tail calls land in the middle of
+    /// the merged function (followed by the inliner's block structure and
+    /// stack-slot cleanup), which stops the backend from emitting them as
+    /// jumps -- and the native stack starts growing per transition again.
+    /// Keeping each function standalone keeps its transitions in genuine
+    /// tail position.
     fn emit_parser_fn_header(&mut self, name: String) -> io::Result<()> {
         let tokens_bound = self.tokens_bound();
         let parameters = vec![format!(
@@ -1060,6 +1211,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             self.prefix,
             self.parser_type_args()
         )];
+        rust!(self.out, "#[inline(never)]");
         self.out
             .fn_header(&Visibility::Priv, name)
             .with_grammar(self.grammar)
