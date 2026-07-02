@@ -71,6 +71,17 @@
 //!   which resolves uniquely more often (for a fused unit production it
 //!   always does).
 //!
+//! Because this is a code-per-state backend and fusion multiplies code per
+//! transition, everything that can repeat thousands of times on a large
+//! grammar is shared rather than inlined: error reports go through one cold
+//! `unrecognized` helper with interned `EXPECTED{n}` statics (only the
+//! *unique* expected-token sets are materialized), fused reduce bodies are
+//! shared per (production, survivor, local count) as ordinary non-tail
+//! `freduce...` calls with the transition left at the call site, lookahead
+//! advancing is one `advance` call, and the token-iterator bound hides
+//! behind the `Tokens` trait alias instead of being spelled out in every
+//! signature.
+//!
 //! All transitions are wrapped in a generated `transition!` macro. By default
 //! it expands to a plain `return f(...)`, which LLVM reliably compiles to a
 //! jump (a sibling tail call) in optimized builds; in debug builds the native
@@ -145,6 +156,19 @@ struct TailCall<'ascent, 'grammar> {
     /// `reduceN` functions
     reduce_indices: Map<&'grammar Production, usize>,
 
+    /// deduplicated expected-token sets (each entry is the list of terminal
+    /// string literals), emitted as `EXPECTED{i}` statics and referenced by
+    /// index from the error sites; distinct states routinely share the same
+    /// set, so interning them keeps the error reporting O(unique sets)
+    /// instead of O(error sites x terminals)
+    expected_sets: Vec<Vec<String>>,
+
+    /// shared fused-reduce bodies, keyed by (production, statically-resolved
+    /// survivor, number of locally-held trailing terminals); many fusion
+    /// sites share one body, so it is emitted once as a `freduceN...`
+    /// function instead of inline at each site
+    fused_reduce_fns: Vec<(&'grammar Production, Option<StateIndex>, usize)>,
+
     variant_names: Map<Symbol, String>,
     variants: Map<TypeRepr, String>,
 }
@@ -191,6 +215,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 symbol_where_clauses,
                 all_nonterminals: grammar.nonterminals.keys().cloned().collect(),
                 reduce_indices,
+                expected_sets: vec![],
+                fused_reduce_fns: vec![],
                 variant_names: Map::new(),
                 variants: Map::new(),
             },
@@ -201,6 +227,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         self.write_parse_mod(|this| {
             this.write_transition_macro()?;
             this.write_value_type_defn()?;
+            this.write_tokens_trait_defn()?;
             this.write_goto_type_defn()?;
             this.write_parser_type_defn()?;
             this.write_helper_fns()?;
@@ -214,6 +241,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 this.write_goto_fn(StateIndex(i))?;
             }
             this.write_reduce_fns()?;
+            this.write_fused_reduce_fns()?;
+            this.write_expected_sets()?;
             Ok(())
         })
     }
@@ -456,11 +485,160 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "}}");
         rust!(self.out, "");
 
+        // advance: fetch the next token into the lookahead, storing lexer
+        // errors into the parse result (false = stop parsing). Like
+        // `next_token`, the `#[inline]` also guarantees per-codegen-unit
+        // instantiation.
+        let tokens_bound = self.tokens_bound();
+        let parameters = vec![format!(
+            "{}parser: &mut {}Parser<{}>",
+            self.prefix,
+            self.prefix,
+            self.parser_type_args()
+        )];
+        rust!(self.out, "#[inline]");
+        rust!(self.out, "#[allow(dead_code)]");
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}advance", self.prefix))
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_type_parameters(Some(tokens_bound))
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .with_return_type("bool")
+            .emit()?;
+        rust!(self.out, "{{");
+        rust!(
+            self.out,
+            "match {}parser.{}tokens.next() {{",
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some(Ok({}v)) => {{ {}parser.{}lookahead = Some({}v); true }}",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some(Err({}e)) => {{ {}parser.{}result = Some(Err({}e)); false }}",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "None => {{ {}parser.{}lookahead = None; true }}",
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "}}");
+        rust!(self.out, "}}");
+        rust!(self.out, "");
+
         // symbol_type_mismatch
         rust!(self.out, "#[inline(never)]");
         rust!(self.out, "#[allow(dead_code)]");
         rust!(self.out, "fn {}symbol_type_mismatch() -> ! {{", self.prefix);
         rust!(self.out, "panic!(\"symbol type mismatch\")");
+        rust!(self.out, "}}");
+        rust!(self.out, "");
+
+        // unrecognized: the shared cold error reporter. Every error site is
+        // a two-line call to this instead of an inline report; with grammars
+        // of thousands of error sites, inlining the report (and especially
+        // the expected-token list) at each site dominates the size of the
+        // generated code. Error paths return rather than transition, so
+        // moving them out of line cannot disturb the tail calls.
+        let tokens_bound = self.tokens_bound();
+        let parameters = vec![
+            format!(
+                "{}parser: &mut {}Parser<{}>",
+                self.prefix,
+                self.prefix,
+                self.parser_type_args()
+            ),
+            format!("{}expected: &'static [&'static str]", self.prefix),
+            format!(
+                "{}location: Option<{}>",
+                self.prefix,
+                self.types.terminal_loc_type()
+            ),
+        ];
+        rust!(self.out, "#[inline(never)]");
+        rust!(self.out, "#[allow(dead_code)]");
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}unrecognized", self.prefix))
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_type_parameters(Some(tokens_bound))
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .emit()?;
+        rust!(self.out, "{{");
+        rust!(
+            self.out,
+            "let {}expected: alloc::vec::Vec<alloc::string::String> = {}expected.iter().map(|{}s| alloc::string::ToString::to_string({}s)).collect();",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        // on EOF the error location is the given one, or failing that the
+        // end of the last symbol on the stack
+        rust!(
+            self.out,
+            "let {}location = match {}location {{",
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some({}location) => {}location,",
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "None => match {}parser.{}stack.last() {{",
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some({}entry) => ({}entry.0).2.clone(),",
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "None => Default::default(),");
+        rust!(self.out, "}},");
+        rust!(self.out, "}};");
+        rust!(
+            self.out,
+            "{}parser.{}result = Some(Err(match {}parser.{}lookahead.take() {{",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some({}token) => {}lalrpop_util::ParseError::UnrecognizedToken {{ token: {}token, expected: {}expected }},",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "None => {}lalrpop_util::ParseError::UnrecognizedEof {{ location: {}location, expected: {}expected }},",
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "}}));");
         rust!(self.out, "}}");
         Ok(())
     }
@@ -748,116 +926,87 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         Ok(())
     }
 
-    /// The terminals which would have resulted in a successful parse in this
-    /// state, and the error to return for anything else. `eof_location` is
-    /// the expression giving the error location on EOF: by default the end
-    /// of the last symbol on the stack, but fused shift-reduces must use the
-    /// end of the shifted terminal they kept as a local instead.
+    /// Emits the error handling for a state: a call to the shared cold
+    /// `unrecognized` helper with the state's expected-terminal set (interned
+    /// -- distinct states routinely expect the same terminals) followed by a
+    /// `return`. `eof_location` is the expression giving the error location
+    /// on EOF: by default (`None`) the helper uses the end of the last
+    /// symbol on the stack, but fused shift-reduces must pass the end of the
+    /// terminal they kept as a local instead.
     fn emit_error(
         &mut self,
         this_state: &Lr1State<'_>,
         eof_location: Option<String>,
     ) -> io::Result<()> {
-        let successful_terminals = self.grammar.terminals.all.iter().filter(|&terminal| {
-            this_state.shifts.contains_key(terminal)
-                || this_state
-                    .reductions
-                    .iter()
-                    .any(|(t, _)| t.contains(&Token::Terminal(terminal.clone())))
-        });
-
-        rust!(self.out, "#[allow(clippy::needless_raw_string_hashes)]");
-        rust!(self.out, "let {}expected = alloc::vec![", self.prefix);
-        for terminal in successful_terminals {
+        let set: Vec<String> = self
+            .grammar
+            .terminals
+            .all
+            .iter()
+            .filter(|&terminal| {
+                this_state.shifts.contains_key(terminal)
+                    || this_state
+                        .reductions
+                        .iter()
+                        .any(|(t, _)| t.contains(&Token::Terminal(terminal.clone())))
+            })
             // Try to avoid terminals escaping
-            rust!(self.out, "r###\"{}\"###.to_string(),", terminal);
-        }
-        rust!(self.out, "];");
-
-        rust!(
-            self.out,
-            "{}parser.{}result = Some(Err(match {}parser.{}lookahead.take() {{",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix
-        );
-        rust!(self.out, "Some({}token) => {{", self.prefix);
-        rust!(
-            self.out,
-            "{}lalrpop_util::ParseError::UnrecognizedToken {{",
-            self.prefix
-        );
-        rust!(self.out, "token: {}token,", self.prefix);
-        rust!(self.out, "expected: {}expected,", self.prefix);
-        rust!(self.out, "}}");
-        rust!(self.out, "}}");
-        rust!(self.out, "None => {{");
-        match eof_location {
-            Some(location) => {
-                rust!(self.out, "let {}location = {};", self.prefix, location);
-            }
+            .map(|terminal| format!("r###\"{terminal}\"###"))
+            .collect();
+        let index = match self.custom.expected_sets.iter().position(|s| *s == set) {
+            Some(index) => index,
             None => {
-                // find the location of the last symbol on the stack, if any
-                rust!(
-                    self.out,
-                    "let {}location = match {}parser.{}stack.last() {{",
-                    self.prefix,
-                    self.prefix,
-                    self.prefix
-                );
-                rust!(
-                    self.out,
-                    "Some({}entry) => ({}entry.0).2.clone(),",
-                    self.prefix,
-                    self.prefix
-                );
-                rust!(self.out, "None => Default::default(),");
-                rust!(self.out, "}};");
+                self.custom.expected_sets.push(set);
+                self.custom.expected_sets.len() - 1
             }
-        }
+        };
+
+        let location = match eof_location {
+            Some(location) => format!("Some({location})"),
+            None => "None".to_string(),
+        };
         rust!(
             self.out,
-            "{}lalrpop_util::ParseError::UnrecognizedEof {{",
-            self.prefix
+            "{}unrecognized({}parser, {}EXPECTED{}, {});",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            index,
+            location
         );
-        rust!(self.out, "location: {}location,", self.prefix);
-        rust!(self.out, "expected: {}expected,", self.prefix);
-        rust!(self.out, "}}");
-        rust!(self.out, "}}");
-        rust!(self.out, "}}));");
         rust!(self.out, "return;");
         Ok(())
     }
 
-    /// Fetches the next token into `parser.lookahead`, routing lexer errors
-    /// into the parse result.
+    /// The interned expected-terminal sets, as statics.
+    fn write_expected_sets(&mut self) -> io::Result<()> {
+        let sets = self.custom.expected_sets.clone();
+        for (index, set) in sets.into_iter().enumerate() {
+            rust!(self.out, "");
+            rust!(self.out, "#[allow(clippy::needless_raw_string_hashes)]");
+            rust!(
+                self.out,
+                "static {}EXPECTED{}: &[&str] = &[",
+                self.prefix,
+                index
+            );
+            for terminal in set {
+                rust!(self.out, "{},", terminal);
+            }
+            rust!(self.out, "];");
+        }
+        Ok(())
+    }
+
+    /// Fetches the next token into `parser.lookahead` via the shared
+    /// `advance` helper, routing lexer errors into the parse result.
     fn emit_advance_lookahead(&mut self) -> io::Result<()> {
         rust!(
             self.out,
-            "match {}next_token(&mut {}parser.{}tokens, {}) {{",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.phantom_data_expr()
-        );
-        rust!(
-            self.out,
-            "Ok({}la) => {}parser.{}lookahead = {}la,",
-            self.prefix,
-            self.prefix,
+            "if !{}advance({}parser) {{ return; }}",
             self.prefix,
             self.prefix
         );
-        rust!(
-            self.out,
-            "Err({}e) => {{ {}parser.{}result = Some(Err({}e)); return; }}",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix
-        );
-        rust!(self.out, "}}");
         Ok(())
     }
 
@@ -977,11 +1126,35 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             }
         }
 
-        self.emit_pop_handle(production, resolution.is_none(), hops.len() + 1)?;
-        self.emit_action_call(production)?;
-        self.emit_reduce_push(production, resolution)?;
-        if resolution.is_none() {
-            rust!(self.out, "{}goto", self.prefix);
+        let locals = hops.len() + 1;
+        if self.grammar.action_is_fallible(production.action) {
+            // a fallible action must be able to end the parse from inside
+            // the reduce, which a shared helper could not communicate to its
+            // caller without taxing the infallible hot path; fallible
+            // productions are rare, so their fused bodies stay inline
+            self.emit_pop_handle(production, resolution.is_none(), locals)?;
+            self.emit_action_call(production)?;
+            self.emit_reduce_push(production, resolution)?;
+            if resolution.is_none() {
+                rust!(self.out, "{}goto", self.prefix);
+            }
+        } else {
+            // the body (pop the handle prefix, run the action, push the
+            // nonterminal) is shared between every fusion site that agrees
+            // on production, survivor resolution, and local count; only the
+            // transition stays here
+            let helper = self.fused_reduce_fn_name(production, resolution, locals);
+            let args: Vec<String> = (len - locals..len)
+                .map(|i| format!("{}sym{}", self.prefix, i))
+                .collect();
+            rust!(
+                self.out,
+                "{}({}{}parser, {})",
+                helper,
+                self.grammar.user_parameter_refs(),
+                self.prefix,
+                Sep(", ", &args)
+            );
         }
 
         rust!(self.out, "}}"); // reduce arm
@@ -1015,6 +1188,101 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             rust!(self.out, "}}");
         }
         self.emit_reduce_transition(production, resolution)?;
+        Ok(())
+    }
+
+    /// The name of the shared fused-reduce body for (production, survivor
+    /// resolution, locally-held terminal count), registering it for emission
+    /// by `write_fused_reduce_fns` on first use.
+    fn fused_reduce_fn_name(
+        &mut self,
+        production: &'grammar Production,
+        resolution: Option<StateIndex>,
+        locals: usize,
+    ) -> String {
+        let index = self.custom.reduce_indices[production];
+        let registered = self.custom.fused_reduce_fns.iter().any(|&(p, r, l)| {
+            self.custom.reduce_indices[p] == index && r == resolution && l == locals
+        });
+        if !registered {
+            self.custom
+                .fused_reduce_fns
+                .push((production, resolution, locals));
+        }
+        let via = match resolution {
+            Some(survivor) => format!("via{}", survivor.0),
+            None => String::new(),
+        };
+        format!("{}freduce{}{}x{}", self.prefix, index, via, locals)
+    }
+
+    /// The shared fused-reduce bodies (see `emit_fused_shift_reduce`): pop
+    /// the handle prefix, run the action, push the reduced nonterminal. The
+    /// locally-held trailing terminals arrive as by-value arguments -- this
+    /// is an ordinary call that returns, not a transition, so outsized
+    /// arguments are harmless here -- and for a dynamic survivor the popped
+    /// continuation is handed back to the caller, which owns the transition.
+    fn write_fused_reduce_fns(&mut self) -> io::Result<()> {
+        let fns = self.custom.fused_reduce_fns.clone();
+        for (production, resolution, locals) in fns {
+            let len = production.symbols.len();
+
+            rust!(self.out, "");
+            rust!(
+                self.out,
+                "// {:?} with the last {} symbol(s) held in locals",
+                production,
+                locals
+            );
+            if let Some(survivor) = resolution {
+                rust!(
+                    self.out,
+                    "// (the survivor is statically state {})",
+                    survivor.0
+                );
+            }
+            rust!(self.out, "#[allow(dead_code)]");
+            rust!(self.out, "#[inline(never)]");
+
+            let name = self.fused_reduce_fn_name(production, resolution, locals);
+            let tokens_bound = self.tokens_bound();
+            let mut parameters = vec![format!(
+                "{}parser: &mut {}Parser<{}>",
+                self.prefix,
+                self.prefix,
+                self.parser_type_args()
+            )];
+            for i in len - locals..len {
+                parameters.push(format!(
+                    "{}sym{}: {}",
+                    self.prefix,
+                    i,
+                    self.types
+                        .spanned_type(production.symbols[i].ty(self.types).clone())
+                ));
+            }
+            let return_type = match resolution {
+                Some(_) => "()".to_string(),
+                None => format!("{}Goto<{}>", self.prefix, self.parser_type_args()),
+            };
+            self.out
+                .fn_header(&Visibility::Priv, name)
+                .with_grammar(self.grammar)
+                .with_type_parameters(Some(tokens_bound))
+                .with_parameters(parameters)
+                .with_return_type(return_type)
+                .emit()?;
+            rust!(self.out, "{{");
+
+            self.emit_pop_handle(production, resolution.is_none(), locals)?;
+            self.emit_action_call(production)?;
+            self.emit_reduce_push(production, resolution)?;
+            if resolution.is_none() {
+                rust!(self.out, "{}goto", self.prefix);
+            }
+
+            rust!(self.out, "}}");
+        }
         Ok(())
     }
 
@@ -1803,13 +2071,78 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         clauses.join(", ")
     }
 
+    /// The token-iterator bound, in its short trait-alias form (see
+    /// `write_tokens_trait_defn`). It is repeated in every function header,
+    /// so its length is multiplied by the number of states.
     fn tokens_bound(&self) -> String {
         format!(
-            "{}TOKENS: Iterator<Item = Result<{}, {}>>",
+            "{}TOKENS: {}Tokens{}",
             self.prefix,
+            self.prefix,
+            self.grammar_type_args()
+        )
+    }
+
+    /// The spelled-out token-iterator bound backing the trait alias.
+    fn tokens_bound_full(&self) -> String {
+        format!(
+            "Iterator<Item = Result<{}, {}>>",
             self.triple_type(),
             self.types.parse_error_type()
         )
+    }
+
+    /// The grammar's type parameters as a `<...>` argument list, or nothing.
+    fn grammar_type_args(&self) -> String {
+        if self.grammar.type_parameters.is_empty() {
+            String::new()
+        } else {
+            format!("<{}>", Sep(", ", &self.grammar.type_parameters))
+        }
+    }
+
+    /// A trait alias for the token-iterator bound: `Tokens` names the full
+    /// `Iterator<Item = Result<triple, error>>` bound once, and every other
+    /// signature refers to it. Purely a size optimization -- the full bound
+    /// is a couple hundred bytes and appears in thousands of signatures on
+    /// large grammars.
+    fn write_tokens_trait_defn(&mut self) -> io::Result<()> {
+        let full = self.tokens_bound_full();
+        let type_args = self.grammar_type_args();
+        let where_clauses = if self.grammar.where_clauses.is_empty() {
+            String::new()
+        } else {
+            format!(" where {}", Sep(", ", &self.grammar.where_clauses))
+        };
+        rust!(
+            self.out,
+            "trait {}Tokens{}: {}{} {{}}",
+            self.prefix,
+            if type_args.is_empty() {
+                String::new()
+            } else {
+                format!("<{}>", Sep(", ", &self.grammar.type_parameters))
+            },
+            full,
+            where_clauses,
+        );
+        let mut impl_params: Vec<String> = self
+            .grammar
+            .type_parameters
+            .iter()
+            .map(|tp| tp.to_string())
+            .collect();
+        impl_params.push(format!("{}T: {}", self.prefix, full));
+        rust!(
+            self.out,
+            "impl<{}> {}Tokens{} for {}T{} {{}}",
+            impl_params.join(", "),
+            self.prefix,
+            type_args,
+            self.prefix,
+            where_clauses,
+        );
+        Ok(())
     }
 
     /// The parameter types of the unified fn signature, for the fn pointer
