@@ -39,6 +39,34 @@
 //!   caller's stack (for example a panic path passing a local by reference),
 //!   which suppresses tail-call marking for the whole function.
 //!
+//! * No non-scalar named local is in scope at any transition: the lookahead
+//!   is dispatched on by reference, values move through single-statement
+//!   temporaries, and reduce bodies run inside inner blocks with the
+//!   transition after the block. A local still in scope at the transition
+//!   gets its `StorageDead` -- and hence, if it survives to a stack slot,
+//!   its `llvm.lifetime.end` -- emitted between the call and the return,
+//!   which stops the backend from turning the call into a jump. Relying on
+//!   SROA to dissolve such locals works only by luck; the block structure
+//!   makes it deterministic.
+//!
+//! Two of the optimizations from the tc_args design are derived mechanically
+//! from the automaton (sections 3.4-3.6 of that report):
+//!
+//! * A shift into a *reduce-only* state (single production, no shifts, no
+//!   gotos) is fused with that reduction: the shifted terminal stays in a
+//!   local -- it never touches the explicit stack and is never wrapped in
+//!   the `Symbol` enum -- while the fused code performs the target state's
+//!   lookahead check and error reporting verbatim.
+//!
+//! * Reductions statically resolve their surviving state where possible:
+//!   `StateGraph::trace_back` computes which states can be exposed by
+//!   popping the handle, and when there is exactly one, the pushed
+//!   continuation and the goto transition become compile-time constants
+//!   instead of an indirect call through the stored continuation. Fusion
+//!   compounds this: the popped prefix is anchored at the *shifting* state,
+//!   which resolves uniquely more often (for a fused unit production it
+//!   always does).
+//!
 //! All transitions are wrapped in a generated `transition!` macro. By default
 //! it expands to a plain `return f(...)`, which LLVM reliably compiles to a
 //! jump (a sibling tail call) in optimized builds; in debug builds the native
@@ -61,6 +89,7 @@ use crate::grammar::repr::{
 };
 use crate::lr1::core::*;
 use crate::lr1::lookahead::Token;
+use crate::lr1::state_graph::StateGraph;
 use crate::rust::RustWrite;
 use crate::tls::Tls;
 use crate::util::Sep;
@@ -80,10 +109,12 @@ pub fn compile<'grammar, W: Write>(
     action_module: &str,
     out: &mut RustWrite<W>,
 ) -> io::Result<()> {
+    let graph = StateGraph::new(states);
     let mut tail_call = CodeGenerator::new_tail_call(
         grammar,
         user_start_symbol,
         start_symbol,
+        &graph,
         states,
         action_module,
         out,
@@ -91,7 +122,11 @@ pub fn compile<'grammar, W: Write>(
     tail_call.write()
 }
 
-struct TailCall<'grammar> {
+struct TailCall<'ascent, 'grammar> {
+    /// the shift/goto edges of the automaton; used to statically resolve
+    /// which state survives a reduction (see `reduce_resolution`)
+    graph: &'ascent StateGraph,
+
     /// type parameters for the `Symbol` type
     symbol_type_params: Vec<TypeParameter>,
 
@@ -110,11 +145,13 @@ struct TailCall<'grammar> {
     variants: Map<TypeRepr, String>,
 }
 
-impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'grammar>> {
+impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'ascent, 'grammar>> {
+    #[allow(clippy::too_many_arguments)]
     fn new_tail_call(
         grammar: &'grammar Grammar,
         user_start_symbol: NonterminalString,
         start_symbol: NonterminalString,
+        graph: &'ascent StateGraph,
         states: &'ascent [Lr1State<'grammar>],
         action_module: &str,
         out: &'ascent mut RustWrite<W>,
@@ -145,6 +182,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             false,
             action_module,
             TailCall {
+                graph,
                 symbol_type_params,
                 symbol_where_clauses,
                 all_nonterminals: grammar.nonterminals.keys().cloned().collect(),
@@ -380,6 +418,13 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             self.triple_type(),
             self.types.parse_error_type()
         );
+        // `#[inline]` matters beyond performance: it makes every codegen
+        // unit instantiate this helper locally, so it is reliably inlined
+        // into the parser functions. A cross-codegen-unit call returning
+        // this aggregate through a hidden pointer right before a transition
+        // can otherwise stop LLVM from marking the transition as a tail
+        // call.
+        rust!(self.out, "#[inline]");
         self.out
             .fn_header(&Visibility::Priv, format!("{}next_token", self.prefix))
             .with_type_parameters(&self.grammar.type_parameters)
@@ -441,6 +486,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 self.parser_type_args()
             );
             rust!(self.out, "#[allow(dead_code)]");
+            // see `next_token` for why the `#[inline]` is load-bearing
+            rust!(self.out, "#[inline]");
             self.out
                 .fn_header(
                     &Visibility::Priv,
@@ -563,60 +610,69 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             }
         }
 
+        // a state all of whose shift-predecessors fuse its reduction into
+        // their own bodies is never entered
+        rust!(self.out, "#[allow(dead_code)]");
         self.emit_parser_fn_header(format!("{}state{}", self.prefix, this_index.0))?;
 
-        // take the lookahead out of the parser struct so shift arms can
-        // consume it by value; the reduce arms put it back untouched
+        // Dispatch on the lookahead BY REFERENCE, binding nothing. Keeping
+        // an owned copy of the lookahead as a local would leave a stack slot
+        // in scope at every transition below; MIR then emits the slot's
+        // StorageDead between the transition call and the return, and if
+        // the slot survives to a stack allocation (SROA is best-effort),
+        // the resulting `llvm.lifetime.end` after the call stops the
+        // backend from compiling the transition as a tail call. The same
+        // discipline -- no non-scalar named local in scope at a transition
+        // -- shapes all the arms below.
         rust!(
             self.out,
-            "let {}lookahead = {}parser.{}lookahead.take();",
-            self.prefix,
+            "match &{}parser.{}lookahead {{",
             self.prefix,
             self.prefix
         );
-        rust!(self.out, "match {}lookahead {{", self.prefix);
 
         // first emit shifts:
         for (terminal, &next_index) in &this_state.shifts {
-            self.consume_terminal_arm(terminal)?;
+            if let Some(production) = self.fused_production(next_index) {
+                self.emit_fused_shift_reduce(this_index, terminal, next_index, production)?;
+                rust!(self.out, "}}");
+                continue;
+            }
+
+            let dispatch_pattern = self.match_terminal_pattern(terminal);
+            rust!(self.out, "Some({}) => {{", dispatch_pattern);
 
             // push the shifted terminal, paired with our own goto row, and
-            // transfer control to the target state
+            // transfer control to the target state. The token is taken,
+            // rewrapped as a Symbol, and pushed in a single statement, so
+            // the value only lives in statement temporaries.
+            let (pattern, content) = self.terminal_pattern_and_content(terminal);
             rust!(
                 self.out,
-                "{}parser.{}stack.push(({}sym, {}Goto({}goto{})));",
+                "match {}parser.{}lookahead.take() {{",
+                self.prefix,
+                self.prefix
+            );
+            rust!(
+                self.out,
+                "Some(({}loc1, {}, {}loc2)) => {}parser.{}stack.push((({}loc1, {}Symbol::{}({}), {}loc2), {}Goto({}goto{}))),",
+                self.prefix,
+                pattern,
                 self.prefix,
                 self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.variant_name_for_symbol(&Symbol::Terminal(terminal.clone())),
+                content,
                 self.prefix,
                 self.prefix,
                 self.prefix,
                 this_index.0
             );
-            rust!(
-                self.out,
-                "match {}next_token(&mut {}parser.{}tokens, {}) {{",
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.phantom_data_expr()
-            );
-            rust!(
-                self.out,
-                "Ok({}la) => {}parser.{}lookahead = {}la,",
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.prefix
-            );
-            rust!(
-                self.out,
-                "Err({}e) => {{ {}parser.{}result = Some(Err({}e)); return; }}",
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.prefix
-            );
+            rust!(self.out, "_ => unreachable!(),");
             rust!(self.out, "}}");
+            self.emit_advance_lookahead()?;
             rust!(
                 self.out,
                 "{}transition!({}state{}({}{}parser))",
@@ -653,32 +709,25 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 }
             }
 
+            // the lookahead is not consumed by a reduction: it stays in the
+            // parser struct untouched
             if production.nonterminal == self.start_symbol {
                 self.emit_accept(production)?;
+            } else if production.symbols.is_empty() {
+                self.emit_empty_reduce(this_index, production)?;
             } else {
-                // reducing does not consume the lookahead; put it back
+                // the reduce code depends only on the production and on
+                // the statically-resolved survivor (if any), so it is
+                // shared between all the reduce sites that agree on both
+                let resolution = self.reduce_resolution(this_index, &production.symbols);
                 rust!(
                     self.out,
-                    "{}parser.{}lookahead = {}lookahead;",
+                    "{}transition!({}({}{}parser))",
                     self.prefix,
-                    self.prefix,
+                    self.reduce_fn_name(production, resolution),
+                    self.grammar.user_parameter_refs(),
                     self.prefix
                 );
-                if production.symbols.is_empty() {
-                    self.emit_empty_reduce(this_index, production)?;
-                } else {
-                    // the reduce code is state-independent, so it is shared
-                    // between all the states performing this reduction
-                    rust!(
-                        self.out,
-                        "{}transition!({}reduce{}({}{}parser))",
-                        self.prefix,
-                        self.prefix,
-                        self.custom.reduce_indices[production],
-                        self.grammar.user_parameter_refs(),
-                        self.prefix
-                    );
-                }
             }
 
             rust!(self.out, "}}");
@@ -686,7 +735,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         // if we hit this, the next token is not recognized, so generate an error
         rust!(self.out, "_ => {{");
-        self.emit_error(this_state)?;
+        self.emit_error(this_state, None)?;
         rust!(self.out, "}}"); // Wildcard match case
 
         rust!(self.out, "}}"); // match
@@ -696,8 +745,15 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     }
 
     /// The terminals which would have resulted in a successful parse in this
-    /// state, and the error to return for anything else.
-    fn emit_error(&mut self, this_state: &Lr1State<'_>) -> io::Result<()> {
+    /// state, and the error to return for anything else. `eof_location` is
+    /// the expression giving the error location on EOF: by default the end
+    /// of the last symbol on the stack, but fused shift-reduces must use the
+    /// end of the shifted terminal they kept as a local instead.
+    fn emit_error(
+        &mut self,
+        this_state: &Lr1State<'_>,
+        eof_location: Option<String>,
+    ) -> io::Result<()> {
         let successful_terminals = self.grammar.terminals.all.iter().filter(|&terminal| {
             this_state.shifts.contains_key(terminal)
                 || this_state
@@ -716,7 +772,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         rust!(
             self.out,
-            "{}parser.{}result = Some(Err(match {}lookahead {{",
+            "{}parser.{}result = Some(Err(match {}parser.{}lookahead.take() {{",
+            self.prefix,
             self.prefix,
             self.prefix,
             self.prefix
@@ -732,22 +789,29 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "}}");
         rust!(self.out, "}}");
         rust!(self.out, "None => {{");
-        // find the location of the last symbol on the stack, if any
-        rust!(
-            self.out,
-            "let {}location = match {}parser.{}stack.last() {{",
-            self.prefix,
-            self.prefix,
-            self.prefix
-        );
-        rust!(
-            self.out,
-            "Some({}entry) => ({}entry.0).2.clone(),",
-            self.prefix,
-            self.prefix
-        );
-        rust!(self.out, "None => Default::default(),");
-        rust!(self.out, "}};");
+        match eof_location {
+            Some(location) => {
+                rust!(self.out, "let {}location = {};", self.prefix, location);
+            }
+            None => {
+                // find the location of the last symbol on the stack, if any
+                rust!(
+                    self.out,
+                    "let {}location = match {}parser.{}stack.last() {{",
+                    self.prefix,
+                    self.prefix,
+                    self.prefix
+                );
+                rust!(
+                    self.out,
+                    "Some({}entry) => ({}entry.0).2.clone(),",
+                    self.prefix,
+                    self.prefix
+                );
+                rust!(self.out, "None => Default::default(),");
+                rust!(self.out, "}};");
+            }
+        }
         rust!(
             self.out,
             "{}lalrpop_util::ParseError::UnrecognizedEof {{",
@@ -759,6 +823,183 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "}}");
         rust!(self.out, "}}));");
         rust!(self.out, "return;");
+        Ok(())
+    }
+
+    /// Fetches the next token into `parser.lookahead`, routing lexer errors
+    /// into the parse result.
+    fn emit_advance_lookahead(&mut self) -> io::Result<()> {
+        rust!(
+            self.out,
+            "match {}next_token(&mut {}parser.{}tokens, {}) {{",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.phantom_data_expr()
+        );
+        rust!(
+            self.out,
+            "Ok({}la) => {}parser.{}lookahead = {}la,",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Err({}e) => {{ {}parser.{}result = Some(Err({}e)); return; }}",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "}}");
+        Ok(())
+    }
+
+    /// Fuses a shift into a reduce-only state (report sections 3.4-3.6): the
+    /// target state would only consult one lookahead token and pop a handle
+    /// whose top we are about to push, so instead the shifted terminal is
+    /// kept as a local -- it never touches the explicit stack, and is never
+    /// wrapped in the `Symbol` enum -- and the target state's reduction is
+    /// performed right here. A further payoff is that the popped handle
+    /// prefix is anchored at *this* state rather than being traced from the
+    /// target state, so the surviving state is more often statically known
+    /// and the transition devirtualizes (see `reduce_resolution`).
+    ///
+    /// The lookahead consultation and the error report are exactly the ones
+    /// the target state's function would have produced, except that on EOF
+    /// the error location is taken from the local terminal (which is where
+    /// the target state's stack top would have ended).
+    fn emit_fused_shift_reduce(
+        &mut self,
+        this_index: StateIndex,
+        terminal: &TerminalString,
+        target_index: StateIndex,
+        production: &'grammar Production,
+    ) -> io::Result<()> {
+        let len = production.symbols.len();
+        assert_eq!(
+            production.symbols[len - 1],
+            Symbol::Terminal(terminal.clone())
+        );
+
+        if Tls::session().emit_comments {
+            rust!(
+                self.out,
+                "// shifting {:?} into state {} is fused with reducing `{:?}`",
+                terminal,
+                target_index.0,
+                production
+            );
+        }
+
+        // arm head: dispatch on the terminal by reference
+        let dispatch_pattern = self.match_terminal_pattern(terminal);
+        rust!(self.out, "Some({}) => {{", dispatch_pattern);
+
+        // the handle prefix below the local terminal is popped from the
+        // stack; it is anchored at the current state (which is why the
+        // survivor resolves statically more often than at an unfused
+        // reduce site)
+        let resolution = self.reduce_resolution(this_index, &production.symbols[..len - 1]);
+
+        // The whole fused reduce runs inside an inner block, so that every
+        // stack slot it creates (the terminal itself, the popped symbols,
+        // the action result) is dead -- StorageDead emitted, lifetime over
+        // -- before the transition that follows the block. See the
+        // dispatch comment in `write_state_fn`: a slot still in scope at
+        // the transition would end up with its `llvm.lifetime.end` after
+        // the call, preventing the tail call. For a dynamic survivor the
+        // block hands the continuation out as its (register-sized) value.
+        if resolution.is_none() {
+            rust!(self.out, "let {}goto = {{", self.prefix);
+        } else {
+            rust!(self.out, "{{");
+        }
+
+        // take the shifted terminal as the top of the handle, bound as a
+        // raw spanned value (it never touches the stack and is never
+        // wrapped in the Symbol enum)
+        let top = format!("{}sym{}", self.prefix, len - 1);
+        let (pattern, content) = self.terminal_pattern_and_content(terminal);
+        rust!(
+            self.out,
+            "let {} = match {}parser.{}lookahead.take() {{",
+            top,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some(({}loc1, {}, {}loc2)) => ({}loc1, {}, {}loc2),",
+            self.prefix,
+            pattern,
+            self.prefix,
+            self.prefix,
+            content,
+            self.prefix
+        );
+        rust!(self.out, "_ => unreachable!(),");
+        rust!(self.out, "}};");
+
+        // advance past the shifted terminal
+        self.emit_advance_lookahead()?;
+
+        // the target state's ACTION dispatch: the reduction on its
+        // lookaheads, an error on anything else
+        let target_state = &self.states[target_index.0];
+        let mut tokens: Vec<Token> = vec![];
+        for (token_set, _) in &target_state.reductions {
+            for token in token_set.iter() {
+                if !tokens.contains(&token) {
+                    tokens.push(token);
+                }
+            }
+        }
+
+        rust!(
+            self.out,
+            "match &{}parser.{}lookahead {{",
+            self.prefix,
+            self.prefix
+        );
+        for (index, token) in tokens.iter().enumerate() {
+            let pattern = match *token {
+                Token::Terminal(ref s) => format!("Some({})", self.match_terminal_pattern(s)),
+                Token::Error => {
+                    panic!("Error recovery is not implemented for tail call parsers")
+                }
+                Token::Eof => "None".to_string(),
+            };
+            if index < tokens.len() - 1 {
+                rust!(self.out, "{} |", pattern);
+            } else {
+                rust!(self.out, "{} => {{", pattern);
+            }
+        }
+
+        self.emit_pop_handle(production, resolution.is_none(), true)?;
+        self.emit_action_call(production)?;
+        self.emit_reduce_push(production, resolution)?;
+        if resolution.is_none() {
+            rust!(self.out, "{}goto", self.prefix);
+        }
+
+        rust!(self.out, "}}"); // reduce arm
+
+        rust!(self.out, "_ => {{");
+        self.emit_error(target_state, Some(format!("{}.2.clone()", top)))?;
+        rust!(self.out, "}}"); // error arm
+        rust!(self.out, "}}"); // match lookahead
+
+        // close the inner block and transition with nothing live
+        if resolution.is_none() {
+            rust!(self.out, "}};");
+        } else {
+            rust!(self.out, "}}");
+        }
+        self.emit_reduce_transition(production, resolution)?;
         Ok(())
     }
 
@@ -811,74 +1052,169 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         Ok(())
     }
 
-    /// Writes one shared reduce function per (non-empty, non-start)
-    /// production. Unlike classic recursive ascent -- where the reduce code
+    /// Writes the shared reduce functions for (non-empty, non-start)
+    /// productions. Unlike classic recursive ascent -- where the reduce code
     /// is specialized to each state because the handle lives in the state
     /// functions' frames -- the handle here is always on the explicit stack,
-    /// so the reduce code is state-independent: pop the handle, run the
-    /// action, and transfer control to the continuation stored on the
-    /// deepest popped entry (the goto row of the surviving state).
+    /// so the reduce code depends only on the production plus, when the
+    /// surviving state can be statically resolved, on that survivor; one
+    /// function is emitted per (production, resolution) pair that some state
+    /// actually transitions to.
     fn write_reduce_fns(&mut self) -> io::Result<()> {
-        let productions: Vec<&'grammar Production> = self
-            .grammar
-            .nonterminals
-            .values()
-            .flat_map(|nt| &nt.productions)
-            .collect();
-        for production in productions {
-            if production.nonterminal != self.start_symbol && !production.symbols.is_empty() {
-                self.write_reduce_fn(production)?;
+        let mut seen: Vec<(usize, Option<usize>)> = vec![];
+        let mut variants: Vec<(&'grammar Production, Option<StateIndex>)> = vec![];
+        for (index, state) in self.states.iter().enumerate() {
+            for &(_, production) in &state.reductions {
+                if production.nonterminal == self.start_symbol || production.symbols.is_empty() {
+                    continue;
+                }
+                let resolution = self.reduce_resolution(StateIndex(index), &production.symbols);
+                let key = (
+                    self.custom.reduce_indices[production],
+                    resolution.map(|s| s.0),
+                );
+                if !seen.contains(&key) {
+                    seen.push(key);
+                    variants.push((production, resolution));
+                }
+            }
+        }
+        for (production, resolution) in variants {
+            self.write_reduce_fn(production, resolution)?;
+        }
+        Ok(())
+    }
+
+    fn write_reduce_fn(
+        &mut self,
+        production: &'grammar Production,
+        resolution: Option<StateIndex>,
+    ) -> io::Result<()> {
+        rust!(self.out, "");
+        rust!(self.out, "// {:?}", production);
+        if let Some(survivor) = resolution {
+            rust!(
+                self.out,
+                "// (specialized for reduce sites whose survivor is statically state {})",
+                survivor.0
+            );
+        }
+        // some productions may not be reachable from the start symbol
+        rust!(self.out, "#[allow(dead_code)]");
+        let name = self.reduce_fn_name(production, resolution);
+        self.emit_parser_fn_header(name)?;
+
+        // The pop-action-push sequence runs inside an inner block so all its
+        // stack slots are dead before the transition; for a dynamic survivor
+        // the block hands out the (register-sized) continuation. See the
+        // dispatch comment in `write_state_fn`.
+        if resolution.is_none() {
+            rust!(self.out, "let {}goto = {{", self.prefix);
+        } else {
+            rust!(self.out, "{{");
+        }
+        self.emit_pop_handle(production, resolution.is_none(), false)?;
+        self.emit_action_call(production)?;
+        self.emit_reduce_push(production, resolution)?;
+        if resolution.is_none() {
+            rust!(self.out, "{}goto", self.prefix);
+            rust!(self.out, "}};");
+        } else {
+            rust!(self.out, "}}");
+        }
+        self.emit_reduce_transition(production, resolution)?;
+
+        rust!(self.out, "}}"); // fn
+        Ok(())
+    }
+
+    /// Pushes the reduced nonterminal, paired with the surviving state's
+    /// goto row. When the survivor was statically resolved, the pushed
+    /// continuation is a compile-time constant; otherwise it is the
+    /// continuation popped from the deepest handle entry (bound as `goto`),
+    /// and the reduced-nonterminal discriminant is stored for the dynamic
+    /// goto dispatch.
+    fn emit_reduce_push(
+        &mut self,
+        production: &'grammar Production,
+        resolution: Option<StateIndex>,
+    ) -> io::Result<()> {
+        let variant_name =
+            self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
+        match resolution {
+            Some(survivor) => {
+                rust!(
+                    self.out,
+                    "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}Goto({}goto{})));",
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    variant_name,
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    survivor.0
+                );
+            }
+            None => {
+                rust!(
+                    self.out,
+                    "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}goto));",
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    self.prefix,
+                    variant_name,
+                    self.prefix,
+                    self.prefix,
+                    self.prefix
+                );
+                rust!(
+                    self.out,
+                    "{}parser.{}reduced_nt = {};",
+                    self.prefix,
+                    self.prefix,
+                    self.nonterminal_index(&production.nonterminal)
+                );
             }
         }
         Ok(())
     }
 
-    fn write_reduce_fn(&mut self, production: &'grammar Production) -> io::Result<()> {
-        let index = self.custom.reduce_indices[production];
-
-        rust!(self.out, "");
-        rust!(self.out, "// {:?}", production);
-        // some productions may not be reachable from the start symbol
-        rust!(self.out, "#[allow(dead_code)]");
-        self.emit_parser_fn_header(format!("{}reduce{}", self.prefix, index))?;
-
-        self.emit_pop_handle(production, true)?;
-        self.emit_action_call(production)?;
-
-        // push the reduced nonterminal, paired with the surviving state's
-        // goto row (which is exactly the continuation we just popped), and
-        // transfer control to that goto row
-        let variant_name =
-            self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
-        rust!(
-            self.out,
-            "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}goto));",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            variant_name,
-            self.prefix,
-            self.prefix,
-            self.prefix
-        );
-        rust!(
-            self.out,
-            "{}parser.{}reduced_nt = {};",
-            self.prefix,
-            self.prefix,
-            self.nonterminal_index(&production.nonterminal)
-        );
-        rust!(
-            self.out,
-            "{}transition!(({}goto.0)({}{}parser))",
-            self.prefix,
-            self.prefix,
-            self.grammar.user_parameter_refs(),
-            self.prefix
-        );
-
-        rust!(self.out, "}}"); // fn
+    /// Transfers control to the surviving state's goto row: a direct call
+    /// into the goto's target state when the survivor is statically known,
+    /// or a dispatch through the popped continuation otherwise.
+    fn emit_reduce_transition(
+        &mut self,
+        production: &'grammar Production,
+        resolution: Option<StateIndex>,
+    ) -> io::Result<()> {
+        match resolution {
+            Some(survivor) => {
+                let next_index = self.states[survivor.0].gotos[&production.nonterminal];
+                rust!(
+                    self.out,
+                    "{}transition!({}state{}({}{}parser))",
+                    self.prefix,
+                    self.prefix,
+                    next_index.0,
+                    self.grammar.user_parameter_refs(),
+                    self.prefix
+                );
+            }
+            None => {
+                rust!(
+                    self.out,
+                    "{}transition!(({}goto.0)({}{}parser))",
+                    self.prefix,
+                    self.prefix,
+                    self.grammar.user_parameter_refs(),
+                    self.prefix
+                );
+            }
+        }
         Ok(())
     }
 
@@ -886,11 +1222,12 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     /// handle, run the action, and return the parsed value (or report an
     /// `ExtraToken` error if there is remaining input).
     fn emit_accept(&mut self, production: &'grammar Production) -> io::Result<()> {
-        self.emit_pop_handle(production, false)?;
+        self.emit_pop_handle(production, false, false)?;
         self.emit_action_call(production)?;
         rust!(
             self.out,
-            "{}parser.{}result = Some(match {}lookahead {{",
+            "{}parser.{}result = Some(match {}parser.{}lookahead.take() {{",
+            self.prefix,
             self.prefix,
             self.prefix,
             self.prefix
@@ -918,6 +1255,10 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     ) -> io::Result<()> {
         let this_state = &self.states[this_index.0];
         let next_index = this_state.gotos[&production.nonterminal];
+
+        // inner block so all stack slots are dead before the transition;
+        // see the dispatch comment in `write_state_fn`
+        rust!(self.out, "{{");
 
         // the span of an empty production is empty; anchor it at the
         // lookahead, or failing that at the end of the top stack symbol
@@ -974,6 +1315,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             self.prefix,
             this_index.0
         );
+        rust!(self.out, "}}"); // inner block
         rust!(
             self.out,
             "{}transition!({}state{}({}{}parser))",
@@ -989,7 +1331,10 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     /// Emits code that pops the production's handle off the explicit stack,
     /// binding each `symN` to a spanned value of its true type and computing
     /// the `start`/`end` locations. If `bind_goto` is true, the continuation
-    /// found on the deepest entry is bound as `goto`.
+    /// found on the deepest entry is bound as `goto` (a statically-resolved
+    /// reduce does not need it). If `top_is_local` is true, the topmost
+    /// handle symbol is not popped: the caller has already bound it as
+    /// `sym{N-1}` (the fused shift-reduce case).
     ///
     /// Popping and downcasting happen together inside the per-variant
     /// `pop_VariantN` helper functions rather than inline: the helpers keep
@@ -1002,11 +1347,14 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         &mut self,
         production: &'grammar Production,
         bind_goto: bool,
+        top_is_local: bool,
     ) -> io::Result<()> {
         let len = production.symbols.len();
         assert!(len > 0);
+        let pop_count = if top_is_local { len - 1 } else { len };
+        assert!(!(bind_goto && pop_count == 0));
 
-        if len > 1 {
+        if pop_count > 1 {
             // By asserting that there are enough elements to pop before
             // popping multiple elements we may help LLVM to optimize better
             // since it does not need to generate panic branches for each
@@ -1016,13 +1364,13 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 "assert!({}parser.{}stack.len() >= {});",
                 self.prefix,
                 self.prefix,
-                len
+                pop_count
             );
         }
 
         // pop the handle, top of the stack first; the deepest entry carries
         // the goto row of the surviving state
-        for index in (0..len).rev() {
+        for index in (0..pop_count).rev() {
             let goto = if index == 0 && bind_goto {
                 format!("{}goto", self.prefix)
             } else {
@@ -1228,12 +1576,9 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         format!("(_, {pattern}, _)")
     }
 
-    /// Emits the arm head `Some((loc1, <pattern>, loc2)) => {` for shifting
-    /// terminal `id`, plus a `let sym = ...;` binding the shifted symbol as
-    /// a spanned `Symbol` value. The arm body (and closing brace) are left
-    /// to the caller.
-    fn consume_terminal_arm(&mut self, id: &TerminalString) -> io::Result<()> {
-        let variant_name = self.variant_name_for_symbol(&Symbol::Terminal(id.clone()));
+    /// A pattern binding the data of terminal `id`, and the expression
+    /// rebuilding the terminal's value from those bindings.
+    fn terminal_pattern_and_content(&mut self, id: &TerminalString) -> (String, String) {
         let mut pattern_names = vec![];
         let pattern = self.grammar.pattern(id).map(&mut |_| {
             let index = pattern_names.len();
@@ -1243,7 +1588,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         let mut pattern = format!("{pattern}");
         let content = if pattern_names.is_empty() {
-            // no data extracted: the variant stores the token itself
+            // no data extracted: the value is the token itself
             pattern = format!("{}tok @ {}", self.prefix, pattern);
             format!("{}tok", self.prefix)
         } else if pattern_names.len() == 1 {
@@ -1251,25 +1596,61 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         } else {
             format!("({})", pattern_names.join(", "))
         };
+        (pattern, content)
+    }
 
-        rust!(
-            self.out,
-            "Some(({}loc1, {}, {}loc2)) => {{",
-            self.prefix,
-            pattern,
-            self.prefix
-        );
-        rust!(
-            self.out,
-            "let {}sym = ({}loc1, {}Symbol::{}({}), {}loc2);",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            variant_name,
-            content,
-            self.prefix
-        );
-        Ok(())
+    /// Statically resolves which state survives popping `prefix` symbols
+    /// while in state `from`: the survivor must be a state from which
+    /// pushing `prefix` reaches `from`. If exactly one state qualifies, the
+    /// continuation of a reduction popping that prefix is a compile-time
+    /// constant, and both the dispatch through the stored goto pointer and
+    /// the goto's own dispatch on the reduced nonterminal collapse into a
+    /// direct transition. This is the generator-level analogue of the
+    /// devirtualization that tc_args obtains from LLVM constant propagation
+    /// (report section 3.5): the LR invariant "the continuation below this
+    /// handle is that state's goto row" is restated where it is statically
+    /// visible.
+    fn reduce_resolution(&self, from: StateIndex, prefix: &[Symbol]) -> Option<StateIndex> {
+        let survivors = self.custom.graph.trace_back(from, prefix);
+        match survivors[..] {
+            [survivor] => Some(survivor),
+            _ => None,
+        }
+    }
+
+    /// If `target` is a *reduce-only* state -- no shifts, no gotos, and one
+    /// single reduced production -- then a shift into it can be fused: the
+    /// target state would only consult one lookahead token and pop a handle
+    /// whose top we are about to push. Returns that production.
+    fn fused_production(&self, target: StateIndex) -> Option<&'grammar Production> {
+        let state = &self.states[target.0];
+        if !state.shifts.is_empty() || !state.gotos.is_empty() {
+            return None;
+        }
+        let mut productions = state.reductions.iter().map(|(_, p)| *p);
+        let first = productions.next()?;
+        if productions.all(|p| p == first)
+            && first.nonterminal != self.start_symbol
+            && !first.symbols.is_empty()
+        {
+            Some(first)
+        } else {
+            None
+        }
+    }
+
+    /// The name of the shared reduce fn for a production, specialized by the
+    /// statically-resolved survivor when there is one.
+    fn reduce_fn_name(
+        &self,
+        production: &'grammar Production,
+        resolution: Option<StateIndex>,
+    ) -> String {
+        let index = self.custom.reduce_indices[production];
+        match resolution {
+            Some(survivor) => format!("{}reduce{}via{}", self.prefix, index, survivor.0),
+            None => format!("{}reduce{}", self.prefix, index),
+        }
     }
 
     fn variant_name_for_symbol(&self, s: &Symbol) -> String {

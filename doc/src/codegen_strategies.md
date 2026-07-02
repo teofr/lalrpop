@@ -86,9 +86,10 @@ Use the default table-driven backend unless you have a reason not to: it is
 the most widely used and supports error recovery. Reach for `#[tail_call]`
 when you must parse adversarially deep or adversarially long input without
 overflowing the native stack; prefer it over `#[recursive_ascent]`, which it
-strictly improves upon in stack behavior. Do not assume it is faster: the
-current implementation prioritizes the constant-stack guarantee over raw
-throughput (several deliberate inlining barriers protect the tail calls),
-and on allocation-heavy grammars it can measure slower than the table-driven
-backend. Measure on your own grammar and inputs — the repository's
-`lalrpop-test/benches` harness shows how to set up such a comparison.
+strictly improves upon in stack behavior. The backend fuses shifts into
+reduce-only states and statically resolves reduction continuations where the
+automaton permits, but it also carries deliberate inlining barriers that
+protect the constant-stack guarantee; on the repository's allocation-heavy
+JSON benchmark it measures at parity with the table-driven backend. Measure
+on your own grammar and inputs — the `lalrpop-test/benches` harness shows
+how to set up such a comparison.
