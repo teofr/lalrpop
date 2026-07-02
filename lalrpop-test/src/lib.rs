@@ -416,6 +416,13 @@ fn sub_test3() {
 }
 
 #[test]
+fn sub_test4() {
+    // `- - 5` is a T ("double negation"); this exercises the tail call
+    // backend's fused shift corridors in the test-all comparison
+    util::test(|t| sub::SParser::new().parse(t), "22 - - - 5", 22 - 5);
+}
+
+#[test]
 fn sub_ascent_test1() {
     util::test(|t| sub_ascent::SParser::new().parse(t), "22 - 3", 22 - 3);
 }
@@ -437,6 +444,13 @@ fn sub_tail_call_test2() {
         "22 - (3 - 5) - 13",
         22 - (3 - 5) - 13,
     );
+}
+
+#[test]
+fn sub_tail_call_test3() {
+    // `- - 5` is a T ("double negation") parsed through a fused shift
+    // corridor: neither `-` ever touches the parse stack
+    util::test(|t| sub_tail_call::SParser::new().parse(t), "22 - - - 5", 22 - 5);
 }
 
 #[test]

@@ -21,4 +21,7 @@ E: i32 = {
 T = {
     <Num>,
     "(" <E> ")",
+    // a "double negation"; the two consecutive terminals exercise the tail
+    // call backend's fused shift corridors under the test-all comparison
+    "-" "-" <Num>,
 };

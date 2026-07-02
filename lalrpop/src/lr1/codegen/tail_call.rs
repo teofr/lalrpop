@@ -52,11 +52,15 @@
 //! Two of the optimizations from the tc_args design are derived mechanically
 //! from the automaton (sections 3.4-3.6 of that report):
 //!
-//! * A shift into a *reduce-only* state (single production, no shifts, no
-//!   gotos) is fused with that reduction: the shifted terminal stays in a
-//!   local -- it never touches the explicit stack and is never wrapped in
-//!   the `Symbol` enum -- while the fused code performs the target state's
-//!   lookahead check and error reporting verbatim.
+//! * A shift whose forced continuation ends in a *reduce-only* state
+//!   (single production, no shifts, no gotos) is fused with that reduction.
+//!   The forced continuation may pass through a corridor of states that
+//!   each have exactly one shift and no reductions or gotos -- consecutive
+//!   terminals in a production tail, like `T = "-" "-" Num`, produce such
+//!   corridors -- and every terminal along the way stays in a local: it
+//!   never touches the explicit stack and is never wrapped in the `Symbol`
+//!   enum. The fused code performs each traversed state's lookahead check
+//!   and error reporting verbatim.
 //!
 //! * Reductions statically resolve their surviving state where possible:
 //!   `StateGraph::trace_back` computes which states can be exposed by
@@ -633,8 +637,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         // first emit shifts:
         for (terminal, &next_index) in &this_state.shifts {
-            if let Some(production) = self.fused_production(next_index) {
-                self.emit_fused_shift_reduce(this_index, terminal, next_index, production)?;
+            if let Some((hops, final_index, production)) = self.fused_chain(terminal, next_index) {
+                self.emit_fused_shift_reduce(this_index, terminal, hops, final_index, production)?;
                 rust!(self.out, "}}");
                 continue;
             }
@@ -857,100 +861,94 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         Ok(())
     }
 
-    /// Fuses a shift into a reduce-only state (report sections 3.4-3.6): the
-    /// target state would only consult one lookahead token and pop a handle
-    /// whose top we are about to push, so instead the shifted terminal is
-    /// kept as a local -- it never touches the explicit stack, and is never
-    /// wrapped in the `Symbol` enum -- and the target state's reduction is
-    /// performed right here. A further payoff is that the popped handle
-    /// prefix is anchored at *this* state rather than being traced from the
-    /// target state, so the surviving state is more often statically known
-    /// and the transition devirtualizes (see `reduce_resolution`).
+    /// Fuses a shift whose forced continuation ends in a reduce-only state
+    /// (report sections 3.4-3.6; see `fused_chain`): the shifted terminal
+    /// and every terminal along the corridor are kept as locals -- they
+    /// never touch the explicit stack, and are never wrapped in the `Symbol`
+    /// enum -- while each corridor state's single-shift check and the final
+    /// state's reduction are performed right here. A further payoff is that
+    /// the popped handle prefix is anchored at *this* state rather than
+    /// being traced from the final state, so the surviving state is more
+    /// often statically known and the transition devirtualizes (see
+    /// `reduce_resolution`).
     ///
-    /// The lookahead consultation and the error report are exactly the ones
-    /// the target state's function would have produced, except that on EOF
-    /// the error location is taken from the local terminal (which is where
-    /// the target state's stack top would have ended).
+    /// The lookahead consultations and the error reports are exactly the
+    /// ones the corridor and final states' functions would have produced,
+    /// except that on EOF the error location is taken from the last locally
+    /// held terminal (which is where those states' stack top would have
+    /// ended).
     fn emit_fused_shift_reduce(
         &mut self,
         this_index: StateIndex,
         terminal: &TerminalString,
-        target_index: StateIndex,
+        hops: Vec<(StateIndex, TerminalString)>,
+        final_index: StateIndex,
         production: &'grammar Production,
     ) -> io::Result<()> {
         let len = production.symbols.len();
-        assert_eq!(
-            production.symbols[len - 1],
-            Symbol::Terminal(terminal.clone())
-        );
+        // handle symbols [0, base) are popped from the stack; symbols
+        // [base, len) are the fused terminals held in locals
+        let base = len - hops.len() - 1;
 
         if Tls::session().emit_comments {
             rust!(
                 self.out,
-                "// shifting {:?} into state {} is fused with reducing `{:?}`",
+                "// shifting {:?}{}{:?} runs straight into state {}; fused with reducing `{:?}`",
                 terminal,
-                target_index.0,
+                if hops.is_empty() { "" } else { " then " },
+                hops.iter().map(|(_, t)| t.clone()).collect::<Vec<_>>(),
+                final_index.0,
                 production
             );
         }
 
-        // arm head: dispatch on the terminal by reference
+        // arm head: dispatch on the first terminal by reference
         let dispatch_pattern = self.match_terminal_pattern(terminal);
         rust!(self.out, "Some({}) => {{", dispatch_pattern);
 
-        // the handle prefix below the local terminal is popped from the
-        // stack; it is anchored at the current state (which is why the
-        // survivor resolves statically more often than at an unfused
-        // reduce site)
-        let resolution = self.reduce_resolution(this_index, &production.symbols[..len - 1]);
+        let resolution = self.reduce_resolution(this_index, &production.symbols[..base]);
 
-        // The whole fused reduce runs inside an inner block, so that every
-        // stack slot it creates (the terminal itself, the popped symbols,
-        // the action result) is dead -- StorageDead emitted, lifetime over
-        // -- before the transition that follows the block. See the
-        // dispatch comment in `write_state_fn`: a slot still in scope at
-        // the transition would end up with its `llvm.lifetime.end` after
-        // the call, preventing the tail call. For a dynamic survivor the
-        // block hands the continuation out as its (register-sized) value.
+        // The whole fused path runs inside an inner block, so that every
+        // stack slot it creates (the terminals, the popped symbols, the
+        // action result) is dead -- StorageDead emitted, lifetime over --
+        // before the transition that follows the block. See the dispatch
+        // comment in `write_state_fn`: a slot still in scope at the
+        // transition would end up with its `llvm.lifetime.end` after the
+        // call, preventing the tail call. For a dynamic survivor the block
+        // hands the continuation out as its (register-sized) value.
         if resolution.is_none() {
             rust!(self.out, "let {}goto = {{", self.prefix);
         } else {
             rust!(self.out, "{{");
         }
 
-        // take the shifted terminal as the top of the handle, bound as a
-        // raw spanned value (it never touches the stack and is never
-        // wrapped in the Symbol enum)
-        let top = format!("{}sym{}", self.prefix, len - 1);
-        let (pattern, content) = self.terminal_pattern_and_content(terminal);
-        rust!(
-            self.out,
-            "let {} = match {}parser.{}lookahead.take() {{",
-            top,
-            self.prefix,
-            self.prefix
-        );
-        rust!(
-            self.out,
-            "Some(({}loc1, {}, {}loc2)) => ({}loc1, {}, {}loc2),",
-            self.prefix,
-            pattern,
-            self.prefix,
-            self.prefix,
-            content,
-            self.prefix
-        );
-        rust!(self.out, "_ => unreachable!(),");
-        rust!(self.out, "}};");
+        // take the shifted terminal as a raw spanned local
+        self.emit_take_terminal(terminal, base)?;
 
-        // advance past the shifted terminal
+        // walk the corridor: each hop advances the lookahead and performs
+        // the corridor state's single-shift dispatch, taking its terminal
+        // as the next local; anything else is that state's error
+        for (index, (_, hop_terminal)) in hops.iter().enumerate() {
+            self.emit_advance_lookahead()?;
+            let dispatch_pattern = self.match_terminal_pattern(hop_terminal);
+            rust!(
+                self.out,
+                "match &{}parser.{}lookahead {{",
+                self.prefix,
+                self.prefix
+            );
+            rust!(self.out, "Some({}) => {{", dispatch_pattern);
+            self.emit_take_terminal(hop_terminal, base + 1 + index)?;
+        }
+
+        // advance past the last fused terminal
         self.emit_advance_lookahead()?;
 
-        // the target state's ACTION dispatch: the reduction on its
+        // the final state's ACTION dispatch: the reduction on its
         // lookaheads, an error on anything else
-        let target_state = &self.states[target_index.0];
+        let final_state = &self.states[final_index.0];
         let mut tokens: Vec<Token> = vec![];
-        for (token_set, _) in &target_state.reductions {
+        for (token_set, _) in &final_state.reductions {
             for token in token_set.iter() {
                 if !tokens.contains(&token) {
                     tokens.push(token);
@@ -979,7 +977,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             }
         }
 
-        self.emit_pop_handle(production, resolution.is_none(), true)?;
+        self.emit_pop_handle(production, resolution.is_none(), hops.len() + 1)?;
         self.emit_action_call(production)?;
         self.emit_reduce_push(production, resolution)?;
         if resolution.is_none() {
@@ -989,9 +987,26 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "}}"); // reduce arm
 
         rust!(self.out, "_ => {{");
-        self.emit_error(target_state, Some(format!("{}.2.clone()", top)))?;
+        self.emit_error(
+            final_state,
+            Some(format!("{}sym{}.2.clone()", self.prefix, len - 1)),
+        )?;
         rust!(self.out, "}}"); // error arm
         rust!(self.out, "}}"); // match lookahead
+
+        // close the corridor dispatches, innermost first: after each hop's
+        // shift arm comes that hop state's error arm
+        for (index, (hop_index, _)) in hops.iter().enumerate().rev() {
+            rust!(self.out, "}}"); // close the hop's shift arm
+            rust!(self.out, "_ => {{");
+            let hop_state = &self.states[hop_index.0];
+            self.emit_error(
+                hop_state,
+                Some(format!("{}sym{}.2.clone()", self.prefix, base + index)),
+            )?;
+            rust!(self.out, "}}"); // error arm
+            rust!(self.out, "}}"); // match lookahead
+        }
 
         // close the inner block and transition with nothing live
         if resolution.is_none() {
@@ -1000,6 +1015,34 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             rust!(self.out, "}}");
         }
         self.emit_reduce_transition(production, resolution)?;
+        Ok(())
+    }
+
+    /// Takes the lookahead (which the enclosing dispatch has already
+    /// verified to be terminal `terminal`) and binds it as the raw spanned
+    /// local `sym{index}`.
+    fn emit_take_terminal(&mut self, terminal: &TerminalString, index: usize) -> io::Result<()> {
+        let (pattern, content) = self.terminal_pattern_and_content(terminal);
+        rust!(
+            self.out,
+            "let {}sym{} = match {}parser.{}lookahead.take() {{",
+            self.prefix,
+            index,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "Some(({}loc1, {}, {}loc2)) => ({}loc1, {}, {}loc2),",
+            self.prefix,
+            pattern,
+            self.prefix,
+            self.prefix,
+            content,
+            self.prefix
+        );
+        rust!(self.out, "_ => unreachable!(),");
+        rust!(self.out, "}};");
         Ok(())
     }
 
@@ -1113,7 +1156,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         } else {
             rust!(self.out, "{{");
         }
-        self.emit_pop_handle(production, resolution.is_none(), false)?;
+        self.emit_pop_handle(production, resolution.is_none(), 0)?;
         self.emit_action_call(production)?;
         self.emit_reduce_push(production, resolution)?;
         if resolution.is_none() {
@@ -1222,7 +1265,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     /// handle, run the action, and return the parsed value (or report an
     /// `ExtraToken` error if there is remaining input).
     fn emit_accept(&mut self, production: &'grammar Production) -> io::Result<()> {
-        self.emit_pop_handle(production, false, false)?;
+        self.emit_pop_handle(production, false, 0)?;
         self.emit_action_call(production)?;
         rust!(
             self.out,
@@ -1332,8 +1375,8 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     /// binding each `symN` to a spanned value of its true type and computing
     /// the `start`/`end` locations. If `bind_goto` is true, the continuation
     /// found on the deepest entry is bound as `goto` (a statically-resolved
-    /// reduce does not need it). If `top_is_local` is true, the topmost
-    /// handle symbol is not popped: the caller has already bound it as
+    /// reduce does not need it). The topmost `locals` handle symbols are not
+    /// popped: the caller has already bound them as `sym{N-locals}` through
     /// `sym{N-1}` (the fused shift-reduce case).
     ///
     /// Popping and downcasting happen together inside the per-variant
@@ -1347,11 +1390,11 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         &mut self,
         production: &'grammar Production,
         bind_goto: bool,
-        top_is_local: bool,
+        locals: usize,
     ) -> io::Result<()> {
         let len = production.symbols.len();
-        assert!(len > 0);
-        let pop_count = if top_is_local { len - 1 } else { len };
+        assert!(len > 0 && locals <= len);
+        let pop_count = len - locals;
         assert!(!(bind_goto && pop_count == 0));
 
         if pop_count > 1 {
@@ -1622,7 +1665,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     /// single reduced production -- then a shift into it can be fused: the
     /// target state would only consult one lookahead token and pop a handle
     /// whose top we are about to push. Returns that production.
-    fn fused_production(&self, target: StateIndex) -> Option<&'grammar Production> {
+    fn reduce_only_production(&self, target: StateIndex) -> Option<&'grammar Production> {
         let state = &self.states[target.0];
         if !state.shifts.is_empty() || !state.gotos.is_empty() {
             return None;
@@ -1636,6 +1679,63 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             Some(first)
         } else {
             None
+        }
+    }
+
+    /// If shifting `terminal` into `target` begins a *forced* path -- a
+    /// (possibly empty) corridor of states that each have exactly one shift
+    /// and no reductions or gotos, ending in a reduce-only state with a
+    /// single production -- returns the corridor hops (each hop is the state
+    /// whose single shift is taken, paired with the terminal it shifts), the
+    /// final reduce-only state, and the production it reduces. Every
+    /// terminal along such a path is at a bounded distance from the
+    /// reduction that consumes it, so none of them ever needs to be spilled
+    /// to the explicit stack (the report's section 3.6 rule, in its
+    /// mechanically-decidable form).
+    #[allow(clippy::type_complexity)]
+    fn fused_chain(
+        &self,
+        terminal: &TerminalString,
+        target: StateIndex,
+    ) -> Option<(
+        Vec<(StateIndex, TerminalString)>,
+        StateIndex,
+        &'grammar Production,
+    )> {
+        let mut hops: Vec<(StateIndex, TerminalString)> = vec![];
+        let mut visited = vec![target];
+        let mut current = target;
+        loop {
+            if let Some(production) = self.reduce_only_production(current) {
+                // by construction of the automaton, the production ends with
+                // the terminals shifted along the way here
+                let len = production.symbols.len();
+                assert!(len > hops.len());
+                let tail = &production.symbols[len - hops.len() - 1..];
+                let fused: Vec<&TerminalString> = Some(terminal)
+                    .into_iter()
+                    .chain(hops.iter().map(|(_, t)| t))
+                    .collect();
+                assert!(
+                    tail.iter()
+                        .zip(&fused)
+                        .all(|(symbol, t)| *symbol == Symbol::Terminal((*t).clone())),
+                    "fused terminals do not match the production tail"
+                );
+                return Some((hops, current, production));
+            }
+            let state = &self.states[current.0];
+            if !state.reductions.is_empty() || !state.gotos.is_empty() || state.shifts.len() != 1 {
+                return None;
+            }
+            let (t, &next) = state.shifts.iter().next().unwrap();
+            hops.push((current, t.clone()));
+            if visited.contains(&next) {
+                // a forced-shift cycle can never reach a reduction
+                return None;
+            }
+            visited.push(next);
+            current = next;
         }
     }
 

@@ -25,4 +25,7 @@ E: i32 = {
 T = {
     <Num>,
     "(" <E> ")",
+    // a "double negation": the two consecutive terminals exercise the fused
+    // shift corridors (a forced shift chain ending in a reduction)
+    "-" "-" <Num>,
 };
