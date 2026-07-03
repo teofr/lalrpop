@@ -49,6 +49,14 @@ struct RecursiveAscent<'ascent, 'grammar> {
     nonterminal_type_params: Vec<TypeParameter>,
 
     nonterminal_where_clauses: Vec<WhereClause>,
+
+    /// deduplicated expected-token sets (each a list of terminal string
+    /// literals), emitted as `EXPECTED{i}` statics and referenced by index
+    /// from the states' error arms. Distinct states routinely expect the
+    /// same terminals, so interning keeps the error reporting O(unique sets)
+    /// rather than inlining a fresh list -- and the whole `UnrecognizedToken`
+    /// / `UnrecognizedEof` construction -- into every state function.
+    expected_sets: Vec<Vec<String>>,
 }
 
 /// Tracks the suffix of the stack (that is, top-most elements) that any
@@ -148,6 +156,7 @@ impl<'ascent, 'grammar, W: Write>
                 state_inputs,
                 nonterminal_type_params,
                 nonterminal_where_clauses,
+                expected_sets: vec![],
             },
         )
     }
@@ -167,11 +176,105 @@ impl<'ascent, 'grammar, W: Write>
             this.write_start_fn()?;
             rust!(this.out, "");
             this.write_return_type_defn()?;
+            this.write_unrecognized_fn()?;
             for i in 0..this.states.len() {
                 this.write_state_fn(StateIndex(i))?;
             }
+            this.write_expected_sets()?;
             Ok(())
         })
+    }
+
+    /// The shared cold error reporter, mirroring the one the tail-call
+    /// backend uses: it turns a lookahead (or its absence) plus an interned
+    /// expected-token set into the `ParseError` a state returns, so each
+    /// state's error arm shrinks to computing its EOF location and making one
+    /// call. The location is passed in because it is derived from the state's
+    /// own in-scope stack symbols; everything else is uniform.
+    fn write_unrecognized_fn(&mut self) -> io::Result<()> {
+        let triple_type = self.triple_type();
+        let loc_type = self.types.terminal_loc_type();
+        let parse_error_type = self.types.parse_error_type().clone();
+        // The helper is generic over the whole grammar type-parameter set
+        // (so associated-type projections like `L::Error` in the error type
+        // resolve), and a `PhantomData` argument makes every declared
+        // parameter appear in the signature -- otherwise ones absent from the
+        // other arguments (e.g. an action-callback type) would be
+        // uninferable at the call sites. This mirrors how the state
+        // functions and the table-driven helpers thread type parameters.
+        let parameters = vec![
+            format!("{}lookahead: Option<{}>", self.prefix, triple_type),
+            format!("{}expected: &'static [&'static str]", self.prefix),
+            format!("{}location: {}", self.prefix, loc_type),
+            format!("_: {}", self.phantom_data_type()),
+        ];
+        rust!(self.out, "#[inline(never)]");
+        rust!(self.out, "#[allow(dead_code)]");
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}unrecognized", self.prefix))
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .with_return_type(parse_error_type.to_string())
+            .emit()?;
+        rust!(self.out, "{{");
+        rust!(
+            self.out,
+            "let {}expected: alloc::vec::Vec<alloc::string::String> = {}expected.iter().map(|{}s| alloc::string::ToString::to_string({}s)).collect();",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "match {}lookahead {{", self.prefix);
+        rust!(
+            self.out,
+            "Some({}token) => {}lalrpop_util::ParseError::UnrecognizedToken {{ token: {}token, expected: {}expected }},",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(
+            self.out,
+            "None => {}lalrpop_util::ParseError::UnrecognizedEof {{ location: {}location, expected: {}expected }},",
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "}}");
+        rust!(self.out, "}}");
+        Ok(())
+    }
+
+    /// The interned expected-terminal sets, as statics.
+    fn write_expected_sets(&mut self) -> io::Result<()> {
+        let sets = self.custom.expected_sets.clone();
+        for (index, set) in sets.into_iter().enumerate() {
+            rust!(self.out, "");
+            rust!(self.out, "#[allow(clippy::needless_raw_string_hashes)]");
+            rust!(
+                self.out,
+                "static {}EXPECTED{}: &[&str] = &[",
+                self.prefix,
+                index
+            );
+            for terminal in set {
+                rust!(self.out, "{},", terminal);
+            }
+            rust!(self.out, "];");
+        }
+        Ok(())
+    }
+
+    /// Interns `set`, returning the index of its `EXPECTED{i}` static.
+    fn intern_expected(&mut self, set: Vec<String>) -> usize {
+        if let Some(index) = self.custom.expected_sets.iter().position(|s| *s == set) {
+            index
+        } else {
+            self.custom.expected_sets.push(set);
+            self.custom.expected_sets.len() - 1
+        }
     }
 
     fn write_return_type_defn(&mut self) -> io::Result<()> {
@@ -367,41 +470,30 @@ impl<'ascent, 'grammar, W: Write>
 
         // if we hit this, the next token is not recognized, so generate an error
         rust!(self.out, "_ => {{");
-        // The terminals which would have resulted in a successful parse in this state
-        let successful_terminals = self.grammar.terminals.all.iter().filter(|&terminal| {
-            this_state.shifts.contains_key(terminal)
-                || this_state
-                    .reductions
-                    .iter()
-                    .any(|(t, _)| t.contains(&Token::Terminal(terminal.clone())))
-        });
-
-        rust!(self.out, "#[allow(clippy::needless_raw_string_hashes)]");
-        rust!(self.out, "let {}expected = alloc::vec![", self.prefix);
-        for terminal in successful_terminals {
+        // The terminals which would have resulted in a successful parse in
+        // this state, interned so states expecting the same set share one
+        // `EXPECTED{i}` static instead of each inlining the list.
+        let set: Vec<String> = self
+            .grammar
+            .terminals
+            .all
+            .iter()
+            .filter(|&terminal| {
+                this_state.shifts.contains_key(terminal)
+                    || this_state
+                        .reductions
+                        .iter()
+                        .any(|(t, _)| t.contains(&Token::Terminal(terminal.clone())))
+            })
             // Try to avoid terminals escaping
-            rust!(self.out, "r###\"{}\"###.to_string(),", terminal);
-        }
-        rust!(self.out, "];");
+            .map(|terminal| format!("r###\"{terminal}\"###"))
+            .collect();
+        let expected_index = self.intern_expected(set);
 
-        // check if we've found an unrecognized token or EOF
-        rust!(self.out, "return Err(");
-        rust!(self.out, "match {}lookahead {{", self.prefix);
-
-        rust!(self.out, "Some({}token) => {{", self.prefix);
-        rust!(
-            self.out,
-            "{}lalrpop_util::ParseError::UnrecognizedToken {{",
-            self.prefix
-        );
-        rust!(self.out, "token: {}token,", self.prefix);
-        rust!(self.out, "expected: {}expected,", self.prefix);
-        rust!(self.out, "}}");
-        rust!(self.out, "}}");
-
-        rust!(self.out, "None => {{");
-
-        // find the location of the last symbol on stack
+        // The EOF error location comes from this state's own stack symbols,
+        // so it is computed here and handed to the shared reporter; it is
+        // only consulted on the EOF branch, but the error path is cold and
+        // the computation is side-effect-free.
         let (optional, fixed) = stack_suffix.optional_fixed_lens();
         if fixed > 0 {
             rust!(
@@ -434,18 +526,17 @@ impl<'ascent, 'grammar, W: Write>
             );
         }
 
+        let phantom_data_expr = self.phantom_data_expr();
         rust!(
             self.out,
-            "{}lalrpop_util::ParseError::UnrecognizedEof {{",
-            self.prefix
+            "return Err({}unrecognized({}lookahead, {}EXPECTED{}, {}location, {}));",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            expected_index,
+            self.prefix,
+            phantom_data_expr
         );
-        rust!(self.out, "location: {}location,", self.prefix);
-        rust!(self.out, "expected: {}expected,", self.prefix);
-        rust!(self.out, "}}");
-        rust!(self.out, "}}");
-
-        rust!(self.out, "}}"); // Error match
-        rust!(self.out, ")");
 
         rust!(self.out, "}}"); // Wildcard match case
         rust!(self.out, "}}"); // match
