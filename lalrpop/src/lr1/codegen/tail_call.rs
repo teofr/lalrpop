@@ -83,7 +83,19 @@
 //! signature. Dispatch itself goes through the generated `token_index` fn:
 //! arms match compressed integer ranges over the lookahead's dense token
 //! index instead of spelling a reduction's often-dozens-large lookahead set
-//! out as token patterns, one line per token, at every reduce site.
+//! out as token patterns, one line per token, at every reduce site. Two
+//! `#[inline(never)]` helpers keep the repeated stack machinery to a single
+//! shared copy rather than re-inlining it at thousands of call sites -- the
+//! decisive lever for closing the instruction-cache gap to the table-driven
+//! backend, since a code-per-state parser has no naturally hot shared core:
+//! `push_entry` performs every shift/reduce stack push (the capacity check
+//! plus the large `(spanned symbol, goto)` store), and `shift` -- emitted
+//! only when every terminal stores its whole token into one `Symbol`
+//! variant (the external-lexer case) -- absorbs each shift arm's
+//! take/push/advance, dropping the token-kind re-match the dispatch already
+//! settled. These are ordinary (non-`transition!`) calls, so they may take
+//! values by value and return normally; only the tail transitions
+//! themselves must stay bare.
 //!
 //! All transitions are wrapped in a generated `transition!` macro. By default
 //! it expands to a plain `return f(...)`, which LLVM reliably compiles to a
@@ -172,6 +184,14 @@ struct TailCall<'ascent, 'grammar> {
     /// function instead of inline at each site
     fused_reduce_fns: Vec<(&'grammar Production, Option<StateIndex>, usize)>,
 
+    /// `Some(variant)` when every terminal stores its whole token into the
+    /// same `Symbol` variant (the external-lexer / single-variant case), so
+    /// a single shared `shift` helper can absorb every shift arm's
+    /// take/push/advance. `None` when terminals carry distinct payloads and
+    /// each shift arm must build its symbol inline. Computed once the symbol
+    /// variants are known; see `compute_shift_variant`.
+    shift_variant: Option<String>,
+
     variant_names: Map<Symbol, String>,
     variants: Map<TypeRepr, String>,
 }
@@ -220,6 +240,7 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
                 reduce_indices,
                 expected_sets: vec![],
                 fused_reduce_fns: vec![],
+                shift_variant: None,
                 variant_names: Map::new(),
                 variants: Map::new(),
             },
@@ -230,6 +251,9 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         self.write_parse_mod(|this| {
             this.write_transition_macro()?;
             this.write_value_type_defn()?;
+            // now that the symbol variants are known, decide whether the
+            // shared `shift` helper applies
+            this.custom.shift_variant = this.compute_shift_variant();
             this.write_tokens_trait_defn()?;
             this.write_goto_type_defn()?;
             this.write_parser_type_defn()?;
@@ -543,6 +567,123 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
         rust!(self.out, "}}");
         rust!(self.out, "");
 
+        // push_entry: the one shared copy of the stack-push machinery. Every
+        // shift and reduce site pushes a `(spanned symbol, goto)` entry; the
+        // entry is a large aggregate and the push carries `Vec`'s capacity
+        // check, so inlining it at all several-thousand sites is a
+        // substantial fraction of both code size and instruction-cache
+        // pressure. `#[inline(never)]` is the point: one copy, called
+        // everywhere. It is an ordinary call (not a `transition!`), so it may
+        // take the entry by value and return normally.
+        let parameters = vec![
+            format!(
+                "{}parser: &mut {}Parser<{}>",
+                self.prefix,
+                self.prefix,
+                self.parser_type_args()
+            ),
+            format!("{}entry: {}", self.prefix, self.spanned_symbol_type()),
+            format!(
+                "{}goto: {}Goto<{}>",
+                self.prefix,
+                self.prefix,
+                self.parser_type_args()
+            ),
+        ];
+        let tokens_bound = self.tokens_bound();
+        rust!(self.out, "#[inline(never)]");
+        rust!(self.out, "#[allow(dead_code)]");
+        self.out
+            .fn_header(&Visibility::Priv, format!("{}push_entry", self.prefix))
+            .with_type_parameters(&self.grammar.type_parameters)
+            .with_type_parameters(Some(tokens_bound))
+            .with_where_clauses(&self.grammar.where_clauses)
+            .with_parameters(parameters)
+            .emit()?;
+        rust!(self.out, "{{");
+        rust!(
+            self.out,
+            "{}parser.{}stack.push(({}entry, {}goto));",
+            self.prefix,
+            self.prefix,
+            self.prefix,
+            self.prefix
+        );
+        rust!(self.out, "}}");
+        rust!(self.out, "");
+
+        // shift: the one shared copy of the shift step -- take the lookahead,
+        // wrap its token in the common `Symbol` variant, push it paired with
+        // the given goto, and advance (false = stop parsing). Emitted only
+        // when every terminal stores its whole token into a single variant
+        // (`compute_shift_variant`); otherwise each shift arm builds its
+        // symbol inline because the variant depends on the terminal. The
+        // redundant re-match on the token kind that the inline path performs
+        // (the kind is already known from the `token_index` dispatch) is
+        // dropped here.
+        if let Some(variant) = self.custom.shift_variant.clone() {
+            let parameters = vec![
+                format!(
+                    "{}parser: &mut {}Parser<{}>",
+                    self.prefix,
+                    self.prefix,
+                    self.parser_type_args()
+                ),
+                format!(
+                    "{}goto: {}Goto<{}>",
+                    self.prefix,
+                    self.prefix,
+                    self.parser_type_args()
+                ),
+            ];
+            let tokens_bound = self.tokens_bound();
+            rust!(self.out, "#[inline(never)]");
+            rust!(self.out, "#[allow(dead_code)]");
+            self.out
+                .fn_header(&Visibility::Priv, format!("{}shift", self.prefix))
+                .with_type_parameters(&self.grammar.type_parameters)
+                .with_type_parameters(Some(tokens_bound))
+                .with_where_clauses(&self.grammar.where_clauses)
+                .with_parameters(parameters)
+                .with_return_type("bool")
+                .emit()?;
+            rust!(self.out, "{{");
+            // the dispatch that routed us here saw a terminal, so the
+            // lookahead is `Some`
+            rust!(
+                self.out,
+                "let ({}loc1, {}tok, {}loc2) = match {}parser.{}lookahead.take() {{",
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix
+            );
+            rust!(
+                self.out,
+                "Some({}triple) => {}triple,",
+                self.prefix,
+                self.prefix
+            );
+            rust!(self.out, "None => unreachable!(),");
+            rust!(self.out, "}};");
+            rust!(
+                self.out,
+                "{}push_entry({}parser, ({}loc1, {}Symbol::{}({}tok), {}loc2), {}goto);",
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                self.prefix,
+                variant,
+                self.prefix,
+                self.prefix,
+                self.prefix
+            );
+            rust!(self.out, "{}advance({}parser)", self.prefix, self.prefix);
+            rust!(self.out, "}}");
+            rust!(self.out, "");
+        }
+
         // symbol_type_mismatch
         rust!(self.out, "#[inline(never)]");
         rust!(self.out, "#[allow(dead_code)]");
@@ -831,37 +972,49 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
             rust!(self.out, "{} => {{", self.terminal_index(terminal));
 
-            // push the shifted terminal, paired with our own goto row, and
-            // transfer control to the target state. The token is taken,
-            // rewrapped as a Symbol, and pushed in a single statement, so
-            // the value only lives in statement temporaries.
-            let (pattern, content) = self.terminal_pattern_and_content(terminal);
-            rust!(
-                self.out,
-                "match {}parser.{}lookahead.take() {{",
-                self.prefix,
-                self.prefix
-            );
-            rust!(
-                self.out,
-                "Some(({}loc1, {}, {}loc2)) => {}parser.{}stack.push((({}loc1, {}Symbol::{}({}), {}loc2), {}Goto({}goto{}))),",
-                self.prefix,
-                pattern,
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                self.variant_name_for_symbol(&Symbol::Terminal(terminal.clone())),
-                content,
-                self.prefix,
-                self.prefix,
-                self.prefix,
-                this_index.0
-            );
-            rust!(self.out, "_ => unreachable!(),");
-            rust!(self.out, "}}");
-            self.emit_advance_lookahead()?;
+            // shift the terminal (paired with our own goto row, since the
+            // pushed symbol belongs to this state) and advance, then transfer
+            // to the target state.
+            let goto = format!("{}Goto({}goto{})", self.prefix, self.prefix, this_index.0);
+            if self.custom.shift_variant.is_some() {
+                // one shared `shift` helper does take/push/advance
+                rust!(
+                    self.out,
+                    "if !{}shift({}parser, {}) {{ return; }}",
+                    self.prefix,
+                    self.prefix,
+                    goto
+                );
+            } else {
+                // terminals carry distinct payloads, so the symbol is built
+                // inline; the push still goes through the shared `push_entry`.
+                // The token is taken and rewrapped in a single statement, so
+                // the value only lives in a temporary.
+                let (pattern, content) = self.terminal_pattern_and_content(terminal);
+                let variant = self.variant_name_for_symbol(&Symbol::Terminal(terminal.clone()));
+                rust!(
+                    self.out,
+                    "match {}parser.{}lookahead.take() {{",
+                    self.prefix,
+                    self.prefix
+                );
+                let symbol = format!(
+                    "({}loc1, {}Symbol::{}({}), {}loc2)",
+                    self.prefix, self.prefix, variant, content, self.prefix
+                );
+                rust!(
+                    self.out,
+                    "Some(({}loc1, {}, {}loc2)) => {{",
+                    self.prefix,
+                    pattern,
+                    self.prefix
+                );
+                self.emit_push_entry(&symbol, &goto)?;
+                rust!(self.out, "}}");
+                rust!(self.out, "_ => unreachable!(),");
+                rust!(self.out, "}}");
+                self.emit_advance_lookahead()?;
+            }
             rust!(
                 self.out,
                 "{}transition!({}state{}({}{}parser))",
@@ -1437,36 +1590,18 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
     ) -> io::Result<()> {
         let variant_name =
             self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
+        let symbol = format!(
+            "({}start, {}Symbol::{}({}nt), {}end)",
+            self.prefix, self.prefix, variant_name, self.prefix, self.prefix
+        );
         match resolution {
             Some(survivor) => {
-                rust!(
-                    self.out,
-                    "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}Goto({}goto{})));",
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    variant_name,
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    survivor.0
-                );
+                let goto = format!("{}Goto({}goto{})", self.prefix, self.prefix, survivor.0);
+                self.emit_push_entry(&symbol, &goto)?;
             }
             None => {
-                rust!(
-                    self.out,
-                    "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}goto));",
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    self.prefix,
-                    variant_name,
-                    self.prefix,
-                    self.prefix,
-                    self.prefix
-                );
+                let goto = format!("{}goto", self.prefix);
+                self.emit_push_entry(&symbol, &goto)?;
                 rust!(
                     self.out,
                     "{}parser.{}reduced_nt = {};",
@@ -1597,20 +1732,12 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
 
         let variant_name =
             self.variant_name_for_symbol(&Symbol::Nonterminal(production.nonterminal.clone()));
-        rust!(
-            self.out,
-            "{}parser.{}stack.push((({}start, {}Symbol::{}({}nt), {}end), {}Goto({}goto{})));",
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            variant_name,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            self.prefix,
-            this_index.0
+        let symbol = format!(
+            "({}start, {}Symbol::{}({}nt), {}end)",
+            self.prefix, self.prefix, variant_name, self.prefix, self.prefix
         );
+        let goto = format!("{}Goto({}goto{})", self.prefix, self.prefix, this_index.0);
+        self.emit_push_entry(&symbol, &goto)?;
         rust!(self.out, "}}"); // inner block
         rust!(
             self.out,
@@ -1986,6 +2113,59 @@ impl<'ascent, 'grammar, W: Write> CodeGenerator<'ascent, 'grammar, W, TailCall<'
             format!("({})", pattern_names.join(", "))
         };
         (pattern, content)
+    }
+
+    /// Whether terminal `id` carries no data of its own: its whole token is
+    /// stored into the symbol (the `tok @ Pattern` case in
+    /// `terminal_pattern_and_content`), rather than a `<...>`-captured value.
+    fn terminal_is_bare(&self, id: &TerminalString) -> bool {
+        let mut has_binding = false;
+        let _ = self.grammar.pattern(id).map(&mut |_| {
+            has_binding = true;
+            "_"
+        });
+        !has_binding
+    }
+
+    /// `Some(variant)` if every terminal is bare (stores its whole token)
+    /// and they all land in the same `Symbol` variant -- the condition under
+    /// which one `shift` helper can serve every shift arm, since the pushed
+    /// symbol no longer depends on which terminal was shifted. This holds for
+    /// external-lexer grammars (all terminals share one token type) and the
+    /// built-in lexer; it fails for grammars whose terminals capture distinct
+    /// payloads. Must be called after the symbol variants are populated.
+    fn compute_shift_variant(&self) -> Option<String> {
+        let mut variant: Option<String> = None;
+        for terminal in &self.grammar.terminals.all {
+            if *terminal == TerminalString::Error || !self.terminal_is_bare(terminal) {
+                return None;
+            }
+            let v = self
+                .custom
+                .variant_names
+                .get(&Symbol::Terminal(terminal.clone()))?
+                .clone();
+            match &variant {
+                None => variant = Some(v),
+                Some(existing) if *existing == v => {}
+                Some(_) => return None,
+            }
+        }
+        variant
+    }
+
+    /// Emits a call to the shared `push_entry` helper: pushes the spanned
+    /// symbol `symbol` paired with continuation `goto`.
+    fn emit_push_entry(&mut self, symbol: &str, goto: &str) -> io::Result<()> {
+        rust!(
+            self.out,
+            "{}push_entry({}parser, {}, {});",
+            self.prefix,
+            self.prefix,
+            symbol,
+            goto
+        );
+        Ok(())
     }
 
     /// Statically resolves which state survives popping `prefix` symbols
